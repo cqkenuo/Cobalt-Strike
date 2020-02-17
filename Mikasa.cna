@@ -1,0 +1,9 @@
+# Mikasa
+
+popup beacon {
+	insert_menu("beacon_bottom", $1);
+    separator();
+    menu "Mikasa"{ 
+    	include(script_resource("script/横向移动.cna"));  
+    }
+}
