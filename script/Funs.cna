@@ -1,0 +1,26 @@
+on keystrokes {
+	println("I have new keystrokes: $1");
+}
+
+
+command listeners {
+	local('$name $key $value');
+	foreach $name (listeners()) {
+		println("== $name == ");
+		foreach $key => $value (listener_info($name)) {
+			println("$[20]key : $value");
+		}
+	}
+}
+
+command beacons {
+	local('$entry $key $value');
+	foreach $entry (beacons()) {
+
+		println("== " . $entry['id'] . " ==");
+		foreach $key => $value ($entry) {
+			println("$[20]key : $value");
+		}
+	}
+}
+

