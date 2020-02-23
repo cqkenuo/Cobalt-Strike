@@ -43,7 +43,7 @@ menu "权限维持" {
                         dbutton_action($Dialog, "Reg");
                         dialog_show($Dialog);
 					}
-
+	separator();	
 	item "Service"{
 			             $bid = $1['@'];
 			             $Dialog = dialog("Registration service",%(SerName => "WindowsUpdate", Path => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallService);

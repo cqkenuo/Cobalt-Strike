@@ -23,13 +23,13 @@ sub ms16-032{
     exec("cmd.exe /C del /F ".$fname);
 }
 
-menu "提权提升" {
+menu "权限提升" {
 
 	item "Get-System" {
 		binput($1,"getsystem");
 		bgetsystem($1);
 	}
-
+    separator();
 	item "ms16-032" {
 		$dialog = dialog("ms16-032",%(bid => $1['@']),&ms16-032);
 		dialog_description($dialog,"Test");
