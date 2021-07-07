@@ -1,0 +1,3 @@
+fodhelp.exe  event.exe
+
+利用Windows API修改注册表达到注册表劫持,劫持的文件位于C:\Tools\test.exe

