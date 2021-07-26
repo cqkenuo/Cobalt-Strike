@@ -6,11 +6,14 @@ popup beacon {
 	insert_menu("beacon_bottom", $1);
     separator();
     menu "Mikasa"{ 
+        include(script_resource("script/信息收集.cna"));
     	include(script_resource("script/命令集合.cna")); 
     	include(script_resource("script/横向移动.cna"));  
     	include(script_resource("script/抓取密码.cna")); 
     	include(script_resource("script/辅助功能.cna"));
     	include(script_resource("script/权限维持.cna"));
     	include(script_resource("script/权限提升.cna"));
+        include(script_resource("script/内网穿透.cna"));
+        include(script_resource("script/Other.cna"));
     }
 }

