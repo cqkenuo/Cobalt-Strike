@@ -1,39 +1,39 @@
 menu "Other" {
-	item "å…³äºŽè¿™ä¸ªé¡¹ç›®" {
-	 show_message("ç»“åˆäº†å¤šä½å¤§ä½¬çš„æˆæžœ,åœ¨åŠ ä¸€ç‚¹è‡ªå·±çš„ç†è§£,æ„Ÿè°¢å„ä½å¤§ä½¬çš„ä»£ç ");
+	item "¹ØÓÚÕâ¸öÏîÄ¿" {
+	 show_message("½áºÏÁË¶àÎ»´óÀÐµÄ³É¹û,ÔÚ¼ÓÒ»µã×Ô¼ºµÄÀí½â,¸ÐÐ»¸÷Î»´óÀÐµÄ´úÂë");
 	}
 	item("&1941748801@qq.com", { url_open("https://github.com/mikasazero"); });
 
-	 menu "å¨±ä¹"{
-                item "èŠå¤©å¼¹æ¡†" {
-            prompt_text("Alert", "ä½ å¥½ï¼", lambda({
+	 menu "ÓéÀÖ"{
+                item "ÁÄÌìµ¯¿ò" {
+            prompt_text("Alert", "ÄãºÃ£¡", lambda({
                 bpowershell(@ids, 'Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::MsgBox("' . $1 . '", "OKOnly,MsgBoxSetForeground,SystemModal,Exclamation", "")' );
-                blog(@ids,"å‘é€æ¶ˆæ¯: $1 ");
+                blog(@ids,"·¢ËÍÏûÏ¢: $1 ");
             }, @ids => $1));
         }
-        item "IEè®¿é—®æŒ‡å®šç½‘ç«™" {
-            prompt_text("è¾“å…¥ç½‘å€", "https://baidu.com", lambda({
+        item "IE·ÃÎÊÖ¸¶¨ÍøÕ¾" {
+            prompt_text("ÊäÈëÍøÖ·", "https://baidu.com", lambda({
                 binput(@ids,"C:\\Progra~1\\Intern~1\\iexplore.exe -k $1");
                 bshell(@ids, "C:\\Progra~1\\Intern~1\\iexplore.exe -k $1");
             }, @ids => $1));
         }
 
-                item "é»‘å±"{
+                item "ºÚÆÁ"{
                     bshell($1,"taskkill /F /IM explorer.exe");
                 }
-                item "é”å±"{
+                item "ËøÆÁ"{
                     bshell($1,"rundll32.exe user32.dll,LockWorkStation");
                 }
-                item "äº®å±"{
+                item "ÁÁÆÁ"{
                     brun($1, "explorer.exe");
                 }
-			    item "é‡å¯" {
-             prompt_text("ç¡®å®šé‡å¯?", "", lambda({
+			    item "ÖØÆô" {
+             prompt_text("È·¶¨ÖØÆô?", "", lambda({
             bshell(@ids, "shutdown -r -t 0");
         }, @ids => $1));
     }	
-			    item "å…³æœº" {
-             prompt_text("ç¡®å®š?", "", lambda({
+			    item "¹Ø»ú" {
+             prompt_text("È·¶¨?", "", lambda({
             bshell(@ids, "shutdown -s -t 0");
         }, @ids => $1));
     }	

