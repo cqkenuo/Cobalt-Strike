@@ -1,19 +1,19 @@
 # Mikasa
-include(script_resource("script/ÃüÁî¼¯ºÏ.cna")); 
+include(script_resource("script/å‘½ä»¤é›†åˆ.cna")); 
 
 
 popup beacon {
 	insert_menu("beacon_bottom", $1);
     separator();
     menu "Mikasa"{ 
-        include(script_resource("script/ĞÅÏ¢ÊÕ¼¯.cna"));
-    	include(script_resource("script/ÃüÁî¼¯ºÏ.cna")); 
-    	include(script_resource("script/ºáÏòÒÆ¶¯.cna"));  
-    	include(script_resource("script/×¥È¡ÃÜÂë.cna")); 
-    	include(script_resource("script/¸¨Öú¹¦ÄÜ.cna"));
-    	include(script_resource("script/È¨ÏŞÎ¬³Ö.cna"));
-    	include(script_resource("script/È¨ÏŞÌáÉı.cna"));
-        include(script_resource("script/ÄÚÍø´©Í¸.cna"));
+        include(script_resource("script/ä¿¡æ¯æ”¶é›†.cna"));
+    	include(script_resource("script/å‘½ä»¤é›†åˆ.cna")); 
+    	include(script_resource("script/æ¨ªå‘ç§»åŠ¨.cna"));  
+    	include(script_resource("script/æŠ“å–å¯†ç .cna")); 
+    	include(script_resource("script/è¾…åŠ©åŠŸèƒ½.cna"));
+    	include(script_resource("script/æƒé™ç»´æŒ.cna"));
+    	include(script_resource("script/æƒé™æå‡.cna"));
+        include(script_resource("script/å†…ç½‘ç©¿é€.cna"));
         include(script_resource("script/Other.cna"));
     }
 }

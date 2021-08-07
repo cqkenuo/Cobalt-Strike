@@ -1,4 +1,4 @@
-# CS»ØÁ¬µÄÊ±ºò¿ªÊ¼ÉèÖÃÑÓÊ±ÉèÖÃ
+# CSå›žè¿žçš„æ—¶å€™å¼€å§‹è®¾ç½®å»¶æ—¶è®¾ç½®
 on beacon_initial {
 	bsleep($1 , 0 , 30);
 }

