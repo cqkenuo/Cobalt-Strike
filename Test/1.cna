@@ -1,3 +1,0 @@
-command say {
-	print_hello($1);
-}
